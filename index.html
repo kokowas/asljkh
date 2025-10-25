@@ -80,6 +80,13 @@
             max-height: 100%;
             object-fit: contain;
             display: block;
+            background: white;
+        }
+        
+        /* Hide video until it's actually playing */
+        #animationVideo[src=""],
+        #animationVideo:not([src]) {
+            opacity: 0;
         }
         
         /* Slim Whiteboard Frame Styles - matches animation-container */
@@ -820,7 +827,7 @@
     <div id="animationIntro">
         <div class="animation-container">
             <div class="animation-content">
-                <video id="animationVideo" autoplay muted playsinline preload="none" controlslist="nodownload nofullscreen noremoteplayback" disablePictureInPicture>
+                <video id="animationVideo" autoplay muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" controlslist="nodownload nofullscreen noremoteplayback" disablePictureInPicture>
                     <source id="videoSource" src="" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -1635,8 +1642,6 @@
             });
             
             currentStep = 1;
-            const firstStepElement = document.getElementById('step1');
-            firstStepElement.classList.add('active', 'zoom-in');
             
             // Reset progress
             updateProgress();
@@ -1646,14 +1651,18 @@
             document.getElementById('feedback').innerHTML = '';
             document.getElementById('quiz-options').innerHTML = '';
             
-            // Reset animation state so it can play again
+            // Reset animation state and play it again
             const animIntro = document.getElementById('animationIntro');
             animIntro.classList.remove('hidden');
-            animationPlaying = false;
-            currentFrame = 0;
+            animIntro.classList.remove('active');
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Play animation again after a short delay
+            setTimeout(() => {
+                playAnimation();
+            }, 100);
         }
         
         // Initialize progress
