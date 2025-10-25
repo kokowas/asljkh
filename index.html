@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Adjectif Épithète - Leçon Interactive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        /* Animation Intro Styles */
+        #animationIntro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        #animationIntro.active {
+            display: flex;
+        }
+        
+        #animationIntro.hidden {
+            display: none;
+        }
+        
+        .animation-container {
+            /* Exact same as whiteboard-frame */
+            background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.2),
+                inset 0 1px 2px rgba(255,255,255,0.1);
+            border: 1px solid #404040;
+            width: 100%;
+            max-width: 1400px;
+            height: auto;
+            position: relative;
+        }
+        
+        .animation-content {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 85vh;
+            padding: 10px;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .animation-content video {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        /* Slim Whiteboard Frame Styles - matches animation-container */
+        .whiteboard-frame {
+            background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.2),
+                inset 0 1px 2px rgba(255,255,255,0.1);
+            border: 1px solid #404040;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .whiteboard-content {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+            min-height: 85vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            min-height: 80vh;
+        }
+        
+        .arabic-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            z-index: 1000;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .arabic-toggle:hover {
+            transform: translateY(-2px);
+        }
+        
+        .fullscreen-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: none;
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed !important;
+            top: 20px !important;
+            left: 20px !important;
+            z-index: 99999 !important;
+            backdrop-filter: blur(10px);
+            opacity: 1;
+        }
+        
+        .fullscreen-btn.in-fullscreen {
+            opacity: 0.3;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .fullscreen-btn:hover,
+        .fullscreen-btn.visible {
+            opacity: 1 !important;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .fullscreen-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .fullscreen-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .fullscreen-btn svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        
+        .arabic-text {
+            display: none;
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 1.1em;
+            line-height: 1.8;
+            direction: rtl;
+            font-family: Arial, sans-serif;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+        
+        .arabic-text.show {
+            display: block;
+        }
+        
+        .step-container {
+            display: none;
+        }
+        
+        .step-container.active {
+            display: block;
+        }
+        
+        /* Different animations for variety */
+        .step-container.active.fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .step-container.active.slide-in-left {
+            animation: slideInLeft 0.7s ease forwards;
+        }
+        
+        .step-container.active.slide-in-right {
+            animation: slideInRight 0.7s ease forwards;
+        }
+        
+        .step-container.active.zoom-in {
+            animation: zoomIn 0.6s ease forwards;
+        }
+        
+        .step-container.active.slide-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .step-container.active.rotate-in {
+            animation: rotateIn 0.7s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-5deg) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Content box animations */
+        .content-box, .definition-box, .key-point, .step-item, 
+        .example-box, .counter-example, .explanation-box {
+            animation: contentPop 0.5s ease forwards;
+        }
+        
+        @keyframes contentPop {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 10px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: clamp(0.9em, 3vw, 1.2em);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: clamp(15px, 3vw, 25px);
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #4caf50;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+        }
+        
+        .definition-box h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: clamp(1.1em, 3.5vw, 1.4em);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .definition-box p {
+            color: #1b5e20;
+            font-size: clamp(0.95em, 2.5vw, 1.1em);
+            line-height: 1.8;
+        }
+        
+        .key-point {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #ff9800;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+        }
+        
+        .key-point h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: clamp(1em, 3vw, 1.2em);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .key-point p {
+            color: #bf360c;
+            line-height: 1.7;
+            font-size: clamp(0.9em, 2.3vw, 1em);
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #2196f3;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
+        }
+        
+        .example-box h4 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-size: clamp(1em, 3vw, 1.2em);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .example-item {
+            background: white;
+            padding: clamp(10px, 2vw, 15px);
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #1565c0;
+            font-size: clamp(0.9em, 2.3vw, 1.1em);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
+        }
+        
+        .example-item strong {
+            color: #0d47a1;
+            font-weight: 600;
+        }
+        
+        .counter-example {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #f44336;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
+        }
+        
+        .counter-example h4 {
+            color: #c62828;
+            margin-bottom: 15px;
+            font-size: clamp(1em, 3vw, 1.2em);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .counter-example-item {
+            background: white;
+            padding: clamp(10px, 2vw, 15px);
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #d32f2f;
+            font-size: clamp(0.9em, 2.3vw, 1.1em);
+            box-shadow: 0 2px 8px rgba(244, 67, 54, 0.1);
+        }
+        
+        .counter-example-item strong {
+            color: #b71c1c;
+            font-weight: 600;
+        }
+        
+        .explanation-box {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #9c27b0;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2);
+        }
+        
+        .explanation-box h4 {
+            color: #6a1b9a;
+            margin-bottom: 15px;
+            font-size: clamp(1em, 3vw, 1.2em);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .explanation-box p {
+            color: #4a148c;
+            line-height: 1.8;
+            font-size: clamp(0.9em, 2.3vw, 1.05em);
+        }
+        
+        .step-item {
+            background: white;
+            padding: clamp(12px, 2.5vw, 20px);
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .step-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: clamp(1em, 2.8vw, 1.15em);
+        }
+        
+        .step-item p {
+            color: #555;
+            line-height: 1.7;
+            font-size: clamp(0.9em, 2.2vw, 1em);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        
+        .prev-btn {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .start-btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .progress-container {
+            background: #ecf0f1;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+        
+        .step-indicator {
+            text-align: center;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+        
+        .content-box {
+            background: #f8f9fa;
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            line-height: 1.8;
+            color: #2c3e50;
+        }
+        
+        .content-box h3 {
+            font-size: clamp(1em, 3vw, 1.3em);
+        }
+        
+        .content-box p {
+            font-size: clamp(0.9em, 2.3vw, 1.1em);
+        }
+        
+        .content-box ul {
+            margin-left: 25px;
+            margin-top: 15px;
+        }
+        
+        .content-box li {
+            margin: 10px 0;
+            color: #34495e;
+            font-size: clamp(0.9em, 2.2vw, 1em);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1565c0;
+            font-size: clamp(0.9em, 2.2vw, 1em);
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #fbc02d;
+            box-shadow: 0 4px 15px rgba(251, 192, 45, 0.2);
+        }
+        
+        .warning-box h4 {
+            color: #f57f17;
+            margin-bottom: 10px;
+            font-size: clamp(1em, 3vw, 1.2em);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning-box p {
+            color: #f57f17;
+            line-height: 1.7;
+            font-size: clamp(0.9em, 2.3vw, 1em);
+        }
+        
+        .activity-box {
+            background: linear-gradient(135deg, #f0f4c3 0%, #dce775 100%);
+            padding: clamp(15px, 3vw, 25px);
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #9e9d24;
+            box-shadow: 0 4px 15px rgba(158, 157, 36, 0.2);
+        }
+        
+        .activity-box h3 {
+            color: #827717;
+            margin-bottom: 20px;
+            font-size: clamp(1.2em, 3.5vw, 1.5em);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .activity-question {
+            background: white;
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #33691e;
+            font-size: clamp(1em, 2.8vw, 1.2em);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .activity-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .activity-option {
+            background: white;
+            padding: clamp(12px, 2.5vw, 18px);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            font-size: clamp(0.95em, 2.5vw, 1.1em);
+            color: #558b2f;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .activity-option:hover:not(.disabled) {
+            background: #f9fbe7;
+            border-color: #9e9d24;
+            transform: translateX(5px);
+        }
+        
+        .activity-option.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+        
+        .activity-option.incorrect {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        .activity-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: clamp(12px, 2.5vw, 20px);
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: clamp(1em, 2.8vw, 1.2em);
+            text-align: center;
+            animation: slideInUp 0.4s ease;
+        }
+        
+        .feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+            border: 3px solid #4caf50;
+        }
+        
+        .feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+            border: 3px solid #f44336;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .completion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: clamp(25px, 4vw, 40px);
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .completion-box h2 {
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 20px;
+        }
+        
+        .completion-box p {
+            font-size: clamp(1em, 3vw, 1.3em);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .completion-box ul {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+        }
+        
+        .replay-btn {
+            background: white;
+            color: #667eea;
+            padding: clamp(12px, 2.5vw, 18px) clamp(25px, 4vw, 40px);
+            font-size: clamp(1em, 2.8vw, 1.2em);
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .replay-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+        
+        @media (max-width: 768px) {
+            #animationIntro {
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .animation-container,
+            .whiteboard-frame {
+                width: 100%;
+                padding: 5px;
+            }
+            
+            .animation-content,
+            .whiteboard-content {
+                min-height: 85vh;
+                padding: 5px;
+            }
+            
+            .animation-content img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animation Intro -->
+    <div id="animationIntro">
+        <div class="animation-container">
+            <div class="animation-content">
+                <video id="animationVideo" autoplay muted playsinline>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+    </button>
+
+    <!-- Arabic Toggle Button -->
+    <button class="arabic-toggle" onclick="toggleArabic()">
+        <span id="toggleText">🌐 عربي</span>
+    </button>
+
+    <!-- Main Content in Whiteboard Frame -->
+    <div class="whiteboard-frame">
+        <div class="whiteboard-content">
+            <div class="container">
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="step-indicator" id="stepIndicator">Étape 1 / 13</div>
+
+                <!-- Step 1: Welcome & Title -->
+                <div id="step1" class="step-container active zoom-in">
+                    <h1>🎓 L'Adjectif Épithète</h1>
+                    <p class="subtitle">Une leçon interactive et complète</p>
+                    
+                    <div class="content-box">
+                        <h3 style="color: #667eea; margin-bottom: 15px;">📚 Bienvenue !</h3>
+                        <p style="font-size: 1.1em;">Cette leçon vous guidera à travers tous les aspects de l'adjectif épithète en français. Vous découvrirez sa définition, sa position, ses caractéristiques et bien plus encore !</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h3 style="margin-bottom: 15px;">🎓 الصفة النعتية</h3>
+                        <p>مرحبًا بكم! سيرشدك هذا الدرس عبر جميع جوانب الصفة النعتية في اللغة الفرنسية. ستكتشف تعريفها وموقعها وخصائصها والمزيد!</p>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn start-btn" onclick="startLesson()">✨ Commencer la leçon</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Definition -->
+                <div id="step2" class="step-container">
+                    <h1>📖 Qu'est-ce qu'un Adjectif Épithète ?</h1>
+                    
+                    <div class="definition-box">
+                        <h3>✨ Définition</h3>
+                        <p>L'adjectif épithète est un adjectif qualificatif qui est <strong>directement lié au nom</strong> qu'il qualifie, sans l'intermédiaire d'un verbe.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h3 style="margin-bottom: 15px;">✨ التعريف</h3>
+                        <p>الصفة النعتية هي صفة توصيفية <strong>مرتبطة مباشرة بالاسم</strong> الذي تصفه، دون وساطة فعل.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <h4>🔑 Point Clé</h4>
+                        <p>L'adjectif épithète enrichit directement le nom en ajoutant une qualité, une caractéristique ou une précision.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">🔑 نقطة أساسية</h4>
+                        <p>الصفة النعتية تثري الاسم مباشرة بإضافة صفة أو خاصية أو تحديد.</p>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Basic Examples -->
+                <div id="step3" class="step-container">
+                    <h1>💡 Exemples de Base</h1>
+                    
+                    <div class="example-box">
+                        <h4>✅ Exemples Corrects</h4>
+                        <div class="example-item">
+                            <strong>Un livre intéressant</strong>
+                            <p style="margin-top: 8px; color: #1976d2;">→ "intéressant" qualifie directement "livre"</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>Une belle fleur</strong>
+                            <p style="margin-top: 8px; color: #1976d2;">→ "belle" qualifie directement "fleur"</p>
+                        </div>
+                        <div class="example-item">
+                            <strong>Des enfants joyeux</strong>
+                            <p style="margin-top: 8px; color: #1976d2;">→ "joyeux" qualifie directement "enfants"</p>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 15px;">✅ أمثلة صحيحة</h4>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>كتاب مثير للاهتمام</strong> - "مثير للاهتمام" تصف "كتاب" مباشرة
+                        </div>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>زهرة جميلة</strong> - "جميلة" تصف "زهرة" مباشرة
+                        </div>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>أطفال سعداء</strong> - "سعداء" تصف "أطفال" مباشرة
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Position Rules -->
+                <div id="step4" class="step-container">
+                    <h1>📍 Position de l'Adjectif Épithète</h1>
+                    
+                    <div class="explanation-box">
+                        <h4>📌 Règle Générale</h4>
+                        <p>En français, l'adjectif épithète se place <strong>généralement après le nom</strong>, mais certains adjectifs courts et courants se placent <strong>avant le nom</strong>.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">📌 القاعدة العامة</h4>
+                        <p>في الفرنسية، عادة ما توضع الصفة النعتية <strong>بعد الاسم</strong>، لكن بعض الصفات القصيرة والشائعة توضع <strong>قبل الاسم</strong>.</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>1️⃣ Après le Nom (La Majorité)</h4>
+                        <p><strong>Exemples :</strong> un garçon intelligent, une maison spacieuse, un film passionnant</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>بعد الاسم (الأغلبية)</strong> - ولد ذكي، منزل واسع، فيلم مثير
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>2️⃣ Avant le Nom (Exceptions Courantes)</h4>
+                        <p><strong>Exemples :</strong> un beau paysage, une petite maison, un jeune homme, un bon livre</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>قبل الاسم (استثناءات شائعة)</strong> - منظر جميل، منزل صغير، رجل شاب، كتاب جيد
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: BANGS Rule -->
+                <div id="step5" class="step-container">
+                    <h1>🎯 La Règle BANGS</h1>
+                    
+                    <div class="key-point">
+                        <h4>💎 Méthode Mnémotechnique</h4>
+                        <p>Les adjectifs qui se placent <strong>AVANT</strong> le nom peuvent être mémorisés avec l'acronyme <span class="highlight">BANGS</span> :</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">💎 طريقة التذكر</h4>
+                        <p>يمكن تذكر الصفات التي توضع <strong>قبل</strong> الاسم بالاختصار <span class="highlight">BANGS</span>:</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>B - Beauty (Beauté)</h4>
+                        <p>beau, belle, joli, laid</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>A - Age</h4>
+                        <p>jeune, vieux, nouveau, ancien</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>N - Number (Nombre)</h4>
+                        <p>premier, deuxième, dernier</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>G - Goodness (Qualité morale)</h4>
+                        <p>bon, mauvais, gentil, méchant</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>S - Size (Taille)</h4>
+                        <p>grand, petit, gros, long, court</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>B - الجمال:</strong> جميل، قبيح<br>
+                            <strong>A - العمر:</strong> شاب، كبير السن، جديد، قديم<br>
+                            <strong>N - الرقم:</strong> أول، ثاني، أخير<br>
+                            <strong>G - الصفات الأخلاقية:</strong> جيد، سيئ، لطيف، شرير<br>
+                            <strong>S - الحجم:</strong> كبير، صغير، ضخم، طويل، قصير
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Agreement Rules -->
+                <div id="step6" class="step-container">
+                    <h1>⚖️ Accord de l'Adjectif Épithète</h1>
+                    
+                    <div class="definition-box">
+                        <h3>📏 Règle d'Accord</h3>
+                        <p>L'adjectif épithète s'accorde <strong>en genre</strong> (masculin/féminin) et <strong>en nombre</strong> (singulier/pluriel) avec le nom qu'il qualifie.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h3 style="margin-bottom: 15px;">📏 قاعدة التوافق</h3>
+                        <p>الصفة النعتية توافق <strong>في الجنس</strong> (مذكر/مؤنث) و<strong>في العدد</strong> (مفرد/جمع) مع الاسم الذي تصفه.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>✅ Exemples d'Accord</h4>
+                        <div class="example-item">
+                            <strong>Masculin singulier :</strong> un chat noir
+                        </div>
+                        <div class="example-item">
+                            <strong>Féminin singulier :</strong> une chatte noire
+                        </div>
+                        <div class="example-item">
+                            <strong>Masculin pluriel :</strong> des chats noirs
+                        </div>
+                        <div class="example-item">
+                            <strong>Féminin pluriel :</strong> des chattes noires
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 15px;">✅ أمثلة على التوافق</h4>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>مذكر مفرد:</strong> قط أسود<br>
+                            <strong>مؤنث مفرد:</strong> قطة سوداء<br>
+                            <strong>مذكر جمع:</strong> قطط سوداء<br>
+                            <strong>مؤنث جمع:</strong> قطط سوداء
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 7: Difference from Attribut -->
+                <div id="step7" class="step-container">
+                    <h1>🔄 Épithète vs Attribut</h1>
+                    
+                    <div class="explanation-box">
+                        <h4>🎭 Quelle est la différence ?</h4>
+                        <p>Il est essentiel de distinguer l'adjectif <strong>épithète</strong> de l'adjectif <strong>attribut</strong>.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">🎭 ما هو الفرق؟</h4>
+                        <p>من الضروري التمييز بين الصفة <strong>النعتية</strong> والصفة <strong>المسندة</strong>.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>✨ Adjectif ÉPITHÈTE</h4>
+                        <div class="example-item">
+                            <strong>Un livre intéressant</strong>
+                            <p style="margin-top: 8px; color: #1976d2;">→ Directement lié au nom, sans verbe</p>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: #e3f2fd; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>صفة نعتية:</strong> كتاب مثير للاهتمام - مرتبطة مباشرة بالاسم، دون فعل
+                        </div>
+                    </div>
+                    
+                    <div class="counter-example">
+                        <h4>🔗 Adjectif ATTRIBUT</h4>
+                        <div class="counter-example-item">
+                            <strong>Ce livre est intéressant</strong>
+                            <p style="margin-top: 8px; color: #d32f2f;">→ Relié au nom par un verbe d'état (être, paraître, sembler...)</p>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: #ffebee; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>صفة مسندة:</strong> هذا الكتاب مثير للاهتمام - مرتبطة بالاسم عبر فعل حالة
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 8: Multiple Adjectives -->
+                <div id="step8" class="step-container">
+                    <h1>🎨 Plusieurs Adjectifs Épithètes</h1>
+                    
+                    <div class="key-point">
+                        <h4>✨ Règle de Coordination</h4>
+                        <p>On peut utiliser plusieurs adjectifs épithètes pour qualifier un même nom. Ils doivent être reliés par une conjonction comme <strong>"et"</strong>.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">✨ قاعدة الربط</h4>
+                        <p>يمكن استخدام عدة صفات نعتية لوصف نفس الاسم. يجب ربطها بأداة عطف مثل <strong>"و"</strong>.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>✅ Exemples</h4>
+                        <div class="example-item">
+                            <strong>Une maison grande et moderne</strong>
+                        </div>
+                        <div class="example-item">
+                            <strong>Un film passionnant et émouvant</strong>
+                        </div>
+                        <div class="example-item">
+                            <strong>Des fleurs rouges, blanches et bleues</strong>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 15px;">✅ أمثلة</h4>
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            منزل كبير وعصري<br>
+                            فيلم مثير ومؤثر<br>
+                            زهور حمراء وبيضاء وزرقاء
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 9: Common Mistakes -->
+                <div id="step9" class="step-container">
+                    <h1>⚠️ Erreurs Fréquentes</h1>
+                    
+                    <div class="warning-box">
+                        <h4>🚨 Attention !</h4>
+                        <p>Voici les erreurs les plus courantes à éviter avec les adjectifs épithètes.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">🚨 انتبه!</h4>
+                        <p>إليك الأخطاء الأكثر شيوعًا التي يجب تجنبها مع الصفات النعتية.</p>
+                    </div>
+                    
+                    <div class="counter-example">
+                        <h4>❌ Erreur 1 : Mauvaise Position</h4>
+                        <div class="counter-example-item">
+                            ❌ <strong>Un intéressant livre</strong><br>
+                            ✅ <strong>Un livre intéressant</strong>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>خطأ 1: موقع خاطئ</strong><br>
+                            ❌ كتاب مثير (في غير موضعه)<br>
+                            ✅ كتاب مثير (في الموضع الصحيح)
+                        </div>
+                    </div>
+                    
+                    <div class="counter-example">
+                        <h4>❌ Erreur 2 : Oubli de l'Accord</h4>
+                        <div class="counter-example-item">
+                            ❌ <strong>Des filles intelligent</strong><br>
+                            ✅ <strong>Des filles intelligentes</strong>
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>خطأ 2: نسيان التوافق</strong><br>
+                            ❌ بنات ذكي (دون توافق)<br>
+                            ✅ بنات ذكيات (مع التوافق)
+                        </div>
+                    </div>
+                    
+                    <div class="counter-example">
+                        <h4>❌ Erreur 3 : Confusion avec l'Attribut</h4>
+                        <div class="counter-example-item">
+                            ❌ <strong>Un garçon est intelligent</strong> (ce n'est pas une épithète)<br>
+                            ✅ <strong>Un garçon intelligent</strong> (épithète)
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>خطأ 3: الخلط مع الصفة المسندة</strong><br>
+                            ❌ ولد هو ذكي (ليست نعتية)<br>
+                            ✅ ولد ذكي (نعتية)
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 10: Special Cases -->
+                <div id="step10" class="step-container">
+                    <h1>🔮 Cas Particuliers</h1>
+                    
+                    <div class="explanation-box">
+                        <h4>💫 Adjectifs à Double Sens</h4>
+                        <p>Certains adjectifs changent de sens selon leur position !</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h4 style="margin-bottom: 10px;">💫 صفات ذات معنى مزدوج</h4>
+                        <p>بعض الصفات تغير معناها حسب موقعها!</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>📝 Exemple : "Grand"</h4>
+                        <div class="example-item">
+                            <strong>Un grand homme</strong> = un homme important, célèbre
+                        </div>
+                        <div class="example-item">
+                            <strong>Un homme grand</strong> = un homme de grande taille
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>مثال: "كبير"</strong><br>
+                            رجل عظيم = رجل مهم، مشهور<br>
+                            رجل طويل القامة = رجل بقامة كبيرة
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>📝 Exemple : "Ancien"</h4>
+                        <div class="example-item">
+                            <strong>Mon ancien professeur</strong> = mon ex-professeur
+                        </div>
+                        <div class="example-item">
+                            <strong>Un professeur ancien</strong> = un vieux professeur
+                        </div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>مثال: "قديم"</strong><br>
+                            أستاذي السابق = أستاذي الذي كان في الماضي<br>
+                            أستاذ عجوز = أستاذ كبير في السن
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 11: Practice Tips -->
+                <div id="step11" class="step-container">
+                    <h1>💪 Conseils pour Maîtriser l'Épithète</h1>
+                    
+                    <div class="step-item">
+                        <h4>1️⃣ Mémorisez la règle BANGS</h4>
+                        <p>C'est votre meilleur allié pour savoir quels adjectifs se placent avant le nom !</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>1️⃣ احفظ قاعدة BANGS</strong> - أفضل حليف لمعرفة الصفات التي توضع قبل الاسم!
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>2️⃣ Pratiquez l'accord</h4>
+                        <p>Entraînez-vous régulièrement à accorder les adjectifs en genre et en nombre.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>2️⃣ تدرب على التوافق</strong> - تمرن بانتظام على توافق الصفات في الجنس والعدد.
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>3️⃣ Lisez beaucoup</h4>
+                        <p>La lecture vous aidera à intérioriser naturellement la position des adjectifs.</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>3️⃣ اقرأ كثيرًا</strong> - القراءة ستساعدك على استيعاب موقع الصفات بشكل طبيعي.
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>4️⃣ Faites attention au contexte</h4>
+                        <p>Certains adjectifs changent de sens selon leur position - soyez attentifs !</p>
+                    </div>
+
+                    <div class="arabic-text">
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                            <strong>4️⃣ انتبه للسياق</strong> - بعض الصفات تغير معناها حسب موقعها - كن منتبهًا!
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
+                    </div>
+                </div>
+
+                <!-- Step 12: Quiz Activity -->
+                <div id="step12" class="step-container">
+                    <h1>🎯 Activité Pratique</h1>
+                    
+                    <div class="activity-box">
+                        <h3>🧠 Mini-Quiz</h3>
+                        <div class="activity-question">
+                            Quelle phrase contient un adjectif épithète correctement placé ?
+                        </div>
+                        <div class="activity-options" id="quiz-options"></div>
+                        <div id="feedback"></div>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h3 style="margin-bottom: 15px;">🧠 اختبار صغير</h3>
+                        <p>أي جملة تحتوي على صفة نعتية موضوعة بشكل صحيح؟</p>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                    </div>
+                </div>
+
+                <!-- Step 13: Completion -->
+                <div id="step13" class="step-container">
+                    <div class="completion-box">
+                        <h2>🎉 Félicitations !</h2>
+                        <p>Vous avez terminé la leçon sur l'adjectif épithète !</p>
+                        <p>Vous maîtrisez maintenant :</p>
+                        <ul style="text-align: left; display: inline-block; margin: 20px auto;">
+                            <li>✅ La définition de l'adjectif épithète</li>
+                            <li>✅ Les règles de position (BANGS)</li>
+                            <li>✅ L'accord en genre et en nombre</li>
+                            <li>✅ La différence avec l'attribut</li>
+                            <li>✅ Les cas particuliers</li>
+                        </ul>
+                        <button class="replay-btn" onclick="replayLesson()">🔄 Recommencer la leçon</button>
+                    </div>
+
+                    <div class="arabic-text">
+                        <h2 style="margin-bottom: 15px;">🎉 مبروك!</h2>
+                        <p>لقد أكملت الدرس عن الصفة النعتية!</p>
+                        <p>أنت الآن تتقن:</p>
+                        <ul style="text-align: right; margin: 20px 0; line-height: 2;">
+                            <li>✅ تعريف الصفة النعتية</li>
+                            <li>✅ قواعد الموقع (BANGS)</li>
+                            <li>✅ التوافق في الجنس والعدد</li>
+                            <li>✅ الفرق مع الصفة المسندة</li>
+                            <li>✅ الحالات الخاصة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Detect if device is in portrait or landscape mode
+        function isPortraitMode() {
+            return window.innerHeight > window.innerWidth;
+        }
+        
+        // Get the correct video path based on orientation
+        function getVideoPath() {
+            if (isPortraitMode()) {
+                // Portrait mode - vertical animation
+                return 'up_to_down_vertical.mp4';
+            } else {
+                // Landscape mode - horizontal animation
+                return 'up_to_down_landscape.mp4';
+            }
+        }
+
+        // Play animation video - triggered by button click
+        function playAnimation() {
+            const animIntro = document.getElementById('animationIntro');
+            const animVideo = document.getElementById('animationVideo');
+            const videoSource = document.getElementById('videoSource');
+            
+            // Show animation overlay
+            animIntro.classList.add('active');
+            
+            // Set the correct video source based on orientation
+            const videoPath = getVideoPath();
+            console.log('Loading video:', videoPath);
+            console.log('Is portrait mode:', isPortraitMode());
+            
+            videoSource.src = videoPath;
+            animVideo.load();
+            
+            // Play the video
+            animVideo.play().catch(function(error) {
+                console.error('Video playback error:', error);
+                alert('Could not play video. Path: ' + videoPath);
+            });
+            
+            // When video ends, show the lesson
+            animVideo.onended = function() {
+                animIntro.classList.remove('active');
+                animIntro.classList.add('hidden');
+                
+                // Move to step 2
+                nextStep();
+            };
+        }
+
+        // Start lesson function - plays animation first
+        function startLesson() {
+            playAnimation();
+        }
+        
+        // Reload video if orientation changes
+        window.addEventListener('resize', function() {
+            const animVideo = document.getElementById('animationVideo');
+            if (!animVideo.paused) {
+                // Video is playing, reload with correct orientation
+                const videoSource = document.getElementById('videoSource');
+                videoSource.src = getVideoPath();
+                animVideo.load();
+                animVideo.play();
+            }
+        });
+
+        // Lesson Navigation
+        let currentStep = 1;
+        const totalSteps = 13;
+        let showArabic = false;
+        
+        const animations = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in', 'slide-up', 'rotate-in'];
+        
+        // Quiz data
+        const quizOptions = [
+            { id: 'A', text: 'Le est grand chien', correct: false },
+            { id: 'B', text: 'Une belle maison', correct: true },
+            { id: 'C', text: 'Un intéressant livre', correct: false },
+            { id: 'D', text: 'Des intelligent élèves', correct: false }
+        ];
+        
+        function initializeQuiz() {
+            const container = document.getElementById('quiz-options');
+            container.innerHTML = '';
+            
+            quizOptions.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'activity-option';
+                div.innerHTML = `<strong>${option.id}.</strong> ${option.text}`;
+                div.onclick = () => checkAnswer(option.id);
+                container.appendChild(div);
+            });
+        }
+        
+        function toggleArabic() {
+            showArabic = !showArabic;
+            const arabicTexts = document.querySelectorAll('.arabic-text');
+            const toggleBtn = document.getElementById('toggleText');
+            
+            arabicTexts.forEach(text => {
+                if (showArabic) {
+                    text.classList.add('show');
+                } else {
+                    text.classList.remove('show');
+                }
+            });
+            
+            toggleBtn.textContent = showArabic ? '🌐 Français' : '🌐 عربي';
+        }
+        
+        function nextStep() {
+            if (currentStep >= totalSteps) return;
+            
+            // Hide current step
+            const currentStepElement = document.getElementById('step' + currentStep);
+            currentStepElement.classList.remove('active');
+            
+            // Remove all animation classes
+            animations.forEach(anim => {
+                currentStepElement.classList.remove(anim);
+            });
+            
+            // Move to next step
+            currentStep++;
+            
+            // Show next step with random animation
+            const nextStepElement = document.getElementById('step' + currentStep);
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            nextStepElement.classList.add('active', randomAnimation);
+            
+            // Initialize quiz if we're on step 12
+            if (currentStep === 12) {
+                initializeQuiz();
+            }
+            
+            // Update progress bar
+            updateProgress();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function prevStep() {
+            if (currentStep <= 1) return;
+            
+            // Hide current step
+            const currentStepElement = document.getElementById('step' + currentStep);
+            currentStepElement.classList.remove('active');
+            
+            // Remove all animation classes
+            animations.forEach(anim => {
+                currentStepElement.classList.remove(anim);
+            });
+            
+            // Move to previous step
+            currentStep--;
+            
+            // Show previous step with random animation
+            const prevStepElement = document.getElementById('step' + currentStep);
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            prevStepElement.classList.add('active', randomAnimation);
+            
+            // Reset quiz if going back to step 12
+            if (currentStep === 12) {
+                answered = false;
+                document.getElementById('feedback').innerHTML = '';
+                initializeQuiz();
+            }
+            
+            // Update progress bar
+            updateProgress();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepIndicator').textContent = 'Étape ' + currentStep + ' / ' + totalSteps;
+        }
+        
+        let answered = false;
+        function checkAnswer(optionId) {
+            if (answered) return;
+            
+            answered = true;
+            const feedback = document.getElementById('feedback');
+            const options = document.querySelectorAll('.activity-option');
+            const selectedOption = quizOptions.find(opt => opt.id === optionId);
+            
+            // Disable all options and mark correct/incorrect
+            options.forEach((option) => {
+                option.classList.add('disabled');
+                
+                // Check if this option contains the correct answer
+                const optionText = option.innerHTML;
+                const correctOption = quizOptions.find(opt => opt.correct);
+                
+                if (optionText.includes(correctOption.text)) {
+                    option.classList.add('correct');
+                } else if (optionText.includes(selectedOption.text) && !selectedOption.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Show feedback
+            if (selectedOption.correct) {
+                feedback.innerHTML = '<div class="feedback correct">🎉 Excellent ! C\'est la bonne réponse !</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">❌ Pas tout à fait... La bonne réponse est B !</div>';
+            }
+            
+            // Auto advance after 2 seconds
+            setTimeout(() => {
+                nextStep();
+            }, 2000);
+        }
+        
+        function replayLesson() {
+            // Reset to first step
+            const currentStepElement = document.getElementById('step' + currentStep);
+            currentStepElement.classList.remove('active');
+            animations.forEach(anim => {
+                currentStepElement.classList.remove(anim);
+            });
+            
+            currentStep = 1;
+            const firstStepElement = document.getElementById('step1');
+            firstStepElement.classList.add('active', 'zoom-in');
+            
+            // Reset progress
+            updateProgress();
+            
+            // Reset activity
+            answered = false;
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('quiz-options').innerHTML = '';
+            
+            // Reset animation state so it can play again
+            const animIntro = document.getElementById('animationIntro');
+            animIntro.classList.remove('hidden');
+            animationPlaying = false;
+            currentFrame = 0;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Initialize progress
+        updateProgress();
+        
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            const elem = document.documentElement;
+            const btn = document.querySelector('.fullscreen-btn');
+            
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement) {
+                
+                // Enter fullscreen
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                }
+                
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                    </svg>
+                `;
+                btn.classList.add('in-fullscreen');
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        
+        // Update button state
+        function updateFullscreenButton() {
+            const btn = document.querySelector('.fullscreen-btn');
+            
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.mozFullScreenElement) {
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                    </svg>
+                `;
+                btn.classList.remove('in-fullscreen');
+            }
+        }
+        
+        // Show/hide button based on interaction
+        let mouseTimeout;
+        function handleButtonVisibility() {
+            const btn = document.querySelector('.fullscreen-btn');
+            btn.classList.add('visible');
+            
+            clearTimeout(mouseTimeout);
+            mouseTimeout = setTimeout(() => {
+                btn.classList.remove('visible');
+            }, 3000);
+        }
+        
+        // Listen for mouse movement and touch
+        document.addEventListener('mousemove', handleButtonVisibility);
+        document.addEventListener('touchstart', handleButtonVisibility);
+        document.addEventListener('scroll', handleButtonVisibility);
+        
+        // Fix fullscreen scrolling
+        function enableFullscreenScroll() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+                // Force enable scrolling
+                document.documentElement.style.overflow = 'auto';
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.height = 'auto';
+                document.body.style.height = 'auto';
+                document.body.style.minHeight = '100vh';
+                
+                // Enable touch scrolling
+                document.body.style.webkitOverflowScrolling = 'touch';
+                document.body.style.touchAction = 'pan-y';
+            } else {
+                // Reset when exiting fullscreen
+                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
+                document.documentElement.style.height = '';
+                document.body.style.height = '';
+                document.body.style.minHeight = '';
+                document.body.style.webkitOverflowScrolling = '';
+                document.body.style.touchAction = '';
+            }
+        }
+        
+        // Event listeners for fullscreen changes
+        document.addEventListener('fullscreenchange', function() {
+            updateFullscreenButton();
+            enableFullscreenScroll();
+        });
+        document.addEventListener('webkitfullscreenchange', function() {
+            updateFullscreenButton();
+            enableFullscreenScroll();
+        });
+        document.addEventListener('mozfullscreenchange', function() {
+            updateFullscreenButton();
+            enableFullscreenScroll();
+        });
+        document.addEventListener('MSFullscreenChange', function() {
+            updateFullscreenButton();
+            enableFullscreenScroll();
+        });
+    </script>
+</body>
+</html>
