@@ -151,7 +151,7 @@
             justify-content: center;
             position: fixed !important;
             top: 20px !important;
-            right: 20px !important;
+            left: 20px !important;
             z-index: 99999 !important;
             backdrop-filter: blur(10px);
             opacity: 1 !important;
@@ -179,6 +179,19 @@
             width: 28px;
             height: 28px;
             flex-shrink: 0;
+        }
+        
+        /* Hide video controls and poster */
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+        
+        video {
+            pointer-events: none;
         }
         
         .arabic-text {
@@ -804,7 +817,7 @@
     <div id="animationIntro">
         <div class="animation-container">
             <div class="animation-content">
-                <video id="animationVideo" autoplay muted playsinline>
+                <video id="animationVideo" autoplay muted playsinline preload="none" controlslist="nodownload nofullscreen noremoteplayback" disablePictureInPicture>
                     <source id="videoSource" src="" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -1648,29 +1661,46 @@
             const elem = document.documentElement;
             const btn = document.querySelector('.fullscreen-btn');
             
+            console.log('Fullscreen button clicked');
+            console.log('Current fullscreen element:', document.fullscreenElement);
+            
             if (!document.fullscreenElement && 
                 !document.webkitFullscreenElement && 
                 !document.mozFullScreenElement) {
                 
                 // Enter fullscreen
+                console.log('Attempting to enter fullscreen...');
+                let fullscreenPromise;
+                
                 if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
+                    fullscreenPromise = elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen();
+                    fullscreenPromise = elem.webkitRequestFullscreen();
                 } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
+                    fullscreenPromise = elem.mozRequestFullScreen();
                 } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
+                    fullscreenPromise = elem.msRequestFullscreen();
                 }
                 
-                btn.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
-                    </svg>
-                `;
-                btn.classList.add('in-fullscreen');
+                if (fullscreenPromise) {
+                    fullscreenPromise
+                        .then(() => {
+                            console.log('Fullscreen entered successfully');
+                            btn.innerHTML = `
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                                </svg>
+                            `;
+                            btn.classList.add('in-fullscreen');
+                        })
+                        .catch((err) => {
+                            console.error('Fullscreen error:', err);
+                            alert('Fullscreen not available. Error: ' + err.message);
+                        });
+                }
             } else {
                 // Exit fullscreen
+                console.log('Attempting to exit fullscreen...');
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
@@ -1699,22 +1729,7 @@
             }
         }
         
-        // Show/hide button based on interaction
-        let mouseTimeout;
-        function handleButtonVisibility() {
-            const btn = document.querySelector('.fullscreen-btn');
-            btn.classList.add('visible');
-            
-            clearTimeout(mouseTimeout);
-            mouseTimeout = setTimeout(() => {
-                btn.classList.remove('visible');
-            }, 3000);
-        }
-        
-        // Listen for mouse movement and touch
-        document.addEventListener('mousemove', handleButtonVisibility);
-        document.addEventListener('touchstart', handleButtonVisibility);
-        document.addEventListener('scroll', handleButtonVisibility);
+        // Button is always visible - no auto-hide
         
         // Fix fullscreen scrolling
         function enableFullscreenScroll() {
