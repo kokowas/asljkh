@@ -83,6 +83,10 @@
             background: white;
         }
         
+        #animationIntro:not(.active) {
+            display: none;
+        }
+        
         /* Slim Whiteboard Frame Styles - matches animation-container */
         .whiteboard-frame {
             background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
@@ -1551,7 +1555,7 @@
         }
         
         function prevStep() {
-            if (currentStep <= 1) return;
+            if (currentStep <= 2) return; // Can't go back past step 2 (step 1 was animation)
             
             // Hide current step
             const currentStepElement = document.getElementById('step' + currentStep);
