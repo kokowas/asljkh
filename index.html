@@ -1442,17 +1442,49 @@
             console.log('Loading video:', videoPath);
             console.log('Is portrait mode:', isPortraitMode());
             
+            // Reset video before playing
+            animVideo.pause();
+            animVideo.currentTime = 0;
+            
             videoSource.src = videoPath;
             animVideo.load();
             
-            // Play the video
-            animVideo.play().catch(function(error) {
-                console.error('Video playback error:', error);
-                alert('Could not play video. Path: ' + videoPath);
-            });
+            // Add event listeners for debugging
+            animVideo.onloadeddata = function() {
+                console.log('Video loaded successfully');
+            };
+            
+            animVideo.onerror = function(e) {
+                console.error('Video error:', e);
+                console.error('Failed to load:', videoPath);
+                // Try to continue anyway after 2 seconds
+                setTimeout(() => {
+                    animIntro.classList.remove('active');
+                    animIntro.classList.add('hidden');
+                    nextStep();
+                }, 2000);
+            };
+            
+            // Play the video with promise handling
+            const playPromise = animVideo.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    console.log('Video playing');
+                }).catch(function(error) {
+                    console.error('Play error:', error);
+                    // Auto-advance if video fails to play
+                    setTimeout(() => {
+                        animIntro.classList.remove('active');
+                        animIntro.classList.add('hidden');
+                        nextStep();
+                    }, 2000);
+                });
+            }
             
             // When video ends, show the lesson
             animVideo.onended = function() {
+                console.log('Video ended');
                 animIntro.classList.remove('active');
                 animIntro.classList.add('hidden');
                 
@@ -1555,7 +1587,10 @@
         }
         
         function prevStep() {
-            if (currentStep <= 2) return; // Can't go back past step 2 (step 1 was animation)
+            if (currentStep <= 2) {
+                // Can't go back past step 2 (step 1 was animation)
+                return;
+            }
             
             // Hide current step
             const currentStepElement = document.getElementById('step' + currentStep);
@@ -1583,6 +1618,11 @@
             
             // Update progress bar
             updateProgress();
+            
+            // Hide animation intro completely if somehow visible
+            const animIntro = document.getElementById('animationIntro');
+            animIntro.classList.add('hidden');
+            animIntro.classList.remove('active');
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1649,7 +1689,15 @@
             document.getElementById('feedback').innerHTML = '';
             document.getElementById('quiz-options').innerHTML = '';
             
-            // Reset animation state and play it again
+            // Reset video completely
+            const animVideo = document.getElementById('animationVideo');
+            const videoSource = document.getElementById('videoSource');
+            animVideo.pause();
+            animVideo.currentTime = 0;
+            videoSource.src = '';
+            animVideo.load();
+            
+            // Reset animation state
             const animIntro = document.getElementById('animationIntro');
             animIntro.classList.remove('hidden');
             animIntro.classList.remove('active');
@@ -1660,7 +1708,7 @@
             // Play animation again after a short delay
             setTimeout(() => {
                 playAnimation();
-            }, 100);
+            }, 200);
         }
         
         // Initialize progress
