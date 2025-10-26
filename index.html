@@ -1434,7 +1434,8 @@
             const animVideo = document.getElementById('animationVideo');
             const videoSource = document.getElementById('videoSource');
             
-            // Show animation overlay
+            // IMPORTANT: Remove hidden class first, then add active
+            animIntro.classList.remove('hidden');
             animIntro.classList.add('active');
             
             // Set the correct video source based on orientation
@@ -1495,6 +1496,8 @@
 
         // Start lesson function - plays animation first
         function startLesson() {
+            console.log('startLesson called');
+            console.log('Current step:', currentStep);
             playAnimation();
         }
         
@@ -1587,8 +1590,8 @@
         }
         
         function prevStep() {
-            if (currentStep <= 2) {
-                // Can't go back past step 2 (step 1 was animation)
+            if (currentStep <= 1) {
+                // Already at first step
                 return;
             }
             
@@ -1616,13 +1619,13 @@
                 initializeQuiz();
             }
             
-            // Update progress bar
-            updateProgress();
-            
-            // Hide animation intro completely if somehow visible
+            // Make absolutely sure animation intro is hidden
             const animIntro = document.getElementById('animationIntro');
             animIntro.classList.add('hidden');
             animIntro.classList.remove('active');
+            
+            // Update progress bar
+            updateProgress();
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
