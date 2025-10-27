@@ -792,19 +792,397 @@
             box-shadow: 0 6px 25px rgba(0,0,0,0.4);
         }
         
+        /* Mobile First - Ultra Small Devices (300px and less) */
+        @media (max-width: 320px) {
+            * {
+                box-sizing: border-box;
+            }
+            
+            body {
+                padding: 2px !important;
+                font-size: 8px !important;
+            }
+            
+            #animationIntro {
+                padding: 1px !important;
+            }
+            
+            .container {
+                padding: 2px !important;
+            }
+            
+            .animation-container,
+            .whiteboard-frame {
+                width: 100% !important;
+                padding: 1px !important;
+                border-radius: 3px !important;
+            }
+            
+            .animation-content,
+            .whiteboard-content {
+                min-height: 50vh !important;
+                padding: 2px !important;
+                border-radius: 2px !important;
+            }
+            
+            /* Step containers - NO padding */
+            .step-container {
+                padding: 3px !important;
+            }
+            
+            /* Headings - TINY */
+            h1 {
+                font-size: 0.95em !important;
+                margin-bottom: 4px !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 0.9em !important;
+                margin-bottom: 4px !important;
+                line-height: 1.2 !important;
+            }
+            
+            h3 {
+                font-size: 0.85em !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+            }
+            
+            h4 {
+                font-size: 0.8em !important;
+                margin-bottom: 3px !important;
+            }
+            
+            p, .subtitle {
+                font-size: 0.75em !important;
+                line-height: 1.2 !important;
+                margin: 3px 0 !important;
+            }
+            
+            /* Boxes - MINIMAL padding */
+            .content-box,
+            .definition-box,
+            .example-box,
+            .key-point,
+            .activity-box,
+            .explanation-box,
+            .counter-example {
+                padding: 4px !important;
+                margin: 3px 0 !important;
+                border-radius: 4px !important;
+            }
+            
+            /* Example items */
+            .example-item,
+            .step-item {
+                padding: 4px !important;
+                margin: 2px 0 !important;
+            }
+            
+            /* CRITICAL: Override ALL large inline font sizes */
+            [style*="font-size: 5em"],
+            div[style*="font-size: 5em"],
+            p[style*="font-size: 5em"] {
+                font-size: 1.2em !important;
+            }
+            
+            [style*="font-size: 4em"],
+            div[style*="font-size: 4em"],
+            p[style*="font-size: 4em"] {
+                font-size: 1.1em !important;
+            }
+            
+            [style*="font-size: 3em"],
+            div[style*="font-size: 3em"],
+            p[style*="font-size: 3em"],
+            h1[style*="font-size: 3em"],
+            h2[style*="font-size: 3em"] {
+                font-size: 0.95em !important;
+            }
+            
+            [style*="font-size: 2.5em"],
+            div[style*="font-size: 2.5em"],
+            p[style*="font-size: 2.5em"],
+            h1[style*="font-size: 2.5em"],
+            h2[style*="font-size: 2.5em"] {
+                font-size: 0.9em !important;
+            }
+            
+            [style*="font-size: 2.2em"],
+            div[style*="font-size: 2.2em"],
+            h2[style*="font-size: 2.2em"] {
+                font-size: 0.85em !important;
+            }
+            
+            [style*="font-size: 2em"],
+            div[style*="font-size: 2em"],
+            p[style*="font-size: 2em"],
+            h2[style*="font-size: 2em"],
+            h3[style*="font-size: 2em"] {
+                font-size: 0.8em !important;
+            }
+            
+            [style*="font-size: 1.8em"],
+            div[style*="font-size: 1.8em"],
+            p[style*="font-size: 1.8em"] {
+                font-size: 0.78em !important;
+            }
+            
+            [style*="font-size: 1.6em"],
+            div[style*="font-size: 1.6em"],
+            p[style*="font-size: 1.6em"] {
+                font-size: 0.76em !important;
+            }
+            
+            [style*="font-size: 1.5em"],
+            div[style*="font-size: 1.5em"],
+            p[style*="font-size: 1.5em"] {
+                font-size: 0.75em !important;
+            }
+            
+            [style*="font-size: 1.3em"],
+            div[style*="font-size: 1.3em"],
+            p[style*="font-size: 1.3em"] {
+                font-size: 0.73em !important;
+            }
+            
+            [style*="font-size: 1.2em"],
+            p[style*="font-size: 1.2em"] {
+                font-size: 0.72em !important;
+            }
+            
+            /* CRITICAL: Override ALL padding inline styles */
+            [style*="padding: 60px"],
+            [style*="padding: 50px"],
+            [style*="padding: 40px"],
+            [style*="padding: 30px"],
+            div[style*="padding: 60px"],
+            div[style*="padding: 50px"],
+            div[style*="padding: 40px"],
+            div[style*="padding: 30px"] {
+                padding: 4px !important;
+            }
+            
+            [style*="padding: 25px"],
+            [style*="padding: 20px"],
+            [style*="padding: 15px"],
+            div[style*="padding: 25px"],
+            div[style*="padding: 20px"],
+            div[style*="padding: 15px"] {
+                padding: 3px !important;
+            }
+            
+            /* CRITICAL: Override ALL margin inline styles */
+            [style*="margin: 50px"],
+            [style*="margin: 40px"],
+            [style*="margin: 30px"],
+            [style*="margin: 20px"],
+            div[style*="margin: 50px"],
+            div[style*="margin: 40px"],
+            div[style*="margin: 30px"],
+            div[style*="margin: 20px"] {
+                margin: 3px 0 !important;
+            }
+            
+            [style*="margin-bottom: 40px"],
+            [style*="margin-bottom: 30px"],
+            [style*="margin-bottom: 20px"],
+            div[style*="margin-bottom: 40px"],
+            div[style*="margin-bottom: 30px"],
+            div[style*="margin-bottom: 20px"] {
+                margin-bottom: 3px !important;
+            }
+            
+            [style*="margin-top: 40px"],
+            [style*="margin-top: 30px"],
+            [style*="margin-top: 20px"],
+            div[style*="margin-top: 40px"],
+            div[style*="margin-top: 30px"],
+            div[style*="margin-top: 20px"] {
+                margin-top: 3px !important;
+            }
+            
+            [style*="margin: 15px"],
+            [style*="margin: 10px"],
+            div[style*="margin: 15px"],
+            div[style*="margin: 10px"] {
+                margin: 2px 0 !important;
+            }
+            
+            /* Max-width */
+            [style*="max-width"],
+            div[style*="max-width: 800px"],
+            div[style*="max-width: 700px"],
+            div[style*="max-width: 600px"] {
+                max-width: 100% !important;
+            }
+            
+            /* Navigation buttons - smaller */
+            .nav-btn {
+                padding: 5px 8px !important;
+                font-size: 0.7em !important;
+                margin: 2px !important;
+            }
+            
+            .navigation {
+                margin-top: 5px !important;
+            }
+            
+            .start-btn,
+            .replay-btn {
+                padding: 6px 10px !important;
+                font-size: 0.75em !important;
+            }
+            
+            /* Quiz options */
+            .quiz-option-btn,
+            .activity-option {
+                padding: 6px !important;
+                font-size: 0.75em !important;
+                margin: 4px 0 !important;
+                border-width: 2px !important;
+                line-height: 1.3 !important;
+            }
+            
+            /* Arabic text */
+            .arabic-text {
+                font-size: 0.75em !important;
+                padding: 4px !important;
+                margin: 4px 0 !important;
+            }
+            
+            .arabic-text h3,
+            .arabic-text h4 {
+                font-size: 0.8em !important;
+            }
+            
+            .arabic-text p {
+                font-size: 0.75em !important;
+            }
+            
+            /* Progress bar */
+            .progress-container {
+                height: 3px !important;
+                margin-bottom: 4px !important;
+            }
+            
+            .step-indicator {
+                font-size: 0.7em !important;
+                padding: 4px 6px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            /* Buttons in header */
+            .fullscreen-btn,
+            .arabic-toggle {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 0.65em !important;
+            }
+            
+            .arabic-toggle {
+                right: 30px !important;
+            }
+            
+            /* Completion box */
+            .completion-box {
+                padding: 8px !important;
+            }
+            
+            /* Borders - thinner */
+            [style*="border: 6px"],
+            [style*="border: 5px"],
+            [style*="border: 4px"],
+            div[style*="border: 6px"],
+            div[style*="border: 5px"],
+            div[style*="border: 4px"] {
+                border-width: 2px !important;
+            }
+            
+            /* Feedback messages */
+            #feedback {
+                font-size: 0.75em !important;
+                padding: 5px !important;
+            }
+            
+            /* Activity question */
+            .activity-question {
+                font-size: 0.8em !important;
+                margin: 5px 0 !important;
+            }
+            
+            /* Strong tags */
+            strong {
+                font-size: inherit !important;
+            }
+            
+            /* Specific override for example boxes */
+            .example-box p,
+            .example-box h3 {
+                font-size: 0.8em !important;
+                padding: 3px !important;
+                margin: 3px 0 !important;
+            }
+            
+            /* Definition box text */
+            .definition-box p {
+                font-size: 0.75em !important;
+            }
+            
+            /* Line height for all text */
+            * {
+                line-height: 1.3 !important;
+            }
+        }
+        
+        /* Small Mobile Devices (321px to 480px) */
+        @media (min-width: 321px) and (max-width: 480px) {
+            body {
+                padding: 4px;
+                font-size: 10px;
+            }
+            
+            h1 {
+                font-size: 1.2em !important;
+            }
+            
+            [style*="font-size: 3em"],
+            div[style*="font-size: 3em"] {
+                font-size: 1.3em !important;
+            }
+            
+            [style*="font-size: 2.5em"],
+            div[style*="font-size: 2.5em"] {
+                font-size: 1.1em !important;
+            }
+            
+            [style*="padding: 60px"],
+            [style*="padding: 50px"],
+            div[style*="padding: 60px"],
+            div[style*="padding: 50px"] {
+                padding: 10px !important;
+            }
+            
+            .step-container {
+                padding: 6px !important;
+            }
+        }
+
+        /* Tablets and Medium Devices */
         @media (max-width: 768px) {
             #animationIntro {
                 padding: 5px;
             }
             
             .container {
-                padding: 15px;
+                padding: 8px;
             }
             
             .animation-container,
             .whiteboard-frame {
                 width: 100%;
-                padding: 5px;
+                padding: 4px;
             }
             
             .animation-content,
@@ -817,6 +1195,12 @@
                 width: 100%;
                 height: 100%;
             }
+        }
+        
+        /* CRITICAL: Keep adjective + noun phrases on ONE line */
+        .no-break {
+            white-space: nowrap !important;
+            display: inline-block !important;
         }
     </style>
 </head>
@@ -853,558 +1237,302 @@
                 <div class="progress-container">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
-                <div class="step-indicator" id="stepIndicator">Étape 1 / 13</div>
+                <div class="step-indicator" id="stepIndicator">Étape 1 / 9</div>
 
                 <!-- Step 1: Welcome & Title -->
                 <div id="step1" class="step-container active zoom-in">
-                    <h1>🎓 L'Adjectif Épithète</h1>
-                    <p class="subtitle">Une leçon interactive et complète</p>
+                    <h1>🎉 L'Adjectif Épithète</h1>
+                    <p class="subtitle" style="font-size: 1.5em;">Pour les enfants</p>
                     
                     <div class="content-box">
-                        <h3 style="color: #667eea; margin-bottom: 15px;">📚 Bienvenue !</h3>
-                        <p style="font-size: 1.1em;">Cette leçon vous guidera à travers tous les aspects de l'adjectif épithète en français. Vous découvrirez sa définition, sa position, ses caractéristiques et bien plus encore !</p>
+                        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1.8em;">👋 Bonjour !</h3>
+                        <p style="font-size: 1.3em; line-height: 1.8;">Aujourd'hui, on va apprendre quelque chose de très simple : <strong><span class="no-break">l'adjectif épithète</span></strong> !</p>
+                        <p style="font-size: 1.3em; margin-top: 20px;">C'est facile, tu vas voir ! 😊</p>
                     </div>
 
                     <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px;">🎓 الصفة النعتية</h3>
-                        <p>مرحبًا بكم! سيرشدك هذا الدرس عبر جميع جوانب الصفة النعتية في اللغة الفرنسية. ستكتشف تعريفها وموقعها وخصائصها والمزيد!</p>
+                        <h3 style="margin-bottom: 15px; font-size: 1.5em;">👋 مرحباً!</h3>
+                        <p style="font-size: 1.2em;">اليوم سنتعلم شيئاً بسيطاً جداً: الصفة الملازمة!</p>
+                        <p style="font-size: 1.2em;">سهل جداً، سترى! 😊</p>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn start-btn" onclick="startLesson()">✨ Commencer la leçon</button>
+                        <button class="nav-btn start-btn" onclick="startLesson()">✨ Commencer !</button>
                     </div>
                 </div>
 
-                <!-- Step 2: Definition -->
+                <!-- Step 2: What is it? -->
                 <div id="step2" class="step-container">
-                    <h1>📖 Qu'est-ce qu'un Adjectif Épithète ?</h1>
+                    <h1 style="font-size: 2.5em;">🤔 C'est quoi ?</h1>
                     
                     <div class="definition-box">
-                        <h3>✨ Définition</h3>
-                        <p>L'adjectif épithète est un adjectif qualificatif qui est <strong>directement lié au nom</strong> qu'il qualifie, sans l'intermédiaire d'un verbe.</p>
+                        <p style="font-size: 1.5em; line-height: 1.8;">
+                            C'est un <strong style="color: #f59e0b;">mot qui décrit</strong> et qui est <strong style="color: #10b981;">collé au nom</strong> !
+                        </p>
                     </div>
 
                     <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px;">✨ التعريف</h3>
-                        <p>الصفة النعتية هي صفة توصيفية <strong>مرتبطة مباشرة بالاسم</strong> الذي تصفه، دون وساطة فعل.</p>
+                        <p style="font-size: 1.3em;">هي كلمة تصف الاسم وتكون ملتصقة به!</p>
                     </div>
                     
-                    <div class="key-point">
-                        <h4>🔑 Point Clé</h4>
-                        <p>L'adjectif épithète enrichit directement le nom en ajoutant une qualité, une caractéristique ou une précision.</p>
+                    <div class="example-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 40px; margin: 30px 0;">
+                        <h3 style="font-size: 2em; margin-bottom: 20px;">Exemple :</h3>
+                        <p style="font-size: 3em; margin: 20px 0;">
+                            <span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳
+                        </p>
+                        <p style="font-size: 1.5em; color: #059669; margin-top: 20px;">
+                            "BEAU" décrit le jardin !
+                        </p>
                     </div>
 
                     <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">🔑 نقطة أساسية</h4>
-                        <p>الصفة النعتية تثري الاسم مباشرة بإضافة صفة أو خاصية أو تحديد.</p>
+                        <p style="font-size: 1.5em;">مثال: حديقة جميلة 🌳</p>
+                        <p style="font-size: 1.2em;">"جميلة" تصف الحديقة!</p>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 3: Basic Examples -->
+                <!-- Step 3: It Describes the Noun -->
                 <div id="step3" class="step-container">
-                    <h1>💡 Exemples de Base</h1>
+                    <h1 style="font-size: 2.5em;">💬 Il décrit le nom</h1>
                     
-                    <div class="example-box">
-                        <h4>✅ Exemples Corrects</h4>
-                        <div class="example-item">
-                            <strong>Un livre intéressant</strong>
-                            <p style="margin-top: 8px; color: #1976d2;">→ "intéressant" qualifie directement "livre"</p>
+                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border: 5px solid #0ea5e9; border-radius: 25px; padding: 60px; margin: 50px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        <div style="text-align: center; margin-bottom: 40px;">
+                            <div style="font-size: 4em; margin-bottom: 20px;">🎯</div>
+                            <h2 style="font-size: 2.5em; color: #0369a1; margin: 0;">L'adjectif épithète</h2>
+                            <h3 style="font-size: 2em; color: #0284c7; margin-top: 20px;">DÉCRIT LE NOM</h3>
                         </div>
-                        <div class="example-item">
-                            <strong>Une belle fleur</strong>
-                            <p style="margin-top: 8px; color: #1976d2;">→ "belle" qualifie directement "fleur"</p>
-                        </div>
-                        <div class="example-item">
-                            <strong>Des enfants joyeux</strong>
-                            <p style="margin-top: 8px; color: #1976d2;">→ "joyeux" qualifie directement "enfants"</p>
+                        
+                        <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px 0;">
+                            <p style="font-size: 2em; text-align: center; line-height: 1.6;">
+                                <span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳
+                            </p>
+                            <p style="font-size: 1.3em; color: #059669; text-align: center; margin-top: 20px;">
+                                👉 "BEAU" décrit comment est le jardin
+                            </p>
                         </div>
                     </div>
 
                     <div class="arabic-text">
-                        <h4 style="margin-bottom: 15px;">✅ أمثلة صحيحة</h4>
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>كتاب مثير للاهتمام</strong> - "مثير للاهتمام" تصف "كتاب" مباشرة
-                        </div>
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>زهرة جميلة</strong> - "جميلة" تصف "زهرة" مباشرة
-                        </div>
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>أطفال سعداء</strong> - "سعداء" تصف "أطفال" مباشرة
+                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                            <h3 style="font-size: 1.8em; margin-bottom: 15px;">الصفة تصف الاسم</h3>
+                            <p style="font-size: 1.3em;">حديقة جميلة - "جميلة" تصف كيف تبدو الحديقة</p>
                         </div>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 4: Position Rules -->
+                <!-- Step 4: Position - Before or After -->
                 <div id="step4" class="step-container">
-                    <h1>📍 Position de l'Adjectif Épithète</h1>
+                    <h1 style="font-size: 2.5em;">📍 Avant ou Après ?</h1>
                     
-                    <div class="explanation-box">
-                        <h4>📌 Règle Générale</h4>
-                        <p>En français, l'adjectif épithète se place <strong>généralement après le nom</strong>, mais certains adjectifs courts et courants se placent <strong>avant le nom</strong>.</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">📌 القاعدة العامة</h4>
-                        <p>في الفرنسية، عادة ما توضع الصفة النعتية <strong>بعد الاسم</strong>، لكن بعض الصفات القصيرة والشائعة توضع <strong>قبل الاسم</strong>.</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>1️⃣ Après le Nom (La Majorité)</h4>
-                        <p><strong>Exemples :</strong> un garçon intelligent, une maison spacieuse, un film passionnant</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>بعد الاسم (الأغلبية)</strong> - ولد ذكي، منزل واسع، فيلم مثير
+                    <div style="margin: 50px 0;">
+                        <!-- BEFORE box -->
+                        <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 5px solid #f59e0b; border-radius: 25px; padding: 50px; margin: 30px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3em; margin-bottom: 20px;">⬅️</div>
+                                <h2 style="font-size: 2.2em; color: #d97706; margin-bottom: 30px;">AVANT le nom</h2>
+                                <p style="font-size: 2.5em; font-weight: bold;">
+                                    <span class="no-break">Un <span style="color: #f59e0b;">GRAND</span> arbre</span> 🌳
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- AFTER box -->
+                        <div style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 5px solid #a855f7; border-radius: 25px; padding: 50px; margin: 30px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 3em; margin-bottom: 20px;">➡️</div>
+                                <h2 style="font-size: 2.2em; color: #7c3aed; margin-bottom: 30px;">APRÈS le nom</h2>
+                                <p style="font-size: 2.5em; font-weight: bold;">
+                                    <span class="no-break">Un <span class="no-break">chat <span style="color: #a855f7;">NOIR</span></span></span> 🐱
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="step-item">
-                        <h4>2️⃣ Avant le Nom (Exceptions Courantes)</h4>
-                        <p><strong>Exemples :</strong> un beau paysage, une petite maison, un jeune homme, un bon livre</p>
-                    </div>
 
                     <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>قبل الاسم (استثناءات شائعة)</strong> - منظر جميل، منزل صغير، رجل شاب، كتاب جيد
+                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                            <h3 style="font-size: 1.8em; margin-bottom: 15px;">قبل أو بعد الاسم؟</h3>
+                            <p style="font-size: 1.3em;">⬅️ قبل: شجرة كبيرة</p>
+                            <p style="font-size: 1.3em; margin-top: 15px;">➡️ بعد: قطة سوداء</p>
                         </div>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 5: BANGS Rule -->
+                <!-- Step 5: Examples with Pictures -->
                 <div id="step5" class="step-container">
-                    <h1>🎯 La Règle BANGS</h1>
+                    <h1 style="font-size: 2.5em;">🎨 Des Exemples !</h1>
                     
-                    <div class="key-point">
-                        <h4>💎 Méthode Mnémotechnique</h4>
-                        <p>Les adjectifs qui se placent <strong>AVANT</strong> le nom peuvent être mémorisés avec l'acronyme <span class="highlight">BANGS</span> :</p>
+                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #e0f2fe;">
+                        <p style="font-size: 2.5em; margin: 20px 0;">
+                            <span class="no-break">Un <span style="color: #10b981; font-weight: 900;">GRAND</span> arbre</span> 🌳
+                        </p>
+                    </div>
+
+                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #fef3c7;">
+                        <p style="font-size: 2.5em; margin: 20px 0;">
+                            <span class="no-break">Une <span style="color: #f59e0b; font-weight: 900;">PETITE</span> maison</span> 🏠
+                        </p>
+                    </div>
+
+                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #f3e8ff;">
+                        <p style="font-size: 2.5em; margin: 20px 0;">
+                            <span class="no-break">Un <span class="no-break">chat <span style="color: #8b5cf6; font-weight: 900;">NOIR</span></span></span> 🐱
+                        </p>
                     </div>
 
                     <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">💎 طريقة التذكر</h4>
-                        <p>يمكن تذكر الصفات التي توضع <strong>قبل</strong> الاسم بالاختصار <span class="highlight">BANGS</span>:</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>B - Beauty (Beauté)</h4>
-                        <p>beau, belle, joli, laid</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>A - Age</h4>
-                        <p>jeune, vieux, nouveau, ancien</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>N - Number (Nombre)</h4>
-                        <p>premier, deuxième, dernier</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>G - Goodness (Qualité morale)</h4>
-                        <p>bon, mauvais, gentil, méchant</p>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>S - Size (Taille)</h4>
-                        <p>grand, petit, gros, long, court</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>B - الجمال:</strong> جميل، قبيح<br>
-                            <strong>A - العمر:</strong> شاب، كبير السن، جديد، قديم<br>
-                            <strong>N - الرقم:</strong> أول، ثاني، أخير<br>
-                            <strong>G - الصفات الأخلاقية:</strong> جيد، سيئ، لطيف، شرير<br>
-                            <strong>S - الحجم:</strong> كبير، صغير، ضخم، طويل، قصير
-                        </div>
+                        <p style="font-size: 1.5em; margin: 15px 0;">🌳 شجرة كبيرة</p>
+                        <p style="font-size: 1.5em; margin: 15px 0;">🏠 منزل صغير</p>
+                        <p style="font-size: 1.5em; margin: 15px 0;">🐱 قطة سوداء</p>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 6: Agreement Rules -->
+                <!-- Step 6: How to Find It -->
                 <div id="step6" class="step-container">
-                    <h1>⚖️ Accord de l'Adjectif Épithète</h1>
+                    <h1 style="font-size: 2.5em;">🔍 Comment le trouver ?</h1>
                     
-                    <div class="definition-box">
-                        <h3>📏 Règle d'Accord</h3>
-                        <p>L'adjectif épithète s'accorde <strong>en genre</strong> (masculin/féminin) et <strong>en nombre</strong> (singulier/pluriel) avec le nom qu'il qualifie.</p>
+                    <div class="key-point" style="padding: 40px; font-size: 1.4em;">
+                        <p style="margin-bottom: 30px;">Cherche le mot qui décrit !</p>
+                    </div>
+
+                    <div class="example-box" style="background: #d1fae5; padding: 40px; margin: 30px 0; border: 4px solid #10b981;">
+                        <h3 style="font-size: 2em; color: #059669; margin-bottom: 20px;">✓ CORRECT</h3>
+                        <p style="font-size: 2.5em; font-weight: bold;"><span class="no-break">Un <span style="color: #10b981;">BEAU</span> chien</span> 🐕</p>
+                        <p style="font-size: 1.3em; margin-top: 20px; color: #059669;">Pas de verbe entre les mots !</p>
+                    </div>
+
+                    <div class="counter-example" style="background: #fee2e2; padding: 40px; margin: 30px 0; border: 4px solid #ef4444;">
+                        <h3 style="font-size: 2em; color: #dc2626; margin-bottom: 20px;">✗ FAUX</h3>
+                        <p style="font-size: 2.5em; font-weight: bold;">Le chien <span style="color: #ef4444;">EST</span> beau 🐕</p>
+                        <p style="font-size: 1.3em; margin-top: 20px; color: #dc2626;">Il y a un verbe "EST" !</p>
                     </div>
 
                     <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px;">📏 قاعدة التوافق</h3>
-                        <p>الصفة النعتية توافق <strong>في الجنس</strong> (مذكر/مؤنث) و<strong>في العدد</strong> (مفرد/جمع) مع الاسم الذي تصفه.</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <h4>✅ Exemples d'Accord</h4>
-                        <div class="example-item">
-                            <strong>Masculin singulier :</strong> un chat noir
-                        </div>
-                        <div class="example-item">
-                            <strong>Féminin singulier :</strong> une chatte noire
-                        </div>
-                        <div class="example-item">
-                            <strong>Masculin pluriel :</strong> des chats noirs
-                        </div>
-                        <div class="example-item">
-                            <strong>Féminin pluriel :</strong> des chattes noires
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 15px;">✅ أمثلة على التوافق</h4>
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>مذكر مفرد:</strong> قط أسود<br>
-                            <strong>مؤنث مفرد:</strong> قطة سوداء<br>
-                            <strong>مذكر جمع:</strong> قطط سوداء<br>
-                            <strong>مؤنث جمع:</strong> قطط سوداء
-                        </div>
+                        <p style="font-size: 1.5em; margin: 15px 0;">✓ كلب جميل (صحيح)</p>
+                        <p style="font-size: 1.5em; margin: 15px 0;">✗ الكلب جميل (خطأ - يوجد فعل)</p>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 7: Difference from Attribut -->
+                <!-- Step 7: ATTENTION! Warning -->
                 <div id="step7" class="step-container">
-                    <h1>🔄 Épithète vs Attribut</h1>
+                    <h1 style="font-size: 3em; color: #dc2626;">⚠️ ATTENTION !</h1>
                     
-                    <div class="explanation-box">
-                        <h4>🎭 Quelle est la différence ?</h4>
-                        <p>Il est essentiel de distinguer l'adjectif <strong>épithète</strong> de l'adjectif <strong>attribut</strong>.</p>
-                    </div>
+                    <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border: 6px solid #dc2626; border-radius: 25px; padding: 50px; margin: 40px auto; max-width: 800px; box-shadow: 0 15px 40px rgba(220, 38, 38, 0.3);">
+                        <div style="text-align: center; margin-bottom: 40px;">
+                            <div style="font-size: 5em; margin-bottom: 20px;">⚠️</div>
+                            <h2 style="font-size: 2.5em; color: #991b1b; margin-bottom: 30px; text-transform: uppercase;">Ne pas confondre !</h2>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 20px; padding: 40px; margin: 30px 0; border: 4px solid #dc2626;">
+                            <p style="font-size: 2em; line-height: 1.8; text-align: center; color: #1f2937;">
+                                L'adjectif <strong style="color: #dc2626;">NE DOIT PAS</strong> avoir un <strong style="color: #dc2626; text-decoration: underline;">VERBE</strong> entre lui et le nom !
+                            </p>
+                        </div>
 
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">🎭 ما هو الفرق؟</h4>
-                        <p>من الضروري التمييز بين الصفة <strong>النعتية</strong> والصفة <strong>المسندة</strong>.</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <h4>✨ Adjectif ÉPITHÈTE</h4>
-                        <div class="example-item">
-                            <strong>Un livre intéressant</strong>
-                            <p style="margin-top: 8px; color: #1976d2;">→ Directement lié au nom, sans verbe</p>
+                        <div style="background: white; border-radius: 20px; padding: 30px; margin: 30px 0;">
+                            <p style="font-size: 1.8em; text-align: center; color: #dc2626; font-weight: bold; margin-bottom: 20px;">
+                                ❌ Si il y a un VERBE = C'est ATTRIBUT
+                            </p>
+                            <p style="font-size: 1.5em; text-align: center; color: #059669; font-weight: bold;">
+                                ✅ Si PAS de verbe = C'est ÉPITHÈTE
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 40px;">
+                            <div style="background: #ffedd5; border: 4px solid #f59e0b; border-radius: 15px; padding: 25px; margin: 15px 0;">
+                                <p style="font-size: 1.6em; text-align: center;">
+                                    <strong>Exemple:</strong> Le chat <span style="color: #dc2626; font-weight: 900; text-decoration: underline;">EST</span> noir
+                                </p>
+                                <p style="font-size: 1.3em; text-align: center; color: #dc2626; margin-top: 15px;">
+                                    ❌ "EST" = VERBE → C'est ATTRIBUT !
+                                </p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="arabic-text">
-                        <div style="background: #e3f2fd; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>صفة نعتية:</strong> كتاب مثير للاهتمام - مرتبطة مباشرة بالاسم، دون فعل
-                        </div>
-                    </div>
-                    
-                    <div class="counter-example">
-                        <h4>🔗 Adjectif ATTRIBUT</h4>
-                        <div class="counter-example-item">
-                            <strong>Ce livre est intéressant</strong>
-                            <p style="margin-top: 8px; color: #d32f2f;">→ Relié au nom par un verbe d'état (être, paraître, sembler...)</p>
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: #ffebee; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>صفة مسندة:</strong> هذا الكتاب مثير للاهتمام - مرتبطة بالاسم عبر فعل حالة
+                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0; border: 3px solid #dc2626;">
+                            <h3 style="font-size: 2em; margin-bottom: 20px; color: #dc2626;">⚠️ انتباه!</h3>
+                            <p style="font-size: 1.5em; line-height: 2;">لا يجب أن يكون هناك فعل بين الصفة والاسم!</p>
+                            <p style="font-size: 1.3em; margin-top: 15px;">❌ إذا كان هناك فعل = صفة منسوبة (attribut)</p>
+                            <p style="font-size: 1.3em; margin-top: 10px;">✅ إذا لم يكن هناك فعل = صفة ملازمة (épithète)</p>
                         </div>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 8: Multiple Adjectives -->
+                <!-- Step 8: Practice! -->
                 <div id="step8" class="step-container">
-                    <h1>🎨 Plusieurs Adjectifs Épithètes</h1>
-                    
-                    <div class="key-point">
-                        <h4>✨ Règle de Coordination</h4>
-                        <p>On peut utiliser plusieurs adjectifs épithètes pour qualifier un même nom. Ils doivent être reliés par une conjonction comme <strong>"et"</strong>.</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">✨ قاعدة الربط</h4>
-                        <p>يمكن استخدام عدة صفات نعتية لوصف نفس الاسم. يجب ربطها بأداة عطف مثل <strong>"و"</strong>.</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <h4>✅ Exemples</h4>
-                        <div class="example-item">
-                            <strong>Une maison grande et moderne</strong>
-                        </div>
-                        <div class="example-item">
-                            <strong>Un film passionnant et émouvant</strong>
-                        </div>
-                        <div class="example-item">
-                            <strong>Des fleurs rouges, blanches et bleues</strong>
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 15px;">✅ أمثلة</h4>
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            منزل كبير وعصري<br>
-                            فيلم مثير ومؤثر<br>
-                            زهور حمراء وبيضاء وزرقاء
-                        </div>
-                    </div>
-                    
-                    <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
-                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
-                    </div>
-                </div>
-
-                <!-- Step 9: Common Mistakes -->
-                <div id="step9" class="step-container">
-                    <h1>⚠️ Erreurs Fréquentes</h1>
-                    
-                    <div class="warning-box">
-                        <h4>🚨 Attention !</h4>
-                        <p>Voici les erreurs les plus courantes à éviter avec les adjectifs épithètes.</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">🚨 انتبه!</h4>
-                        <p>إليك الأخطاء الأكثر شيوعًا التي يجب تجنبها مع الصفات النعتية.</p>
-                    </div>
-                    
-                    <div class="counter-example">
-                        <h4>❌ Erreur 1 : Mauvaise Position</h4>
-                        <div class="counter-example-item">
-                            ❌ <strong>Un intéressant livre</strong><br>
-                            ✅ <strong>Un livre intéressant</strong>
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>خطأ 1: موقع خاطئ</strong><br>
-                            ❌ كتاب مثير (في غير موضعه)<br>
-                            ✅ كتاب مثير (في الموضع الصحيح)
-                        </div>
-                    </div>
-                    
-                    <div class="counter-example">
-                        <h4>❌ Erreur 2 : Oubli de l'Accord</h4>
-                        <div class="counter-example-item">
-                            ❌ <strong>Des filles intelligent</strong><br>
-                            ✅ <strong>Des filles intelligentes</strong>
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>خطأ 2: نسيان التوافق</strong><br>
-                            ❌ بنات ذكي (دون توافق)<br>
-                            ✅ بنات ذكيات (مع التوافق)
-                        </div>
-                    </div>
-                    
-                    <div class="counter-example">
-                        <h4>❌ Erreur 3 : Confusion avec l'Attribut</h4>
-                        <div class="counter-example-item">
-                            ❌ <strong>Un garçon est intelligent</strong> (ce n'est pas une épithète)<br>
-                            ✅ <strong>Un garçon intelligent</strong> (épithète)
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>خطأ 3: الخلط مع الصفة المسندة</strong><br>
-                            ❌ ولد هو ذكي (ليست نعتية)<br>
-                            ✅ ولد ذكي (نعتية)
-                        </div>
-                    </div>
-                    
-                    <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
-                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
-                    </div>
-                </div>
-
-                <!-- Step 10: Special Cases -->
-                <div id="step10" class="step-container">
-                    <h1>🔮 Cas Particuliers</h1>
-                    
-                    <div class="explanation-box">
-                        <h4>💫 Adjectifs à Double Sens</h4>
-                        <p>Certains adjectifs changent de sens selon leur position !</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <h4 style="margin-bottom: 10px;">💫 صفات ذات معنى مزدوج</h4>
-                        <p>بعض الصفات تغير معناها حسب موقعها!</p>
-                    </div>
-                    
-                    <div class="example-box">
-                        <h4>📝 Exemple : "Grand"</h4>
-                        <div class="example-item">
-                            <strong>Un grand homme</strong> = un homme important, célèbre
-                        </div>
-                        <div class="example-item">
-                            <strong>Un homme grand</strong> = un homme de grande taille
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>مثال: "كبير"</strong><br>
-                            رجل عظيم = رجل مهم، مشهور<br>
-                            رجل طويل القامة = رجل بقامة كبيرة
-                        </div>
-                    </div>
-                    
-                    <div class="example-box">
-                        <h4>📝 Exemple : "Ancien"</h4>
-                        <div class="example-item">
-                            <strong>Mon ancien professeur</strong> = mon ex-professeur
-                        </div>
-                        <div class="example-item">
-                            <strong>Un professeur ancien</strong> = un vieux professeur
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>مثال: "قديم"</strong><br>
-                            أستاذي السابق = أستاذي الذي كان في الماضي<br>
-                            أستاذ عجوز = أستاذ كبير في السن
-                        </div>
-                    </div>
-                    
-                    <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
-                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
-                    </div>
-                </div>
-
-                <!-- Step 11: Practice Tips -->
-                <div id="step11" class="step-container">
-                    <h1>💪 Conseils pour Maîtriser l'Épithète</h1>
-                    
-                    <div class="step-item">
-                        <h4>1️⃣ Mémorisez la règle BANGS</h4>
-                        <p>C'est votre meilleur allié pour savoir quels adjectifs se placent avant le nom !</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>1️⃣ احفظ قاعدة BANGS</strong> - أفضل حليف لمعرفة الصفات التي توضع قبل الاسم!
-                        </div>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>2️⃣ Pratiquez l'accord</h4>
-                        <p>Entraînez-vous régulièrement à accorder les adjectifs en genre et en nombre.</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>2️⃣ تدرب على التوافق</strong> - تمرن بانتظام على توافق الصفات في الجنس والعدد.
-                        </div>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>3️⃣ Lisez beaucoup</h4>
-                        <p>La lecture vous aidera à intérioriser naturellement la position des adjectifs.</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>3️⃣ اقرأ كثيرًا</strong> - القراءة ستساعدك على استيعاب موقع الصفات بشكل طبيعي.
-                        </div>
-                    </div>
-                    
-                    <div class="step-item">
-                        <h4>4️⃣ Faites attention au contexte</h4>
-                        <p>Certains adjectifs changent de sens selon leur position - soyez attentifs !</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px;">
-                            <strong>4️⃣ انتبه للسياق</strong> - بعض الصفات تغير معناها حسب موقعها - كن منتبهًا!
-                        </div>
-                    </div>
-                    
-                    <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
-                        <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
-                    </div>
-                </div>
-
-                <!-- Step 12: Quiz Activity -->
-                <div id="step12" class="step-container">
-                    <h1>🎯 Activité Pratique</h1>
+                    <h1 style="font-size: 2.5em;">🎮 À toi de jouer !</h1>
                     
                     <div class="activity-box">
-                        <h3>🧠 Mini-Quiz</h3>
-                        <div class="activity-question">
-                            Quelle phrase contient un adjectif épithète correctement placé ?
+                        <h3 style="font-size: 2em; margin-bottom: 30px;">Trouve le bon !</h3>
+                        <div class="activity-question" style="font-size: 1.5em; margin: 30px 0;">
+                            Quelle phrase est correcte ?
                         </div>
-                        <div class="activity-options" id="quiz-options"></div>
-                        <div id="feedback"></div>
+                        
+                        <!-- Quiz Options - Neutral colors before selection -->
+                        <div id="quiz-container" style="margin: 40px 0;">
+                            <!-- Will be filled by JavaScript -->
+                        </div>
+                        
+                        <div id="feedback" style="margin-top: 30px;"></div>
                     </div>
 
                     <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px;">🧠 اختبار صغير</h3>
-                        <p>أي جملة تحتوي على صفة نعتية موضوعة بشكل صحيح؟</p>
+                        <h3 style="margin-bottom: 15px; font-size: 1.5em;">أي جملة صحيحة؟</h3>
                     </div>
                     
                     <div class="navigation">
-                        <button class="nav-btn prev-btn" onclick="prevStep()">← Précédent</button>
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                     </div>
                 </div>
 
-                <!-- Step 13: Completion -->
-                <div id="step13" class="step-container">
-                    <div class="completion-box">
-                        <h2>🎉 Félicitations !</h2>
-                        <p>Vous avez terminé la leçon sur l'adjectif épithète !</p>
-                        <p>Vous maîtrisez maintenant :</p>
-                        <ul style="text-align: left; display: inline-block; margin: 20px auto;">
-                            <li>✅ La définition de l'adjectif épithète</li>
-                            <li>✅ Les règles de position (BANGS)</li>
-                            <li>✅ L'accord en genre et en nombre</li>
-                            <li>✅ La différence avec l'attribut</li>
-                            <li>✅ Les cas particuliers</li>
-                        </ul>
-                        <button class="replay-btn" onclick="replayLesson()">🔄 Recommencer la leçon</button>
+                <!-- Step 9: Celebration -->
+                <div id="step9" class="step-container">
+                    <div class="completion-box" style="padding: 60px; text-align: center;">
+                        <div style="font-size: 5em; margin-bottom: 30px;">🏆</div>
+                        <h2 style="font-size: 3em; margin-bottom: 30px;">🎉 Bravo !</h2>
+                        <p style="font-size: 2em; margin: 20px 0; font-weight: 600;">Tu as tout compris !</p>
+                        <p style="font-size: 1.5em; margin: 30px 0; color: #1f2937;">Tu sais maintenant ce qu'est <br><strong style="color: #059669; font-size: 1.2em;"><span class="no-break">l'adjectif épithète</span></strong> !</p>
+                        <button class="replay-btn" onclick="replayLesson()" style="margin-top: 40px; font-size: 1.5em; padding: 20px 50px;">🔄 Recommencer</button>
                     </div>
 
                     <div class="arabic-text">
-                        <h2 style="margin-bottom: 15px;">🎉 مبروك!</h2>
-                        <p>لقد أكملت الدرس عن الصفة النعتية!</p>
-                        <p>أنت الآن تتقن:</p>
-                        <ul style="text-align: right; margin: 20px 0; line-height: 2;">
-                            <li>✅ تعريف الصفة النعتية</li>
-                            <li>✅ قواعد الموقع (BANGS)</li>
-                            <li>✅ التوافق في الجنس والعدد</li>
-                            <li>✅ الفرق مع الصفة المسندة</li>
-                            <li>✅ الحالات الخاصة</li>
-                        </ul>
+                        <h2 style="margin-bottom: 20px; font-size: 2.5em;">🎉 أحسنت!</h2>
+                        <p style="font-size: 1.8em; line-height: 2;">فهمت كل شيء! <br>أنت تعرف الآن ما هي الصفة الملازمة!</p>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                     </div>
                 </div>
             </div>
@@ -1515,28 +1643,71 @@
 
         // Lesson Navigation
         let currentStep = 1;
-        const totalSteps = 13;
+        const totalSteps = 9;
         let showArabic = false;
         
         const animations = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in', 'slide-up', 'rotate-in'];
         
         // Quiz data
         const quizOptions = [
-            { id: 'A', text: 'Le est grand chien', correct: false },
-            { id: 'B', text: 'Une belle maison', correct: true },
-            { id: 'C', text: 'Un intéressant livre', correct: false },
-            { id: 'D', text: 'Des intelligent élèves', correct: false }
+            { id: 'A', text: 'Le chat <strong>EST</strong> gros 🐱', correct: false },
+            { id: 'B', text: 'Un <strong>GROS</strong> chat 🐱', correct: true }
         ];
         
+        // Shuffle array function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
         function initializeQuiz() {
-            const container = document.getElementById('quiz-options');
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+            
             container.innerHTML = '';
             
-            quizOptions.forEach(option => {
+            // Shuffle the options
+            const shuffled = shuffleArray(quizOptions);
+            
+            // Create neutral-colored options
+            shuffled.forEach((option, index) => {
                 const div = document.createElement('div');
-                div.className = 'activity-option';
-                div.innerHTML = `<strong>${option.id}.</strong> ${option.text}`;
+                div.className = 'quiz-option-btn';
+                div.innerHTML = `<strong style="font-size: 1.2em;">${String.fromCharCode(65 + index)})</strong> ${option.text}`;
                 div.onclick = () => checkAnswer(option.id);
+                div.dataset.optionId = option.id;
+                
+                // Neutral styling - same for all options
+                div.style.cssText = `
+                    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+                    border: 4px solid #9ca3af;
+                    padding: 30px;
+                    margin: 20px 0;
+                    cursor: pointer;
+                    border-radius: 15px;
+                    font-size: 1.8em;
+                    transition: all 0.3s;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                `;
+                
+                // Hover effect
+                div.onmouseover = () => {
+                    if (!answered) {
+                        div.style.transform = 'scale(1.05)';
+                        div.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
+                    }
+                };
+                div.onmouseout = () => {
+                    if (!answered) {
+                        div.style.transform = 'scale(1)';
+                        div.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+                    }
+                };
+                
                 container.appendChild(div);
             });
         }
@@ -1577,8 +1748,8 @@
             const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
             nextStepElement.classList.add('active', randomAnimation);
             
-            // Initialize quiz if we're on step 12
-            if (currentStep === 12) {
+            // Initialize quiz if we're on step 8
+            if (currentStep === 8) {
                 initializeQuiz();
             }
             
@@ -1612,8 +1783,8 @@
             const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
             prevStepElement.classList.add('active', randomAnimation);
             
-            // Reset quiz if going back to step 12
-            if (currentStep === 12) {
+            // Reset quiz if going back to step 8
+            if (currentStep === 8) {
                 answered = false;
                 document.getElementById('feedback').innerHTML = '';
                 initializeQuiz();
@@ -1643,35 +1814,42 @@
             
             answered = true;
             const feedback = document.getElementById('feedback');
-            const options = document.querySelectorAll('.activity-option');
+            const allOptions = document.querySelectorAll('.quiz-option-btn');
             const selectedOption = quizOptions.find(opt => opt.id === optionId);
+            const correctOption = quizOptions.find(opt => opt.correct);
             
-            // Disable all options and mark correct/incorrect
-            options.forEach((option) => {
-                option.classList.add('disabled');
+            // Color the options after selection
+            allOptions.forEach((optionDiv) => {
+                const thisOptionId = optionDiv.dataset.optionId;
+                optionDiv.style.cursor = 'not-allowed';
+                optionDiv.onmouseover = null;
+                optionDiv.onmouseout = null;
+                optionDiv.style.transform = 'scale(1)';
                 
-                // Check if this option contains the correct answer
-                const optionText = option.innerHTML;
-                const correctOption = quizOptions.find(opt => opt.correct);
-                
-                if (optionText.includes(correctOption.text)) {
-                    option.classList.add('correct');
-                } else if (optionText.includes(selectedOption.text) && !selectedOption.correct) {
-                    option.classList.add('incorrect');
+                if (thisOptionId === correctOption.id) {
+                    // Color correct answer GREEN
+                    optionDiv.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
+                    optionDiv.style.border = '4px solid #10b981';
+                    optionDiv.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.3)';
+                } else {
+                    // Color wrong answer RED
+                    optionDiv.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
+                    optionDiv.style.border = '4px solid #ef4444';
+                    optionDiv.style.boxShadow = '0 6px 20px rgba(239, 68, 68, 0.3)';
                 }
             });
             
             // Show feedback
             if (selectedOption.correct) {
-                feedback.innerHTML = '<div class="feedback correct">🎉 Excellent ! C\'est la bonne réponse !</div>';
+                feedback.innerHTML = '<div class="feedback correct" style="font-size: 2em; padding: 30px; background: #d1fae5; border: 3px solid #10b981; border-radius: 15px; margin-top: 20px;">🎉 Bravo ! C\'est correct !</div>';
             } else {
-                feedback.innerHTML = '<div class="feedback incorrect">❌ Pas tout à fait... La bonne réponse est B !</div>';
+                feedback.innerHTML = '<div class="feedback incorrect" style="font-size: 2em; padding: 30px; background: #fee2e2; border: 3px solid #ef4444; border-radius: 15px; margin-top: 20px;">❌ Non... La bonne réponse est "<span class="no-break">Un GROS chat</span>" !</div>';
             }
             
-            // Auto advance after 2 seconds
+            // Auto advance after 3 seconds
             setTimeout(() => {
                 nextStep();
-            }, 2000);
+            }, 3000);
         }
         
         function replayLesson() {
