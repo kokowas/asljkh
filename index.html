@@ -45,7 +45,6 @@
         }
         
         .animation-container {
-            /* Exact same as whiteboard-frame */
             background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
             padding: 8px;
             border-radius: 8px;
@@ -87,7 +86,7 @@
             display: none;
         }
         
-        /* Slim Whiteboard Frame Styles - matches animation-container */
+        /* Slim Whiteboard Frame Styles */
         .whiteboard-frame {
             background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
             padding: 8px;
@@ -131,7 +130,6 @@
             transition: all 0.3s ease;
             font-weight: 600;
             z-index: 1000;
-            font-family: 'Poppins', sans-serif;
         }
         
         .arabic-toggle:hover {
@@ -145,8 +143,6 @@
             padding: 0;
             width: 50px;
             height: 50px;
-            font-size: 16px;
-            font-weight: bold;
             border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -158,42 +154,29 @@
             top: 20px !important;
             left: 20px !important;
             z-index: 99999 !important;
-            backdrop-filter: blur(10px);
             opacity: 1;
         }
         
         .fullscreen-btn.in-fullscreen {
             opacity: 0.3;
-            background: rgba(255, 255, 255, 0.3);
         }
         
         .fullscreen-btn:hover,
         .fullscreen-btn.visible {
             opacity: 1 !important;
-            background: rgba(255, 255, 255, 0.9);
         }
         
         .fullscreen-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
-            background: rgba(255, 255, 255, 1);
-        }
-        
-        .fullscreen-btn:active {
-            transform: scale(0.95);
         }
         
         .fullscreen-btn svg {
             width: 24px;
             height: 24px;
-            flex-shrink: 0;
         }
         
-        /* Hide video controls and poster */
-        video::-webkit-media-controls {
-            display: none !important;
-        }
-        
+        /* Hide video controls */
+        video::-webkit-media-controls,
         video::-webkit-media-controls-enclosure {
             display: none !important;
         }
@@ -212,8 +195,6 @@
             font-size: 1.1em;
             line-height: 1.8;
             direction: rtl;
-            font-family: Arial, sans-serif;
-            animation: fadeInUp 0.4s ease forwards;
         }
         
         .arabic-text.show {
@@ -226,84 +207,46 @@
         
         .step-container.active {
             display: block;
-        }
-        
-        /* Different animations for variety */
-        .step-container.active.fade-in {
             animation: fadeIn 0.8s ease forwards;
         }
         
-        .step-container.active.slide-in-left {
-            animation: slideInLeft 0.7s ease forwards;
+        /* NEW: Styles for inner slide steps (cumulative reveal) */
+        .slide-step {
+            display: none; /* Hidden by default */
         }
-        
-        .step-container.active.slide-in-right {
-            animation: slideInRight 0.7s ease forwards;
-        }
-        
-        .step-container.active.zoom-in {
-            animation: zoomIn 0.6s ease forwards;
-        }
-        
-        .step-container.active.slide-up {
+        .slide-step.visible {
+            display: block; /* Revealed with class */
             animation: fadeInUp 0.6s ease forwards;
         }
-        
-        .step-container.active.rotate-in {
-            animation: rotateIn 0.7s ease forwards;
+        .step-navigation {
+            text-align: center;
+            margin-top: 20px;
         }
-        
+        .step-next-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .step-next-btn:hover {
+            transform: scale(1.1);
+        }
+        .step-next-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes rotateIn {
-            from {
-                opacity: 0;
-                transform: rotate(-5deg) translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: rotate(0deg) translateY(0);
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         @keyframes fadeInUp {
@@ -317,40 +260,39 @@
             }
         }
         
-        /* Content box animations */
-        .content-box, .definition-box, .key-point, .step-item, 
-        .example-box, .counter-example, .explanation-box {
-            animation: contentPop 0.5s ease forwards;
+        h1, h2, h3, h4 {
+             text-align: center;
         }
-        
-        @keyframes contentPop {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
+
         h1 {
             color: #2c3e50;
-            font-size: clamp(1.5em, 5vw, 2.5em);
+            font-size: clamp(1.8em, 5vw, 2.5em);
             margin-bottom: 10px;
-            text-align: center;
             background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        h2 {
+            font-size: clamp(1.5em, 4vw, 2em);
+            color: #34495e;
+            margin-bottom: 15px;
+        }
         
         .subtitle {
             text-align: center;
             color: #7f8c8d;
-            font-size: clamp(0.9em, 3vw, 1.2em);
+            font-size: clamp(1em, 3vw, 1.3em);
             margin-bottom: 30px;
             font-weight: 300;
+        }
+
+        p {
+            font-size: clamp(1em, 2.5vw, 1.2em);
+            line-height: 1.8;
+            color: #34495e;
+            text-align: center;
         }
         
         .definition-box {
@@ -359,157 +301,88 @@
             border-radius: 15px;
             margin: 25px 0;
             border-left: 5px solid #4caf50;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
-        }
-        
-        .definition-box h3 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: clamp(1.1em, 3.5vw, 1.4em);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .definition-box p {
             color: #1b5e20;
-            font-size: clamp(0.95em, 2.5vw, 1.1em);
-            line-height: 1.8;
         }
         
         .key-point {
             background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            padding: clamp(12px, 2.5vw, 20px);
+            padding: clamp(15px, 3vw, 25px);
             border-radius: 12px;
             margin: 20px 0;
             border-left: 5px solid #ff9800;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
-        }
-        
-        .key-point h4 {
-            color: #e65100;
-            margin-bottom: 10px;
-            font-size: clamp(1em, 3vw, 1.2em);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .key-point p {
             color: #bf360c;
-            line-height: 1.7;
-            font-size: clamp(0.9em, 2.3vw, 1em);
         }
         
         .example-box {
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            padding: clamp(12px, 2.5vw, 20px);
+            padding: clamp(15px, 3vw, 25px);
             border-radius: 12px;
             margin: 20px 0;
             border-left: 5px solid #2196f3;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
         }
-        
-        .example-box h4 {
-            color: #0d47a1;
-            margin-bottom: 15px;
-            font-size: clamp(1em, 3vw, 1.2em);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+
+        .example-box h3 {
+             color: #0d47a1;
+             font-size: clamp(1.2em, 3.2vw, 1.5em);
         }
-        
-        .example-item {
-            background: white;
-            padding: clamp(10px, 2vw, 15px);
-            margin: 10px 0;
-            border-radius: 8px;
+
+        .example-box p {
             color: #1565c0;
-            font-size: clamp(0.9em, 2.3vw, 1.1em);
-            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
         }
-        
-        .example-item strong {
-            color: #0d47a1;
-            font-weight: 600;
+
+        .example-box .example-phrase {
+             font-size: clamp(1.3em, 4vw, 1.8em);
+             font-weight: 600;
+             margin: 15px 0;
         }
-        
+
+        .example-box .example-explanation {
+            font-size: clamp(1em, 2.5vw, 1.1em);
+            color: #059669;
+        }
+
         .counter-example {
             background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-            padding: clamp(12px, 2.5vw, 20px);
+            padding: clamp(15px, 3vw, 25px);
             border-radius: 12px;
             margin: 20px 0;
             border-left: 5px solid #f44336;
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.2);
         }
-        
-        .counter-example h4 {
+
+        .counter-example h3 {
             color: #c62828;
-            margin-bottom: 15px;
-            font-size: clamp(1em, 3vw, 1.2em);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: clamp(1.2em, 3.2vw, 1.5em);
         }
-        
-        .counter-example-item {
-            background: white;
-            padding: clamp(10px, 2vw, 15px);
-            margin: 10px 0;
-            border-radius: 8px;
+
+        .counter-example p {
             color: #d32f2f;
-            font-size: clamp(0.9em, 2.3vw, 1.1em);
-            box-shadow: 0 2px 8px rgba(244, 67, 54, 0.1);
         }
-        
-        .counter-example-item strong {
-            color: #b71c1c;
-            font-weight: 600;
+
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 4px solid #dc2626;
+            border-radius: 15px;
+            padding: clamp(15px, 3vw, 25px);
+            margin: 25px 0;
         }
-        
-        .explanation-box {
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            padding: clamp(12px, 2.5vw, 20px);
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 5px solid #9c27b0;
-            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2);
+
+        .warning-box h2 {
+            color: #991b1b;
         }
-        
-        .explanation-box h4 {
-            color: #6a1b9a;
+
+        .warning-box p {
+            color: #b91c1c;
+        }
+
+        .warning-box .icon {
+            font-size: clamp(2.5em, 6vw, 4em);
             margin-bottom: 15px;
-            font-size: clamp(1em, 3vw, 1.2em);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .explanation-box p {
-            color: #4a148c;
-            line-height: 1.8;
-            font-size: clamp(0.9em, 2.3vw, 1.05em);
-        }
-        
-        .step-item {
-            background: white;
-            padding: clamp(12px, 2.5vw, 20px);
-            margin: 15px 0;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            border-left: 4px solid #667eea;
-        }
-        
-        .step-item h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: clamp(1em, 2.8vw, 1.15em);
-        }
-        
-        .step-item p {
-            color: #555;
-            line-height: 1.7;
-            font-size: clamp(0.9em, 2.2vw, 1em);
         }
         
         .navigation {
@@ -530,17 +403,11 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .nav-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        
-        .nav-btn:active {
-            transform: translateY(0);
         }
         
         .prev-btn {
@@ -559,7 +426,6 @@
             font-size: 1.3em;
             background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
             color: white;
-            margin-top: 20px;
         }
         
         .progress-container {
@@ -568,7 +434,6 @@
             border-radius: 10px;
             overflow: hidden;
             margin: 30px 0 20px 0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .progress-bar {
@@ -576,7 +441,6 @@
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 10px;
         }
         
         .step-indicator {
@@ -589,63 +453,15 @@
         
         .content-box {
             background: #f8f9fa;
-            padding: clamp(12px, 2.5vw, 20px);
+            padding: clamp(20px, 3vw, 30px);
             border-radius: 12px;
             margin: 20px 0;
-            line-height: 1.8;
             color: #2c3e50;
         }
         
         .content-box h3 {
-            font-size: clamp(1em, 3vw, 1.3em);
-        }
-        
-        .content-box p {
-            font-size: clamp(0.9em, 2.3vw, 1.1em);
-        }
-        
-        .content-box ul {
-            margin-left: 25px;
-            margin-top: 15px;
-        }
-        
-        .content-box li {
-            margin: 10px 0;
-            color: #34495e;
-            font-size: clamp(0.9em, 2.2vw, 1em);
-        }
-        
-        .highlight {
-            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #1565c0;
-            font-size: clamp(0.9em, 2.2vw, 1em);
-        }
-        
-        .warning-box {
-            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
-            padding: clamp(12px, 2.5vw, 20px);
-            border-radius: 12px;
-            margin: 20px 0;
-            border-left: 5px solid #fbc02d;
-            box-shadow: 0 4px 15px rgba(251, 192, 45, 0.2);
-        }
-        
-        .warning-box h4 {
-            color: #f57f17;
-            margin-bottom: 10px;
-            font-size: clamp(1em, 3vw, 1.2em);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .warning-box p {
-            color: #f57f17;
-            line-height: 1.7;
-            font-size: clamp(0.9em, 2.3vw, 1em);
+            font-size: clamp(1.3em, 3.5vw, 1.8em);
+            color: #667eea;
         }
         
         .activity-box {
@@ -654,74 +470,41 @@
             border-radius: 15px;
             margin: 25px 0;
             border-left: 5px solid #9e9d24;
-            box-shadow: 0 4px 15px rgba(158, 157, 36, 0.2);
         }
         
         .activity-box h3 {
             color: #827717;
-            margin-bottom: 20px;
-            font-size: clamp(1.2em, 3.5vw, 1.5em);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: clamp(1.3em, 3.5vw, 1.8em);
         }
         
         .activity-question {
             background: white;
             padding: clamp(12px, 2.5vw, 20px);
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin: 20px 0;
             color: #33691e;
-            font-size: clamp(1em, 2.8vw, 1.2em);
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
-        .activity-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .activity-option {
-            background: white;
-            padding: clamp(12px, 2.5vw, 18px);
-            border-radius: 10px;
+        .quiz-option-btn {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border: 3px solid #9ca3af;
+            padding: 20px;
+            margin: 15px 0;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            font-size: clamp(0.95em, 2.5vw, 1.1em);
-            color: #558b2f;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            transition: all 0.3s;
         }
-        
-        .activity-option:hover:not(.disabled) {
-            background: #f9fbe7;
-            border-color: #9e9d24;
-            transform: translateX(5px);
-        }
-        
-        .activity-option.correct {
-            background: #c8e6c9;
-            border-color: #4caf50;
-        }
-        
-        .activity-option.incorrect {
-            background: #ffcdd2;
-            border-color: #f44336;
-        }
-        
-        .activity-option.disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
+        .quiz-option-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
         
         .feedback {
             margin-top: 20px;
-            padding: clamp(12px, 2.5vw, 20px);
+            padding: clamp(15px, 3vw, 20px);
             border-radius: 10px;
             font-weight: 600;
-            font-size: clamp(1em, 2.8vw, 1.2em);
             text-align: center;
             animation: slideInUp 0.4s ease;
         }
@@ -729,24 +512,16 @@
         .feedback.correct {
             background: #c8e6c9;
             color: #2e7d32;
-            border: 3px solid #4caf50;
         }
         
         .feedback.incorrect {
             background: #ffcdd2;
             color: #c62828;
-            border: 3px solid #f44336;
         }
         
         @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .completion-box {
@@ -755,507 +530,98 @@
             border-radius: 20px;
             text-align: center;
             color: white;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
         }
         
-        .completion-box h2 {
-            font-size: clamp(1.5em, 5vw, 2.5em);
+        .completion-box .icon {
+            font-size: clamp(3em, 7vw, 5em);
             margin-bottom: 20px;
         }
-        
-        .completion-box p {
-            font-size: clamp(1em, 3vw, 1.3em);
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-        
-        .completion-box ul {
-            font-size: clamp(0.9em, 2.5vw, 1.1em);
+
+        .completion-box h2 {
+             color: white;
         }
         
         .replay-btn {
             background: white;
             color: #667eea;
-            padding: clamp(12px, 2.5vw, 18px) clamp(25px, 4vw, 40px);
-            font-size: clamp(1em, 2.8vw, 1.2em);
+            padding: 18px 40px;
+            font-size: 1.2em;
             font-weight: 700;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 20px;
         }
         
         .replay-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
         }
         
-        /* Mobile First - Ultra Small Devices (300px and less) */
-        @media (max-width: 320px) {
-            * {
-                box-sizing: border-box;
-            }
-            
-            body {
-                padding: 2px !important;
-                font-size: 8px !important;
-            }
-            
-            #animationIntro {
-                padding: 1px !important;
-            }
-            
-            .container {
-                padding: 2px !important;
-            }
-            
-            .animation-container,
-            .whiteboard-frame {
-                width: 100% !important;
-                padding: 1px !important;
-                border-radius: 3px !important;
-            }
-            
-            .animation-content,
-            .whiteboard-content {
-                min-height: 50vh !important;
-                padding: 2px !important;
-                border-radius: 2px !important;
-            }
-            
-            /* Step containers - NO padding */
-            .step-container {
-                padding: 3px !important;
-            }
-            
-            /* Headings - TINY */
-            h1 {
-                font-size: 0.95em !important;
-                margin-bottom: 4px !important;
-                line-height: 1.2 !important;
-            }
-            
-            h2 {
-                font-size: 0.9em !important;
-                margin-bottom: 4px !important;
-                line-height: 1.2 !important;
-            }
-            
-            h3 {
-                font-size: 0.85em !important;
-                margin-bottom: 3px !important;
-                line-height: 1.2 !important;
-            }
-            
-            h4 {
-                font-size: 0.8em !important;
-                margin-bottom: 3px !important;
-            }
-            
-            p, .subtitle {
-                font-size: 0.75em !important;
-                line-height: 1.2 !important;
-                margin: 3px 0 !important;
-            }
-            
-            /* Boxes - MINIMAL padding */
-            .content-box,
-            .definition-box,
-            .example-box,
-            .key-point,
-            .activity-box,
-            .explanation-box,
-            .counter-example {
-                padding: 4px !important;
-                margin: 3px 0 !important;
-                border-radius: 4px !important;
-            }
-            
-            /* Example items */
-            .example-item,
-            .step-item {
-                padding: 4px !important;
-                margin: 2px 0 !important;
-            }
-            
-            /* CRITICAL: Override ALL large inline font sizes */
-            [style*="font-size: 5em"],
-            div[style*="font-size: 5em"],
-            p[style*="font-size: 5em"] {
-                font-size: 1.2em !important;
-            }
-            
-            [style*="font-size: 4em"],
-            div[style*="font-size: 4em"],
-            p[style*="font-size: 4em"] {
-                font-size: 1.1em !important;
-            }
-            
-            [style*="font-size: 3em"],
-            div[style*="font-size: 3em"],
-            p[style*="font-size: 3em"],
-            h1[style*="font-size: 3em"],
-            h2[style*="font-size: 3em"] {
-                font-size: 0.95em !important;
-            }
-            
-            [style*="font-size: 2.5em"],
-            div[style*="font-size: 2.5em"],
-            p[style*="font-size: 2.5em"],
-            h1[style*="font-size: 2.5em"],
-            h2[style*="font-size: 2.5em"] {
-                font-size: 0.9em !important;
-            }
-            
-            [style*="font-size: 2.2em"],
-            div[style*="font-size: 2.2em"],
-            h2[style*="font-size: 2.2em"] {
-                font-size: 0.85em !important;
-            }
-            
-            [style*="font-size: 2em"],
-            div[style*="font-size: 2em"],
-            p[style*="font-size: 2em"],
-            h2[style*="font-size: 2em"],
-            h3[style*="font-size: 2em"] {
-                font-size: 0.8em !important;
-            }
-            
-            [style*="font-size: 1.8em"],
-            div[style*="font-size: 1.8em"],
-            p[style*="font-size: 1.8em"] {
-                font-size: 0.78em !important;
-            }
-            
-            [style*="font-size: 1.6em"],
-            div[style*="font-size: 1.6em"],
-            p[style*="font-size: 1.6em"] {
-                font-size: 0.76em !important;
-            }
-            
-            [style*="font-size: 1.5em"],
-            div[style*="font-size: 1.5em"],
-            p[style*="font-size: 1.5em"] {
-                font-size: 0.75em !important;
-            }
-            
-            [style*="font-size: 1.3em"],
-            div[style*="font-size: 1.3em"],
-            p[style*="font-size: 1.3em"] {
-                font-size: 0.73em !important;
-            }
-            
-            [style*="font-size: 1.2em"],
-            p[style*="font-size: 1.2em"] {
-                font-size: 0.72em !important;
-            }
-            
-            /* CRITICAL: Override ALL padding inline styles */
-            [style*="padding: 60px"],
-            [style*="padding: 50px"],
-            [style*="padding: 40px"],
-            [style*="padding: 30px"],
-            div[style*="padding: 60px"],
-            div[style*="padding: 50px"],
-            div[style*="padding: 40px"],
-            div[style*="padding: 30px"] {
-                padding: 4px !important;
-            }
-            
-            [style*="padding: 25px"],
-            [style*="padding: 20px"],
-            [style*="padding: 15px"],
-            div[style*="padding: 25px"],
-            div[style*="padding: 20px"],
-            div[style*="padding: 15px"] {
-                padding: 3px !important;
-            }
-            
-            /* CRITICAL: Override ALL margin inline styles */
-            [style*="margin: 50px"],
-            [style*="margin: 40px"],
-            [style*="margin: 30px"],
-            [style*="margin: 20px"],
-            div[style*="margin: 50px"],
-            div[style*="margin: 40px"],
-            div[style*="margin: 30px"],
-            div[style*="margin: 20px"] {
-                margin: 3px 0 !important;
-            }
-            
-            [style*="margin-bottom: 40px"],
-            [style*="margin-bottom: 30px"],
-            [style*="margin-bottom: 20px"],
-            div[style*="margin-bottom: 40px"],
-            div[style*="margin-bottom: 30px"],
-            div[style*="margin-bottom: 20px"] {
-                margin-bottom: 3px !important;
-            }
-            
-            [style*="margin-top: 40px"],
-            [style*="margin-top: 30px"],
-            [style*="margin-top: 20px"],
-            div[style*="margin-top: 40px"],
-            div[style*="margin-top: 30px"],
-            div[style*="margin-top: 20px"] {
-                margin-top: 3px !important;
-            }
-            
-            [style*="margin: 15px"],
-            [style*="margin: 10px"],
-            div[style*="margin: 15px"],
-            div[style*="margin: 10px"] {
-                margin: 2px 0 !important;
-            }
-            
-            /* Max-width */
-            [style*="max-width"],
-            div[style*="max-width: 800px"],
-            div[style*="max-width: 700px"],
-            div[style*="max-width: 600px"] {
-                max-width: 100% !important;
-            }
-            
-            /* Navigation buttons - smaller */
-            .nav-btn {
-                padding: 5px 8px !important;
-                font-size: 0.7em !important;
-                margin: 2px !important;
-            }
-            
-            .navigation {
-                margin-top: 5px !important;
-            }
-            
-            .start-btn,
-            .replay-btn {
-                padding: 6px 10px !important;
-                font-size: 0.75em !important;
-            }
-            
-            /* Quiz options */
-            .quiz-option-btn,
-            .activity-option {
-                padding: 6px !important;
-                font-size: 0.75em !important;
-                margin: 4px 0 !important;
-                border-width: 2px !important;
-                line-height: 1.3 !important;
-            }
-            
-            /* Arabic text */
-            .arabic-text {
-                font-size: 0.75em !important;
-                padding: 4px !important;
-                margin: 4px 0 !important;
-            }
-            
-            .arabic-text h3,
-            .arabic-text h4 {
-                font-size: 0.8em !important;
-            }
-            
-            .arabic-text p {
-                font-size: 0.75em !important;
-            }
-            
-            /* Progress bar */
-            .progress-container {
-                height: 3px !important;
-                margin-bottom: 4px !important;
-            }
-            
-            .step-indicator {
-                font-size: 0.7em !important;
-                padding: 4px 6px !important;
-                margin-bottom: 5px !important;
-            }
-            
-            /* Buttons in header */
-            .fullscreen-btn,
-            .arabic-toggle {
-                width: 25px !important;
-                height: 25px !important;
-                font-size: 0.65em !important;
-            }
-            
-            .arabic-toggle {
-                right: 30px !important;
-            }
-            
-            /* Completion box */
-            .completion-box {
-                padding: 8px !important;
-            }
-            
-            /* Borders - thinner */
-            [style*="border: 6px"],
-            [style*="border: 5px"],
-            [style*="border: 4px"],
-            div[style*="border: 6px"],
-            div[style*="border: 5px"],
-            div[style*="border: 4px"] {
-                border-width: 2px !important;
-            }
-            
-            /* Feedback messages */
-            #feedback {
-                font-size: 0.75em !important;
-                padding: 5px !important;
-            }
-            
-            /* Activity question */
-            .activity-question {
-                font-size: 0.8em !important;
-                margin: 5px 0 !important;
-            }
-            
-            /* Strong tags */
-            strong {
-                font-size: inherit !important;
-            }
-            
-            /* Specific override for example boxes */
-            .example-box p,
-            .example-box h3 {
-                font-size: 0.8em !important;
-                padding: 3px !important;
-                margin: 3px 0 !important;
-            }
-            
-            /* Definition box text */
-            .definition-box p {
-                font-size: 0.75em !important;
-            }
-            
-            /* Line height for all text */
-            * {
-                line-height: 1.3 !important;
-            }
-        }
-        
-        /* Small Mobile Devices (321px to 480px) */
-        @media (min-width: 321px) and (max-width: 480px) {
-            body {
-                padding: 4px;
-                font-size: 10px;
-            }
-            
-            h1 {
-                font-size: 1.2em !important;
-            }
-            
-            [style*="font-size: 3em"],
-            div[style*="font-size: 3em"] {
-                font-size: 1.3em !important;
-            }
-            
-            [style*="font-size: 2.5em"],
-            div[style*="font-size: 2.5em"] {
-                font-size: 1.1em !important;
-            }
-            
-            [style*="padding: 60px"],
-            [style*="padding: 50px"],
-            div[style*="padding: 60px"],
-            div[style*="padding: 50px"] {
-                padding: 10px !important;
-            }
-            
-            .step-container {
-                padding: 6px !important;
-            }
+        .no-break {
+            white-space: nowrap;
         }
 
-        /* Tablets and Medium Devices */
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            #animationIntro {
-                padding: 5px;
-            }
-            
-            .container {
-                padding: 8px;
-            }
-            
-            .animation-container,
-            .whiteboard-frame {
-                width: 100%;
-                padding: 4px;
-            }
-            
-            .animation-content,
-            .whiteboard-content {
-                min-height: 85vh;
-                padding: 5px;
-            }
-            
-            .animation-content img {
-                width: 100%;
-                height: 100%;
-            }
+            .container { padding: 20px; }
         }
-        
-        /* CRITICAL: Keep adjective + noun phrases on ONE line */
-        .no-break {
-            white-space: nowrap !important;
-            display: inline-block !important;
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .container { padding: 15px; }
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.5em; }
+            p { font-size: 1em; }
+            .nav-btn { padding: 12px 20px; font-size: 1em; }
+            .fullscreen-btn { width: 40px; height: 40px; }
+            .arabic-toggle { padding: 10px 20px; font-size: 0.9em; }
         }
     </style>
 </head>
 <body>
-    <!-- Animation Intro -->
     <div id="animationIntro">
         <div class="animation-container">
             <div class="animation-content">
-                <video id="animationVideo" autoplay muted playsinline preload="none" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" controlslist="nodownload nofullscreen noremoteplayback" disablePictureInPicture>
+                <video id="animationVideo" autoplay muted playsinline preload="auto">
                     <source id="videoSource" src="" type="video/mp4">
-                    Your browser does not support the video tag.
                 </video>
             </div>
         </div>
     </div>
 
-    <!-- Fullscreen Button -->
     <button class="fullscreen-btn" onclick="toggleFullscreen()">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
     </button>
+    <button class="arabic-toggle" onclick="toggleArabic()"><span id="toggleText">🌐 عربي</span></button>
 
-    <!-- Arabic Toggle Button -->
-    <button class="arabic-toggle" onclick="toggleArabic()">
-        <span id="toggleText">🌐 عربي</span>
-    </button>
-
-    <!-- Main Content in Whiteboard Frame -->
     <div class="whiteboard-frame">
         <div class="whiteboard-content">
             <div class="container">
-                <!-- Progress Bar -->
                 <div class="progress-container">
                     <div class="progress-bar" id="progressBar"></div>
                 </div>
-                <div class="step-indicator" id="stepIndicator">Étape 1 / 9</div>
+                <div class="step-indicator" id="stepIndicator"></div>
 
-                <!-- Step 1: Welcome & Title -->
-                <div id="step1" class="step-container active zoom-in">
-                    <h1>🎉 L'Adjectif Épithète</h1>
-                    <p class="subtitle" style="font-size: 1.5em;">Pour les enfants</p>
-                    
-                    <div class="content-box">
-                        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1.8em;">👋 Bonjour !</h3>
-                        <p style="font-size: 1.3em; line-height: 1.8;">Aujourd'hui, on va apprendre quelque chose de très simple : <strong><span class="no-break">l'adjectif épithète</span></strong> !</p>
-                        <p style="font-size: 1.3em; margin-top: 20px;">C'est facile, tu vas voir ! 😊</p>
+                <!-- Step 1: Welcome -->
+                <div id="step1" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1>🎉 L'Adjectif Épithète</h1>
+                            <p class="subtitle">Pour les enfants</p>
+                        </div>
+                        <div class="slide-step">
+                            <div class="content-box">
+                                <h3>👋 Bonjour !</h3>
+                                <p>Aujourd'hui, on va apprendre quelque chose de très simple : <strong><span class="no-break">l'adjectif épithète</span></strong> !</p>
+                                <p>C'est facile, tu vas voir ! 😊</p>
+                            </div>
+                            <div class="arabic-text">
+                                <h3>👋 مرحباً!</h3>
+                                <p>اليوم سنتعلم شيئاً بسيطاً جداً: الصفة الملازمة!</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px; font-size: 1.5em;">👋 مرحباً!</h3>
-                        <p style="font-size: 1.2em;">اليوم سنتعلم شيئاً بسيطاً جداً: الصفة الملازمة!</p>
-                        <p style="font-size: 1.2em;">سهل جداً، سترى! 😊</p>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn start-btn" onclick="startLesson()">✨ Commencer !</button>
                     </div>
@@ -1263,33 +629,25 @@
 
                 <!-- Step 2: What is it? -->
                 <div id="step2" class="step-container">
-                    <h1 style="font-size: 2.5em;">🤔 C'est quoi ?</h1>
-                    
-                    <div class="definition-box">
-                        <p style="font-size: 1.5em; line-height: 1.8;">
-                            C'est un <strong style="color: #f59e0b;">mot qui décrit</strong> et qui est <strong style="color: #10b981;">collé au nom</strong> !
-                        </p>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1>🤔 C'est quoi ?</h1>
+                        </div>
+                        <div class="slide-step">
+                            <div class="definition-box">
+                                <p>C'est un <strong style="color: #f59e0b;">mot qui décrit</strong> et qui est <strong style="color: #10b981;">collé au nom</strong> !</p>
+                            </div>
+                            <div class="arabic-text"><p>هي كلمة تصف الاسم وتكون ملتصقة به!</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box">
+                                <h3>Exemple :</h3>
+                                <p class="example-phrase"><span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳</p>
+                                <p class="example-explanation">"BEAU" décrit le jardin !</p>
+                            </div>
+                            <div class="arabic-text"><p>مثال: حديقة جميلة 🌳</p></div>
+                        </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <p style="font-size: 1.3em;">هي كلمة تصف الاسم وتكون ملتصقة به!</p>
-                    </div>
-                    
-                    <div class="example-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 40px; margin: 30px 0;">
-                        <h3 style="font-size: 2em; margin-bottom: 20px;">Exemple :</h3>
-                        <p style="font-size: 3em; margin: 20px 0;">
-                            <span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳
-                        </p>
-                        <p style="font-size: 1.5em; color: #059669; margin-top: 20px;">
-                            "BEAU" décrit le jardin !
-                        </p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <p style="font-size: 1.5em;">مثال: حديقة جميلة 🌳</p>
-                        <p style="font-size: 1.2em;">"جميلة" تصف الحديقة!</p>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
@@ -1298,108 +656,71 @@
 
                 <!-- Step 3: It Describes the Noun -->
                 <div id="step3" class="step-container">
-                    <h1 style="font-size: 2.5em;">💬 Il décrit le nom</h1>
-                    
-                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border: 5px solid #0ea5e9; border-radius: 25px; padding: 60px; margin: 50px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                        <div style="text-align: center; margin-bottom: 40px;">
-                            <div style="font-size: 4em; margin-bottom: 20px;">🎯</div>
-                            <h2 style="font-size: 2.5em; color: #0369a1; margin: 0;">L'adjectif épithète</h2>
-                            <h3 style="font-size: 2em; color: #0284c7; margin-top: 20px;">DÉCRIT LE NOM</h3>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1>💬 Il décrit le nom</h1>
                         </div>
-                        
-                        <div style="background: white; border-radius: 15px; padding: 30px; margin: 30px 0;">
-                            <p style="font-size: 2em; text-align: center; line-height: 1.6;">
-                                <span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳
-                            </p>
-                            <p style="font-size: 1.3em; color: #059669; text-align: center; margin-top: 20px;">
-                                👉 "BEAU" décrit comment est le jardin
-                            </p>
+                        <div class="slide-step">
+                            <div class="example-box">
+                                <p class="icon" style="font-size: 3em;">🎯</p>
+                                <h2>L'adjectif épithète DÉCRIT le nom</h2>
+                                <p class="example-phrase"><span class="no-break">Un <span style="color: #f59e0b; font-weight: 900;">BEAU</span> jardin</span> 🌳</p>
+                                <p class="example-explanation">👉 "BEAU" décrit comment est le jardin</p>
+                            </div>
+                            <div class="arabic-text"><p>الصفة تصف الاسم. مثال: "جميلة" تصف كيف تبدو الحديقة</p></div>
                         </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
-                            <h3 style="font-size: 1.8em; margin-bottom: 15px;">الصفة تصف الاسم</h3>
-                            <p style="font-size: 1.3em;">حديقة جميلة - "جميلة" تصف كيف تبدو الحديقة</p>
-                        </div>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 4: Position - Before or After -->
+                <!-- Step 4: Position -->
                 <div id="step4" class="step-container">
-                    <h1 style="font-size: 2.5em;">📍 Avant ou Après ?</h1>
-                    
-                    <div style="margin: 50px 0;">
-                        <!-- BEFORE box -->
-                        <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 5px solid #f59e0b; border-radius: 25px; padding: 50px; margin: 30px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                            <div style="text-align: center;">
-                                <div style="font-size: 3em; margin-bottom: 20px;">⬅️</div>
-                                <h2 style="font-size: 2.2em; color: #d97706; margin-bottom: 30px;">AVANT le nom</h2>
-                                <p style="font-size: 2.5em; font-weight: bold;">
-                                    <span class="no-break">Un <span style="color: #f59e0b;">GRAND</span> arbre</span> 🌳
-                                </p>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1>📍 Avant ou Après ?</h1>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box">
+                                <p class="icon">⬅️</p>
+                                <h3>AVANT le nom</h3>
+                                <p class="example-phrase"><span class="no-break">Un <span style="color: #f59e0b;">GRAND</span> arbre</span> 🌳</p>
                             </div>
                         </div>
-                        
-                        <!-- AFTER box -->
-                        <div style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border: 5px solid #a855f7; border-radius: 25px; padding: 50px; margin: 30px auto; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                            <div style="text-align: center;">
-                                <div style="font-size: 3em; margin-bottom: 20px;">➡️</div>
-                                <h2 style="font-size: 2.2em; color: #7c3aed; margin-bottom: 30px;">APRÈS le nom</h2>
-                                <p style="font-size: 2.5em; font-weight: bold;">
-                                    <span class="no-break">Un <span class="no-break">chat <span style="color: #a855f7;">NOIR</span></span></span> 🐱
-                                </p>
+                        <div class="slide-step">
+                            <div class="example-box" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); border-left-color: #a855f7;">
+                                <p class="icon">➡️</p>
+                                <h3>APRÈS le nom</h3>
+                                <p class="example-phrase" style="color: #7c3aed;"><span class="no-break">Un chat <span style="color: #a855f7;">NOIR</span></span> 🐱</p>
                             </div>
+                            <div class="arabic-text"><p>يمكن أن تأتي الصفة قبل الاسم أو بعده.</p></div>
                         </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0;">
-                            <h3 style="font-size: 1.8em; margin-bottom: 15px;">قبل أو بعد الاسم؟</h3>
-                            <p style="font-size: 1.3em;">⬅️ قبل: شجرة كبيرة</p>
-                            <p style="font-size: 1.3em; margin-top: 15px;">➡️ بعد: قطة سوداء</p>
-                        </div>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 5: Examples with Pictures -->
+                <!-- Step 5: More Examples -->
                 <div id="step5" class="step-container">
-                    <h1 style="font-size: 2.5em;">🎨 Des Exemples !</h1>
-                    
-                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #e0f2fe;">
-                        <p style="font-size: 2.5em; margin: 20px 0;">
-                            <span class="no-break">Un <span style="color: #10b981; font-weight: 900;">GRAND</span> arbre</span> 🌳
-                        </p>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1>🎨 Des Exemples !</h1>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box"><p class="example-phrase"><span class="no-break">Un <span style="color: #10b981;">GRAND</span> arbre</span> 🌳</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box"><p class="example-phrase"><span class="no-break">Une <span style="color: #f59e0b;">PETITE</span> maison</span> 🏠</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box"><p class="example-phrase"><span class="no-break">Un chat <span style="color: #8b5cf6;">NOIR</span></span> 🐱</p></div>
+                            <div class="arabic-text"><p>🌳 شجرة كبيرة<br>🏠 منزل صغير<br>🐱 قطة سوداء</p></div>
+                        </div>
                     </div>
-
-                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #fef3c7;">
-                        <p style="font-size: 2.5em; margin: 20px 0;">
-                            <span class="no-break">Une <span style="color: #f59e0b; font-weight: 900;">PETITE</span> maison</span> 🏠
-                        </p>
-                    </div>
-
-                    <div class="example-box" style="padding: 30px; margin: 20px 0; background: #f3e8ff;">
-                        <p style="font-size: 2.5em; margin: 20px 0;">
-                            <span class="no-break">Un <span class="no-break">chat <span style="color: #8b5cf6; font-weight: 900;">NOIR</span></span></span> 🐱
-                        </p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <p style="font-size: 1.5em; margin: 15px 0;">🌳 شجرة كبيرة</p>
-                        <p style="font-size: 1.5em; margin: 15px 0;">🏠 منزل صغير</p>
-                        <p style="font-size: 1.5em; margin: 15px 0;">🐱 قطة سوداء</p>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
@@ -1408,81 +729,58 @@
 
                 <!-- Step 6: How to Find It -->
                 <div id="step6" class="step-container">
-                    <h1 style="font-size: 2.5em;">🔍 Comment le trouver ?</h1>
-                    
-                    <div class="key-point" style="padding: 40px; font-size: 1.4em;">
-                        <p style="margin-bottom: 30px;">Cherche le mot qui décrit !</p>
+                    <div class="step-content">
+                        <div class="slide-step">
+                             <h1>🔍 Comment le trouver ?</h1>
+                        </div>
+                        <div class="slide-step">
+                            <div class="key-point"><p>Cherche le mot qui décrit, juste à côté du nom !</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box" style="background: #d1fae5; border-left-color: #10b981;">
+                                <h3 style="color: #059669;">✓ CORRECT (Épithète)</h3>
+                                <p class="example-phrase" style="color: #10b981;">Un BEAU chien 🐕</p>
+                                <p>Pas de verbe entre les mots !</p>
+                            </div>
+                        </div>
+                        <div class="slide-step">
+                             <div class="counter-example">
+                                <h3 style="color: #dc2626;">✗ FAUX (Pas Épithète)</h3>
+                                <p class="example-phrase" style="color: #ef4444;">Le chien EST beau 🐕</p>
+                                <p>Il y a un verbe "EST" !</p>
+                            </div>
+                            <div class="arabic-text"><p>✓ كلب جميل (صحيح)<br>✗ الكلب جميل (خطأ - يوجد فعل)</p></div>
+                        </div>
                     </div>
-
-                    <div class="example-box" style="background: #d1fae5; padding: 40px; margin: 30px 0; border: 4px solid #10b981;">
-                        <h3 style="font-size: 2em; color: #059669; margin-bottom: 20px;">✓ CORRECT</h3>
-                        <p style="font-size: 2.5em; font-weight: bold;"><span class="no-break">Un <span style="color: #10b981;">BEAU</span> chien</span> 🐕</p>
-                        <p style="font-size: 1.3em; margin-top: 20px; color: #059669;">Pas de verbe entre les mots !</p>
-                    </div>
-
-                    <div class="counter-example" style="background: #fee2e2; padding: 40px; margin: 30px 0; border: 4px solid #ef4444;">
-                        <h3 style="font-size: 2em; color: #dc2626; margin-bottom: 20px;">✗ FAUX</h3>
-                        <p style="font-size: 2.5em; font-weight: bold;">Le chien <span style="color: #ef4444;">EST</span> beau 🐕</p>
-                        <p style="font-size: 1.3em; margin-top: 20px; color: #dc2626;">Il y a un verbe "EST" !</p>
-                    </div>
-
-                    <div class="arabic-text">
-                        <p style="font-size: 1.5em; margin: 15px 0;">✓ كلب جميل (صحيح)</p>
-                        <p style="font-size: 1.5em; margin: 15px 0;">✗ الكلب جميل (خطأ - يوجد فعل)</p>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
                     </div>
                 </div>
 
-                <!-- Step 7: ATTENTION! Warning -->
+                <!-- Step 7: ATTENTION! (FIXED) -->
                 <div id="step7" class="step-container">
-                    <h1 style="font-size: 3em; color: #dc2626;">⚠️ ATTENTION !</h1>
-                    
-                    <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border: 6px solid #dc2626; border-radius: 25px; padding: 50px; margin: 40px auto; max-width: 800px; box-shadow: 0 15px 40px rgba(220, 38, 38, 0.3);">
-                        <div style="text-align: center; margin-bottom: 40px;">
-                            <div style="font-size: 5em; margin-bottom: 20px;">⚠️</div>
-                            <h2 style="font-size: 2.5em; color: #991b1b; margin-bottom: 30px; text-transform: uppercase;">Ne pas confondre !</h2>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1 style="color: #dc2626;">⚠️ ATTENTION !</h1>
                         </div>
-                        
-                        <div style="background: white; border-radius: 20px; padding: 40px; margin: 30px 0; border: 4px solid #dc2626;">
-                            <p style="font-size: 2em; line-height: 1.8; text-align: center; color: #1f2937;">
-                                L'adjectif <strong style="color: #dc2626;">NE DOIT PAS</strong> avoir un <strong style="color: #dc2626; text-decoration: underline;">VERBE</strong> entre lui et le nom !
-                            </p>
+                        <div class="slide-step">
+                            <div class="warning-box">
+                                <p class="icon">⚠️</p>
+                                <h2>Ne pas confondre !</h2>
+                                <p>L'adjectif épithète ne doit <strong>JAMAIS</strong> avoir de verbe (comme EST, SONT, PARAÎT...) entre lui et le nom.</p>
+                            </div>
                         </div>
-
-                        <div style="background: white; border-radius: 20px; padding: 30px; margin: 30px 0;">
-                            <p style="font-size: 1.8em; text-align: center; color: #dc2626; font-weight: bold; margin-bottom: 20px;">
-                                ❌ Si il y a un VERBE = C'est ATTRIBUT
-                            </p>
-                            <p style="font-size: 1.5em; text-align: center; color: #059669; font-weight: bold;">
-                                ✅ Si PAS de verbe = C'est ÉPITHÈTE
-                            </p>
-                        </div>
-
-                        <div style="margin-top: 40px;">
-                            <div style="background: #ffedd5; border: 4px solid #f59e0b; border-radius: 15px; padding: 25px; margin: 15px 0;">
-                                <p style="font-size: 1.6em; text-align: center;">
-                                    <strong>Exemple:</strong> Le chat <span style="color: #dc2626; font-weight: 900; text-decoration: underline;">EST</span> noir
-                                </p>
-                                <p style="font-size: 1.3em; text-align: center; color: #dc2626; margin-top: 15px;">
-                                    ❌ "EST" = VERBE → C'est ATTRIBUT !
-                                </p>
+                        <div class="slide-step">
+                            <div class="key-point">
+                                <p>✅ Si <strong>PAS</strong> de verbe = <strong>ÉPITHÈTE</strong></p>
+                                <p>❌ Si il y a un <strong>VERBE</strong> = <strong>ATTRIBUT</strong> (c'est une autre leçon !)</p>
+                            </div>
+                            <div class="arabic-text">
+                                <p>⚠️ انتباه!<br>لا يجب أن يكون هناك فعل بين الصفة والاسم!<br>✅ بدون فعل = صفة ملازمة (épithète)<br>❌ مع فعل = صفة منسوبة (attribut)</p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <div style="background: white; padding: 30px; border-radius: 15px; margin: 20px 0; border: 3px solid #dc2626;">
-                            <h3 style="font-size: 2em; margin-bottom: 20px; color: #dc2626;">⚠️ انتباه!</h3>
-                            <p style="font-size: 1.5em; line-height: 2;">لا يجب أن يكون هناك فعل بين الصفة والاسم!</p>
-                            <p style="font-size: 1.3em; margin-top: 15px;">❌ إذا كان هناك فعل = صفة منسوبة (attribut)</p>
-                            <p style="font-size: 1.3em; margin-top: 10px;">✅ إذا لم يكن هناك فعل = صفة ملازمة (épithète)</p>
-                        </div>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                         <button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button>
@@ -1491,26 +789,19 @@
 
                 <!-- Step 8: Practice! -->
                 <div id="step8" class="step-container">
-                    <h1 style="font-size: 2.5em;">🎮 À toi de jouer !</h1>
-                    
-                    <div class="activity-box">
-                        <h3 style="font-size: 2em; margin-bottom: 30px;">Trouve le bon !</h3>
-                        <div class="activity-question" style="font-size: 1.5em; margin: 30px 0;">
-                            Quelle phrase est correcte ?
-                        </div>
-                        
-                        <!-- Quiz Options - Neutral colors before selection -->
-                        <div id="quiz-container" style="margin: 40px 0;">
-                            <!-- Will be filled by JavaScript -->
-                        </div>
-                        
-                        <div id="feedback" style="margin-top: 30px;"></div>
+                     <div class="step-content">
+                         <div class="slide-step">
+                            <h1>🎮 À toi de jouer !</h1>
+                         </div>
+                         <div class="slide-step">
+                             <div class="activity-box">
+                                <h3>Trouve la phrase avec un adjectif <strong>épithète</strong> !</h3>
+                                <div id="quiz-container"></div>
+                                <div id="feedback"></div>
+                            </div>
+                            <div class="arabic-text"><h3>ابحث عن الجملة التي تحتوي على صفة ملازمة!</h3></div>
+                         </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <h3 style="margin-bottom: 15px; font-size: 1.5em;">أي جملة صحيحة؟</h3>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                     </div>
@@ -1518,499 +809,240 @@
 
                 <!-- Step 9: Celebration -->
                 <div id="step9" class="step-container">
-                    <div class="completion-box" style="padding: 60px; text-align: center;">
-                        <div style="font-size: 5em; margin-bottom: 30px;">🏆</div>
-                        <h2 style="font-size: 3em; margin-bottom: 30px;">🎉 Bravo !</h2>
-                        <p style="font-size: 2em; margin: 20px 0; font-weight: 600;">Tu as tout compris !</p>
-                        <p style="font-size: 1.5em; margin: 30px 0; color: #1f2937;">Tu sais maintenant ce qu'est <br><strong style="color: #059669; font-size: 1.2em;"><span class="no-break">l'adjectif épithète</span></strong> !</p>
-                        <button class="replay-btn" onclick="replayLesson()" style="margin-top: 40px; font-size: 1.5em; padding: 20px 50px;">🔄 Recommencer</button>
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <div class="completion-box">
+                                <p class="icon">🏆</p>
+                                <h2>🎉 Bravo !</h2>
+                                <p>Tu as tout compris !</p>
+                                <p>Tu sais maintenant ce qu'est <strong><span class="no-break">l'adjectif épithète</span></strong> !</p>
+                                <button class="replay-btn" onclick="replayLesson()">🔄 Recommencer</button>
+                            </div>
+                            <div class="arabic-text">
+                                <h2>🎉 أحسنت!</h2>
+                                <p>أنت تعرف الآن ما هي الصفة الملازمة!</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="arabic-text">
-                        <h2 style="margin-bottom: 20px; font-size: 2.5em;">🎉 أحسنت!</h2>
-                        <p style="font-size: 1.8em; line-height: 2;">فهمت كل شيء! <br>أنت تعرف الآن ما هي الصفة الملازمة!</p>
-                    </div>
-                    
                     <div class="navigation">
                         <button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <script>
-        // Detect if device is in portrait or landscape mode
+        let currentStep = 1;
+        const totalSteps = 9;
+        let showArabic = false;
+        let answered = false;
+
+        const quizData = [
+            { text: 'Le chat <strong>EST</strong> gros 🐱', correct: false },
+            { text: 'Un <strong>GROS</strong> chat 🐱', correct: true }
+        ];
+
         function isPortraitMode() {
             return window.innerHeight > window.innerWidth;
         }
-        
-        // Get the correct video path based on orientation
+
         function getVideoPath() {
-            if (isPortraitMode()) {
-                // Portrait mode - vertical animation
-                return 'up_to_down_vertical.mp4';
-            } else {
-                // Landscape mode - horizontal animation
-                return 'up_to_down_landscape.mp4';
-            }
+            return isPortraitMode() ? 'up_to_down_vertical.mp4' : 'up_to_down_landscape.mp4';
         }
 
-        // Play animation video - triggered by button click
         function playAnimation() {
             const animIntro = document.getElementById('animationIntro');
             const animVideo = document.getElementById('animationVideo');
             const videoSource = document.getElementById('videoSource');
-            
-            // IMPORTANT: Remove hidden class first, then add active
+
             animIntro.classList.remove('hidden');
             animIntro.classList.add('active');
             
-            // Set the correct video source based on orientation
-            const videoPath = getVideoPath();
-            console.log('Loading video:', videoPath);
-            console.log('Is portrait mode:', isPortraitMode());
-            
-            // Reset video before playing
-            animVideo.pause();
-            animVideo.currentTime = 0;
-            
-            videoSource.src = videoPath;
+            videoSource.src = getVideoPath();
             animVideo.load();
             
-            // Add event listeners for debugging
-            animVideo.onloadeddata = function() {
-                console.log('Video loaded successfully');
-            };
-            
-            animVideo.onerror = function(e) {
-                console.error('Video error:', e);
-                console.error('Failed to load:', videoPath);
-                // Try to continue anyway after 2 seconds
-                setTimeout(() => {
-                    animIntro.classList.remove('active');
-                    animIntro.classList.add('hidden');
-                    nextStep();
-                }, 2000);
-            };
-            
-            // Play the video with promise handling
             const playPromise = animVideo.play();
-            
             if (playPromise !== undefined) {
-                playPromise.then(function() {
-                    console.log('Video playing');
-                }).catch(function(error) {
-                    console.error('Play error:', error);
-                    // Auto-advance if video fails to play
-                    setTimeout(() => {
-                        animIntro.classList.remove('active');
-                        animIntro.classList.add('hidden');
-                        nextStep();
-                    }, 2000);
+                playPromise.catch(error => {
+                    console.error("Video play failed:", error);
+                    endAnimation(); 
                 });
             }
-            
-            // When video ends, show the lesson
-            animVideo.onended = function() {
-                console.log('Video ended');
-                animIntro.classList.remove('active');
-                animIntro.classList.add('hidden');
-                
-                // Move to step 2
-                nextStep();
-            };
+            animVideo.onended = endAnimation;
+            animVideo.onerror = endAnimation;
         }
 
-        // Start lesson function - plays animation first
+        function endAnimation() {
+            const animIntro = document.getElementById('animationIntro');
+            animIntro.classList.remove('active');
+            animIntro.classList.add('hidden');
+            nextStep();
+        }
+
         function startLesson() {
-            console.log('startLesson called');
-            console.log('Current step:', currentStep);
             playAnimation();
         }
-        
-        // Reload video if orientation changes
-        window.addEventListener('resize', function() {
-            const animVideo = document.getElementById('animationVideo');
-            if (!animVideo.paused) {
-                // Video is playing, reload with correct orientation
-                const videoSource = document.getElementById('videoSource');
-                videoSource.src = getVideoPath();
-                animVideo.load();
-                animVideo.play();
-            }
-        });
 
-        // Lesson Navigation
-        let currentStep = 1;
-        const totalSteps = 9;
-        let showArabic = false;
-        
-        const animations = ['fade-in', 'slide-in-left', 'slide-in-right', 'zoom-in', 'slide-up', 'rotate-in'];
-        
-        // Quiz data
-        const quizOptions = [
-            { id: 'A', text: 'Le chat <strong>EST</strong> gros 🐱', correct: false },
-            { id: 'B', text: 'Un <strong>GROS</strong> chat 🐱', correct: true }
-        ];
-        
-        // Shuffle array function
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-        
-        function initializeQuiz() {
-            const container = document.getElementById('quiz-container');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            // Shuffle the options
-            const shuffled = shuffleArray(quizOptions);
-            
-            // Create neutral-colored options
-            shuffled.forEach((option, index) => {
-                const div = document.createElement('div');
-                div.className = 'quiz-option-btn';
-                div.innerHTML = `<strong style="font-size: 1.2em;">${String.fromCharCode(65 + index)})</strong> ${option.text}`;
-                div.onclick = () => checkAnswer(option.id);
-                div.dataset.optionId = option.id;
-                
-                // Neutral styling - same for all options
-                div.style.cssText = `
-                    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-                    border: 4px solid #9ca3af;
-                    padding: 30px;
-                    margin: 20px 0;
-                    cursor: pointer;
-                    border-radius: 15px;
-                    font-size: 1.8em;
-                    transition: all 0.3s;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                `;
-                
-                // Hover effect
-                div.onmouseover = () => {
-                    if (!answered) {
-                        div.style.transform = 'scale(1.05)';
-                        div.style.boxShadow = '0 6px 20px rgba(0,0,0,0.15)';
-                    }
-                };
-                div.onmouseout = () => {
-                    if (!answered) {
-                        div.style.transform = 'scale(1)';
-                        div.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-                    }
-                };
-                
-                container.appendChild(div);
-            });
-        }
-        
         function toggleArabic() {
             showArabic = !showArabic;
-            const arabicTexts = document.querySelectorAll('.arabic-text');
-            const toggleBtn = document.getElementById('toggleText');
+            document.querySelectorAll('.arabic-text').forEach(text => text.classList.toggle('show', showArabic));
+            document.getElementById('toggleText').textContent = showArabic ? '🌐 Français' : '🌐 عربي';
+        }
+        
+        function showStep(stepIndex) {
+            document.querySelectorAll('.step-container').forEach(s => s.classList.remove('active'));
+            const targetStep = document.getElementById('step' + stepIndex);
+            targetStep.classList.add('active');
             
-            arabicTexts.forEach(text => {
-                if (showArabic) {
-                    text.classList.add('show');
-                } else {
-                    text.classList.remove('show');
+            const stepContent = targetStep.querySelector('.step-content');
+            if (stepContent) {
+                const innerSteps = stepContent.querySelectorAll('.slide-step');
+                innerSteps.forEach((inner, index) => {
+                    inner.classList.toggle('visible', index === 0);
+                });
+
+                let stepNav = targetStep.querySelector('.step-navigation');
+                if (!stepNav) {
+                    stepNav = document.createElement('div');
+                    stepNav.className = 'step-navigation';
+                    targetStep.appendChild(stepNav);
                 }
-            });
-            
-            toggleBtn.textContent = showArabic ? '🌐 Français' : '🌐 عربي';
+
+                if (innerSteps.length > 1) {
+                    stepNav.innerHTML = `<button class="step-next-btn" onclick="nextInnerStep()"><svg fill="white" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></button>`;
+                    stepNav.style.display = 'block';
+                } else {
+                    stepNav.innerHTML = '';
+                }
+            }
+
+            const mainNav = targetStep.querySelector('.navigation');
+            if (mainNav) {
+                const innerSteps = stepContent.querySelectorAll('.slide-step');
+                mainNav.style.display = innerSteps.length <= 1 ? 'flex' : 'none';
+            }
+        }
+
+        function nextInnerStep() {
+            const activeStepContainer = document.querySelector('.step-container.active');
+            const nextStepToShow = activeStepContainer.querySelector('.slide-step:not(.visible)');
+
+            if (nextStepToShow) {
+                nextStepToShow.classList.add('visible');
+            }
+
+            const remainingHidden = activeStepContainer.querySelectorAll('.slide-step:not(.visible)');
+            if (remainingHidden.length === 0) {
+                const stepNav = activeStepContainer.querySelector('.step-navigation');
+                if (stepNav) stepNav.style.display = 'none';
+
+                const mainNav = activeStepContainer.querySelector('.navigation');
+                if (mainNav) mainNav.style.display = 'flex';
+            }
         }
         
         function nextStep() {
             if (currentStep >= totalSteps) return;
-            
-            // Hide current step
-            const currentStepElement = document.getElementById('step' + currentStep);
-            currentStepElement.classList.remove('active');
-            
-            // Remove all animation classes
-            animations.forEach(anim => {
-                currentStepElement.classList.remove(anim);
-            });
-            
-            // Move to next step
             currentStep++;
+            showStep(currentStep);
             
-            // Show next step with random animation
-            const nextStepElement = document.getElementById('step' + currentStep);
-            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-            nextStepElement.classList.add('active', randomAnimation);
+            if (currentStep === 8) initializeQuiz();
             
-            // Initialize quiz if we're on step 8
-            if (currentStep === 8) {
-                initializeQuiz();
-            }
-            
-            // Update progress bar
             updateProgress();
-            
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function prevStep() {
-            if (currentStep <= 1) {
-                // Already at first step
-                return;
-            }
-            
-            // Hide current step
-            const currentStepElement = document.getElementById('step' + currentStep);
-            currentStepElement.classList.remove('active');
-            
-            // Remove all animation classes
-            animations.forEach(anim => {
-                currentStepElement.classList.remove(anim);
-            });
-            
-            // Move to previous step
+            if (currentStep <= 1) return;
             currentStep--;
+            showStep(currentStep);
             
-            // Show previous step with random animation
-            const prevStepElement = document.getElementById('step' + currentStep);
-            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-            prevStepElement.classList.add('active', randomAnimation);
-            
-            // Reset quiz if going back to step 8
-            if (currentStep === 8) {
-                answered = false;
-                document.getElementById('feedback').innerHTML = '';
-                initializeQuiz();
-            }
-            
-            // Make absolutely sure animation intro is hidden
-            const animIntro = document.getElementById('animationIntro');
-            animIntro.classList.add('hidden');
-            animIntro.classList.remove('active');
-            
-            // Update progress bar
             updateProgress();
-            
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
         function updateProgress() {
-            const progress = (currentStep / totalSteps) * 100;
+            const progress = ((currentStep - 1) / (totalSteps -1)) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('stepIndicator').textContent = 'Étape ' + currentStep + ' / ' + totalSteps;
+            document.getElementById('stepIndicator').textContent = `Étape ${currentStep} / ${totalSteps}`;
         }
-        
-        let answered = false;
-        function checkAnswer(optionId) {
-            if (answered) return;
-            
-            answered = true;
-            const feedback = document.getElementById('feedback');
-            const allOptions = document.querySelectorAll('.quiz-option-btn');
-            const selectedOption = quizOptions.find(opt => opt.id === optionId);
-            const correctOption = quizOptions.find(opt => opt.correct);
-            
-            // Color the options after selection
-            allOptions.forEach((optionDiv) => {
-                const thisOptionId = optionDiv.dataset.optionId;
-                optionDiv.style.cursor = 'not-allowed';
-                optionDiv.onmouseover = null;
-                optionDiv.onmouseout = null;
-                optionDiv.style.transform = 'scale(1)';
-                
-                if (thisOptionId === correctOption.id) {
-                    // Color correct answer GREEN
-                    optionDiv.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
-                    optionDiv.style.border = '4px solid #10b981';
-                    optionDiv.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.3)';
-                } else {
-                    // Color wrong answer RED
-                    optionDiv.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
-                    optionDiv.style.border = '4px solid #ef4444';
-                    optionDiv.style.boxShadow = '0 6px 20px rgba(239, 68, 68, 0.3)';
-                }
-            });
-            
-            // Show feedback
-            if (selectedOption.correct) {
-                feedback.innerHTML = '<div class="feedback correct" style="font-size: 2em; padding: 30px; background: #d1fae5; border: 3px solid #10b981; border-radius: 15px; margin-top: 20px;">🎉 Bravo ! C\'est correct !</div>';
-            } else {
-                feedback.innerHTML = '<div class="feedback incorrect" style="font-size: 2em; padding: 30px; background: #fee2e2; border: 3px solid #ef4444; border-radius: 15px; margin-top: 20px;">❌ Non... La bonne réponse est "<span class="no-break">Un GROS chat</span>" !</div>';
-            }
-            
-            // Auto advance after 3 seconds
-            setTimeout(() => {
-                nextStep();
-            }, 3000);
-        }
-        
-        function replayLesson() {
-            // Reset to first step
-            const currentStepElement = document.getElementById('step' + currentStep);
-            currentStepElement.classList.remove('active');
-            animations.forEach(anim => {
-                currentStepElement.classList.remove(anim);
-            });
-            
-            currentStep = 1;
-            
-            // Reset progress
-            updateProgress();
-            
-            // Reset activity
+
+        function initializeQuiz() {
             answered = false;
-            document.getElementById('feedback').innerHTML = '';
-            document.getElementById('quiz-options').innerHTML = '';
+            const container = document.getElementById('quiz-container');
+            const feedback = document.getElementById('feedback');
+            container.innerHTML = '';
+            feedback.innerHTML = '';
+
+            const shuffled = [...quizData].sort(() => Math.random() - 0.5);
             
-            // Reset video completely
-            const animVideo = document.getElementById('animationVideo');
-            const videoSource = document.getElementById('videoSource');
-            animVideo.pause();
-            animVideo.currentTime = 0;
-            videoSource.src = '';
-            animVideo.load();
-            
-            // Reset animation state
-            const animIntro = document.getElementById('animationIntro');
-            animIntro.classList.remove('hidden');
-            animIntro.classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Play animation again after a short delay
-            setTimeout(() => {
-                playAnimation();
-            }, 200);
+            shuffled.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option-btn';
+                div.innerHTML = option.text;
+                div.onclick = () => checkAnswer(option.correct, div);
+                container.appendChild(div);
+            });
         }
         
-        // Initialize progress
-        updateProgress();
-        
-        // Fullscreen functionality
-        // Fullscreen functionality
+        function checkAnswer(isCorrect, element) {
+            if (answered) return;
+            answered = true;
+            
+            const feedback = document.getElementById('feedback');
+            element.style.border = isCorrect ? '3px solid #4caf50' : '3px solid #f44336';
+            feedback.innerHTML = `<div class="feedback ${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '🎉 Bravo ! C\'est correct !' : '❌ Non... Essaye encore !'}</div>`;
+            
+            if (isCorrect) {
+                setTimeout(nextStep, 2000);
+            } else {
+                 setTimeout(initializeQuiz, 2000); // Let user try again
+            }
+        }
+
+        function replayLesson() {
+            currentStep = 1;
+            showStep(1);
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(1);
+            updateProgress();
+        });
+
+        // --- Fullscreen and UI Visibility ---
         function toggleFullscreen() {
             const elem = document.documentElement;
-            const btn = document.querySelector('.fullscreen-btn');
-            
-            if (!document.fullscreenElement && 
-                !document.webkitFullscreenElement && 
-                !document.mozFullScreenElement) {
-                
-                // Enter fullscreen
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen();
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
-                }
-                
-                btn.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
-                    </svg>
-                `;
-                btn.classList.add('in-fullscreen');
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) elem.requestFullscreen();
             } else {
-                // Exit fullscreen
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
+                if (document.exitFullscreen) document.exitFullscreen();
             }
         }
-        
-        // Update button state
+
         function updateFullscreenButton() {
             const btn = document.querySelector('.fullscreen-btn');
-            
-            if (!document.fullscreenElement && 
-                !document.webkitFullscreenElement && 
-                !document.mozFullScreenElement) {
-                btn.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-                    </svg>
-                `;
-                btn.classList.remove('in-fullscreen');
-            }
+            const isFullscreen = !!document.fullscreenElement;
+            btn.classList.toggle('in-fullscreen', isFullscreen);
+            btn.innerHTML = isFullscreen 
+                ? `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`
+                : `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
         }
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
         
-        // Show/hide button based on interaction
-        let mouseTimeout;
+        let uiTimeout;
         function handleButtonVisibility() {
             const btn = document.querySelector('.fullscreen-btn');
             btn.classList.add('visible');
-            
-            clearTimeout(mouseTimeout);
-            mouseTimeout = setTimeout(() => {
-                btn.classList.remove('visible');
-            }, 3000);
+            clearTimeout(uiTimeout);
+            uiTimeout = setTimeout(() => btn.classList.remove('visible'), 3000);
         }
-        
-        // Listen for mouse movement and touch
-        document.addEventListener('mousemove', handleButtonVisibility);
-        document.addEventListener('touchstart', handleButtonVisibility);
-        document.addEventListener('scroll', handleButtonVisibility);
-        
-        // Fix fullscreen scrolling
-        function enableFullscreenScroll() {
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
-                // Force enable scrolling
-                document.documentElement.style.overflow = 'auto';
-                document.body.style.overflow = 'auto';
-                document.documentElement.style.height = 'auto';
-                document.body.style.height = 'auto';
-                document.body.style.minHeight = '100vh';
-                
-                // Enable touch scrolling
-                document.body.style.webkitOverflowScrolling = 'touch';
-                document.body.style.touchAction = 'pan-y';
-            } else {
-                // Reset when exiting fullscreen
-                document.documentElement.style.overflow = '';
-                document.body.style.overflow = '';
-                document.documentElement.style.height = '';
-                document.body.style.height = '';
-                document.body.style.minHeight = '';
-                document.body.style.webkitOverflowScrolling = '';
-                document.body.style.touchAction = '';
-            }
-        }
-        
-        // Event listeners for fullscreen changes
-        document.addEventListener('fullscreenchange', function() {
-            updateFullscreenButton();
-            enableFullscreenScroll();
-        });
-        document.addEventListener('webkitfullscreenchange', function() {
-            updateFullscreenButton();
-            enableFullscreenScroll();
-        });
-        document.addEventListener('mozfullscreenchange', function() {
-            updateFullscreenButton();
-            enableFullscreenScroll();
-        });
-        document.addEventListener('MSFullscreenChange', function() {
-            updateFullscreenButton();
-            enableFullscreenScroll();
-        });
+        ['mousemove', 'touchstart', 'scroll'].forEach(evt => document.addEventListener(evt, handleButtonVisibility));
+
     </script>
 </body>
 </html>
