@@ -29,7 +29,8 @@
             background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
             padding: 8px; border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.1);
-            width: 100%; max-width: 900px; margin: 0 auto;
+            width: 100%; max-width: 900px;
+            margin: 0 auto; transition: max-width 0.3s ease-in-out;
         }
         
         .whiteboard-content { background: white; border-radius: 4px; overflow: hidden; min-height: 85vh; }
@@ -60,7 +61,7 @@
         }
         p, .subtitle {
             font-size: clamp(1.1em, 2.5vw, 1.3em); line-height: 1.8;
-            color: #34495e; text-align: center; margin-bottom: 20px;
+            color: #34495e; text-align: center; margin-bottom: 0;
         }
         .content-box, .definition-box, .key-point, .example-box, .counter-example, .warning-box, .activity-box {
             padding: clamp(20px, 3vw, 30px); border-radius: 15px;
@@ -80,17 +81,12 @@
 
         /* TTS & Highlighting Styles */
         .word.highlight {
-            background-color: var(--highlight-bg);
-            color: black !important;
+            background-color: var(--highlight-bg); color: black !important;
             padding: 0 3px; border-radius: 4px;
         }
-        /* FIXED: Special rule for H1 highlighting to ensure visibility */
         h1 .word.highlight {
-            background: var(--highlight-bg) !important;
-            -webkit-text-fill-color: black;
-            color: black !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
+            background: var(--highlight-bg) !important; -webkit-text-fill-color: black;
+            color: black !important; background-clip: border-box !important; -webkit-background-clip: border-box !important;
         }
         .replay-audio-btn {
             background: none; border: none; cursor: pointer; font-size: 1.5em;
@@ -100,7 +96,7 @@
         .replay-audio-btn:hover { transform: scale(1.2); opacity: 1; }
 
         /* Navigation & Progress */
-        .navigation { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; gap: 15px; }
         .nav-btn {
             flex: 1; min-width: 120px; padding: 15px 30px; font-size: 1.1em;
             font-weight: 600; border: none; border-radius: 12px; cursor: pointer;
@@ -109,13 +105,15 @@
         .nav-btn:hover { transform: translateY(-2px); }
         .prev-btn { background: #95a5a6; color: white; }
         .next-btn { background: #667eea; color: white; }
-        .start-btn, .replay-btn { width: 100%; padding: 20px; font-size: 1.3em; background: #4caf50; color: white; }
+        .start-btn { background: #4caf50; color: white; width: auto; max-width: 400px; font-size: 1.4em; }
+        .replay-btn { width: 100%; padding: 20px; font-size: 1.3em; background: white; color: #667eea; }
+        #retryQuizBtn { background: #f39c12; color: white; }
         
-        .progress-container { background: #ecf0f1; height: 10px; border-radius: 10px; margin: 30px 0 20px; }
+        .progress-container { background: #ecf0f1; height: 10px; border-radius: 10px; margin: 30px 0 20px; visibility: hidden; }
         .progress-bar { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.5s ease; }
-        .step-indicator { text-align: center; color: #7f8c8d; font-weight: 600; margin-bottom: 20px; font-size: 1.1em; }
+        .step-indicator { text-align: center; color: #7f8c8d; font-weight: 600; margin-bottom: 20px; font-size: 1.1em; visibility: hidden; }
 
-        /* FIXED: Quiz Styling */
+        /* Quiz Styling */
         .activity-box { border-color: #9e9d24; background: #f0f4c3; }
         .activity-box h3 { color: #827717; }
         .quiz-option-btn {
@@ -124,58 +122,119 @@
             transition: all 0.3s ease; font-size: clamp(1.1em, 2.5vw, 1.3em);
             text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .quiz-option-btn:not([data-answered]):hover {
-            transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); border-color: #667eea;
-        }
-        .quiz-option-btn.correct {
-            background: #e8f5e9; border-color: #4caf50; color: #2e7d32; transform: scale(1.02);
-        }
-        .quiz-option-btn.incorrect {
-            background: #ffebee; border-color: #f44336; color: #c62828; opacity: 0.8;
-        }
+        .quiz-option-btn:not([data-answered]):hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); border-color: #667eea; }
+        .quiz-option-btn.correct { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; transform: scale(1.02); }
+        .quiz-option-btn.incorrect { background: #ffebee; border-color: #f44336; color: #c62828; opacity: 0.8; }
         .quiz-option-btn[data-answered] { cursor: not-allowed; }
-        .feedback {
-            margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: 600;
-            text-align: center; animation: fadeInUp 0.5s;
-        }
+        .feedback { margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: 600; text-align: center; animation: fadeInUp 0.5s; }
         .feedback.correct { background: #c8e9c9; color: #2e7d32; }
         .feedback.incorrect { background: #ffcdd2; color: #c62828; }
         
+        /* UI Buttons (Translate, Fullscreen) */
+        .ui-buttons { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; }
+        .arabic-toggle, .fullscreen-btn {
+            background: rgba(255, 255, 255, 0.9); border: none;
+            width: 45px; height: 45px; border-radius: 50%;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .arabic-toggle { background: #f59e0b; color: white; font-weight: 600; font-size: 1.2em; }
+        .fullscreen-btn { color: #667eea; }
+        .arabic-toggle:hover, .fullscreen-btn:hover { transform: translateY(-2px); }
+        .fullscreen-btn svg { width: 24px; height: 24px; fill: currentColor; }
+
+        .arabic-text {
+            display: none; background: #fff8e1; border: 2px solid #f59e0b; padding: 15px;
+            border-radius: 10px; margin-top: 20px; direction: rtl; font-family: 'Arial', sans-serif;
+        }
+        .arabic-text.show { display: block; animation: fadeInUp 0.5s; }
+
+        /* WIDESCREEN RESPONSIVENESS */
+        @media (min-width: 1200px) { .whiteboard-frame { max-width: 1400px; } body { padding: 40px; } }
+        /* MOBILE RESPONSIVENESS (UNCHANGED) */
         @media (max-width: 480px) { body { padding: 10px; } .container { padding: 15px; } p, .subtitle { font-size: 1em; } }
     </style>
 </head>
 <body>
+    <div class="ui-buttons">
+        <button class="fullscreen-btn" onclick="toggleFullscreen()">
+            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+        <button class="arabic-toggle" onclick="toggleArabic()"><span id="toggleText">🌐</span></button>
+    </div>
+
     <div class="whiteboard-frame">
         <div class="whiteboard-content">
             <div class="container">
                 <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
                 <div class="step-indicator" id="stepIndicator"></div>
 
-                <div id="step1" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s1p1.wav">L'Adjectif Épithète.</h1></div><div class="slide-step"><div class="content-box"><p class="tts-text" data-audio-src="audio/s1p2.wav">Bonjour ! Aujourd'hui, on va apprendre quelque chose de très simple : l'adjectif épithète ! C'est facile, tu vas voir ! 😊</p></div></div></div><div class="navigation"><button class="nav-btn start-btn" onclick="nextStep()">✨ Commencer !</button></div></div>
-                <div id="step2" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s2p1.wav">C'est quoi ?</h1></div><div class="slide-step"><div class="definition-box"><p class="tts-text" data-audio-src="audio/s2p2.wav">C'est un mot qui décrit et qui est collé au nom !</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s2p3.wav">Exemple : Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit le jardin ! 🌳</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step3" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s3p1.wav">Il décrit le nom.</h1></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s3p2.wav">L'adjectif épithète DÉCRIT le nom. 🎯 Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit comment est le jardin.</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step4" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s4p1.wav">Avant ou Après ?</h1></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p2.wav">⬅️ AVANT le nom. Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p3.wav">➡️ APRÈS le nom. Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step5" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s5p1.wav">Des Exemples !</h1></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p2.wav">Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p3.wav">Une <span class="adj">PETITE</span> <span class="noun">maison</span>. 🏠</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p4.wav">Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step6" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s6p1.wav">Comment le trouver ?</h1></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s6p2.wav">Cherche le mot qui décrit, juste à côté du nom !</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s6p3.wav">✓ CORRECT. Un <span class="adj">BEAU</span> <span class="noun">chien</span>. Pas de verbe entre les mots !</p></div></div><div class="slide-step"><div class="counter-example"><p class="tts-text" data-audio-src="audio/s6p4.wav">✗ FAUX. Le <span class="noun">chien</span> <span class="verb">EST</span> <span class="adj">beau</span>. Il y a un verbe "EST" !</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step7" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" style="color: #dc2626;" data-audio-src="audio/s7p1.wav">⚠️ ATTENTION !</h1></div><div class="slide-step"><div class="warning-box"><p class="tts-text" data-audio-src="audio/s7p2.wav">Ne pas confondre ! L'adjectif épithète ne doit JAMAIS avoir de <span class="verb">verbe</span> entre lui et le nom.</p></div></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s7p3.wav">Si PAS de verbe, c'est ÉPITHÈTE. ✅ Si il y a un VERBE, c'est ATTRIBUT. ❌</p></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step8" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s8p1.wav">🎮 À toi de jouer !</h1></div><div class="slide-step"><div class="activity-box"><h3 class="tts-text" data-audio-src="audio/s8p2.wav">Trouve la phrase avec un adjectif <strong>épithète</strong> !</h3><div id="quiz-container"></div><div id="feedback"></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button></div></div>
-                <div id="step9" class="step-container"><div class="step-content"><div class="slide-step"><div class="content-box"><p class="tts-text example-phrase" data-audio-src="audio/s9p1.wav">🎉 Bravo ! Tu as tout compris ! Tu sais maintenant ce qu'est l'adjectif épithète ! 🏆</p><button class="nav-btn replay-btn" onclick="replayLesson()">🔄 Recommencer</button></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button></div></div>
+                <div id="step0" class="step-container">
+                    <div class="step-content" style="text-align: center; padding: 50px 0;">
+                        <h1>Bienvenue !</h1>
+                        <p style="margin-bottom: 40px;">Prêt à apprendre sur l'adjectif épithète ?</p>
+                        <button class="nav-btn start-btn" onclick="startLesson()">Commencer la leçon ✨</button>
+                    </div>
+                </div>
+
+                <div id="step1" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1 class="tts-text" data-audio-src="audio/s1p1.wav">L'Adjectif Épithète.</h1>
+                            <div class="arabic-text"><p>الصفة الملازمة.</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="content-box">
+                                <p class="tts-text" data-audio-src="audio/s1p2.wav">Bonjour ! Aujourd'hui, on va apprendre quelque chose de très simple : l'adjectif épithète ! C'est facile, tu vas voir ! 😊</p>
+                                <div class="arabic-text">
+                                    <h3>👋 مرحباً!</h3>
+                                    <p>اليوم سنتعلم شيئاً بسيطاً جداً: الصفة الملازمة! سهل جداً، سترى! 😊</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
+
+                <div id="step2" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s2p1.wav">C'est quoi ?</h1><div class="arabic-text"><p>ما هذا؟</p></div></div><div class="slide-step"><div class="definition-box"><p class="tts-text" data-audio-src="audio/s2p2.wav">C'est un mot qui décrit et qui est collé au nom !</p><div class="arabic-text"><p>هي كلمة تصف الاسم وتكون ملتصقة به!</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s2p3.wav">Exemple : Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit le jardin ! 🌳</p><div class="arabic-text"><p>مثال: حديقة جميلة 🌳 "جميلة" تصف الحديقة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step3" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s3p1.wav">Il décrit le nom.</h1><div class="arabic-text"><p>إنه يصف الاسم.</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s3p2.wav">L'adjectif épithète DÉCRIT le nom. 🎯 Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit comment est le jardin.</p><div class="arabic-text"><p>الصفة تصف الاسم. مثال: "جميلة" تصف كيف تبدو الحديقة</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step4" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s4p1.wav">Avant ou Après ?</h1><div class="arabic-text"><p>قبل أو بعد؟</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p2.wav">⬅️ AVANT le nom. Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p><div class="arabic-text"><p>⬅️ قبل الاسم: شجرة كبيرة</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p3.wav">➡️ APRÈS le nom. Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p><div class="arabic-text"><p>➡️ بعد الاسم: قطة سوداء</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step5" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s5p1.wav">Des Exemples !</h1><div class="arabic-text"><p>أمثلة!</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p2.wav">Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p><div class="arabic-text"><p>🌳 شجرة كبيرة</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p3.wav">Une <span class="adj">PETITE</span> <span class="noun">maison</span>. 🏠</p><div class="arabic-text"><p>🏠 منزل صغير</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p4.wav">Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p><div class="arabic-text"><p>🐱 قطة سوداء</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step6" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s6p1.wav">Comment le trouver ?</h1><div class="arabic-text"><p>كيف تجده؟</p></div></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s6p2.wav">Cherche le mot qui décrit, juste à côté du nom !</p><div class="arabic-text"><p>ابحث عن الكلمة التي تصف، بجانب الاسم مباشرةً!</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s6p3.wav">✓ CORRECT. Un <span class="adj">BEAU</span> <span class="noun">chien</span>. Pas de verbe entre les mots !</p><div class="arabic-text"><p>✓ صحيح: كلب جميل (لا يوجد فعل بين الكلمات!)</p></div></div></div><div class="slide-step"><div class="counter-example"><p class="tts-text" data-audio-src="audio/s6p4.wav">✗ FAUX. Le <span class="noun">chien</span> <span class="verb">EST</span> <span class="adj">beau</span>. Il y a un verbe "EST" !</p><div class="arabic-text"><p>✗ خطأ: الكلب جميل (يوجد فعل "EST"!)</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step7" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" style="color: #dc2626;" data-audio-src="audio/s7p1.wav">⚠️ ATTENTION !</h1><div class="arabic-text"><p>⚠️ انتباه!</p></div></div><div class="slide-step"><div class="warning-box"><p class="tts-text" data-audio-src="audio/s7p2.wav">Ne pas confondre ! L'adjectif épithète ne doit JAMAIS avoir de <span class="verb">verbe</span> entre lui et le nom.</p><div class="arabic-text"><p>لا تخلط! الصفة الملازمة يجب ألا تحتوي أبدًا على فعل بينها وبين الاسم.</p></div></div></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s7p3.wav">Si PAS de verbe, c'est ÉPITHÈTE. ✅ Si il y a un VERBE, c'est ATTRIBUT. ❌</p><div class="arabic-text"><p>✅ بدون فعل = صفة ملازمة<br>❌ مع فعل = صفة منسوبة</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
+                <div id="step8" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s8p1.wav">🎮 À toi de jouer !</h1><div class="arabic-text"><p>🎮 حان دورك للعب!</p></div></div><div class="slide-step"><div class="activity-box"><h3 class="tts-text" data-audio-src="audio/s8p2.wav">Trouve la phrase avec un adjectif <strong>épithète</strong> !</h3><div id="quiz-container"></div><div id="feedback"></div><div class="arabic-text"><p>ابحث عن الجملة التي تحتوي على صفة ملازمة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button id="retryQuizBtn" class="nav-btn" style="display: none;" onclick="initializeQuiz()">🔄 Réessayer</button></div></div>
+                <div id="step9" class="step-container"><div class="step-content"><div class="slide-step"><div class="content-box"><p class="tts-text example-phrase" data-audio-src="audio/s9p1.wav">🎉 Bravo ! Tu as tout compris ! Tu sais maintenant ce qu'est l'adjectif épithète ! 🏆</p><button class="nav-btn replay-btn" onclick="replayLesson()">🔄 Recommencer la leçon</button><div class="arabic-text"><h3>🎉 أحسنت!</h3><p>لقد فهمت كل شيء! أنت تعرف الآن ما هي الصفة الملازمة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button></div></div>
 
             </div>
         </div>
     </div>
 
     <script>
-        let currentStep = 1;
-        const totalSteps = 9;
+        let currentStep = 0;
+        const totalSteps = 10;
         let activeAudio = null;
         let highlightInterval = null;
         const originalHTMLs = new Map();
+        let showArabic = false;
+        let userHasInteracted = false;
 
         const quizData = [
             { text: 'Le chat <span class="verb">EST</span> gros 🐱', correct: false },
             { text: 'Un <span class="adj">GROS</span> chat 🐱', correct: true }
         ];
+        
+        function startLesson() {
+            userHasInteracted = true;
+            document.querySelector('.progress-container').style.visibility = 'visible';
+            document.querySelector('.step-indicator').style.visibility = 'visible';
+            nextStep();
+        }
+
+        function toggleArabic() {
+            showArabic = !showArabic;
+            document.querySelectorAll('.arabic-text').forEach(text => text.classList.toggle('show', showArabic));
+        }
 
         function showStep(stepIndex) {
             stopAndResetAudio();
@@ -224,8 +283,8 @@
         
         const changeStep = (direction) => {
             currentStep += direction;
-            if (currentStep < 1) currentStep = 1;
-            if (currentStep > totalSteps) currentStep = totalSteps;
+            if (currentStep < 0) currentStep = 0;
+            if (currentStep >= totalSteps) currentStep = totalSteps - 1;
             showStep(currentStep);
             if (currentStep === 8) initializeQuiz();
             updateProgress();
@@ -235,17 +294,24 @@
         const prevStep = () => changeStep(-1);
         
         function updateProgress() {
-            const progress = ((currentStep - 1) / (totalSteps -1)) * 100;
+            if (currentStep === 0) return;
+            const progress = ((currentStep - 1) / (totalSteps - 2)) * 100;
             document.getElementById('progressBar').style.width = `${progress}%`;
-            document.getElementById('stepIndicator').textContent = `Étape ${currentStep} / ${totalSteps}`;
+            document.getElementById('stepIndicator').textContent = `Étape ${currentStep} / ${totalSteps-1}`;
         }
 
         function replayLesson() {
-            currentStep = 1; showStep(1); updateProgress();
+            document.querySelector('.progress-container').style.visibility = 'hidden';
+            document.querySelector('.step-indicator').style.visibility = 'hidden';
+            currentStep = 0; 
+            showStep(0); 
+            updateProgress(); 
         }
 
         function initializeQuiz() {
             const container = document.getElementById('quiz-container');
+            const retryBtn = document.getElementById('retryQuizBtn');
+            if(retryBtn) retryBtn.style.display = 'none';
             container.innerHTML = '';
             document.getElementById('feedback').innerHTML = '';
             const shuffledQuizData = [...quizData].sort(() => Math.random() - 0.5);
@@ -267,15 +333,18 @@
 
             const isCorrect = selectedElement.dataset.correct === 'true';
             const correctElement = Array.from(allOptions).find(btn => btn.dataset.correct === 'true');
+            const feedbackEl = document.getElementById('feedback');
+            const retryBtn = document.getElementById('retryQuizBtn');
 
             if (isCorrect) {
                 selectedElement.classList.add('correct');
-                document.getElementById('feedback').innerHTML = `<div class="feedback correct">🎉 Bravo ! C'est la bonne réponse !</div>`;
+                feedbackEl.innerHTML = `<div class="feedback correct">🎉 Bravo ! C'est la bonne réponse !</div>`;
                 setTimeout(nextStep, 2000);
             } else {
                 selectedElement.classList.add('incorrect');
                 if (correctElement) correctElement.classList.add('correct');
-                document.getElementById('feedback').innerHTML = `<div class="feedback incorrect">❌ Pas tout à fait... Regarde bien la bonne réponse.</div>`;
+                feedbackEl.innerHTML = `<div class="feedback incorrect">❌ Pas tout à fait... Regarde bien la bonne réponse.</div>`;
+                if(retryBtn) retryBtn.style.display = 'block';
             }
         }
 
@@ -306,7 +375,7 @@
             });
         }
 
-        function playTTSForStep(stepElement) {
+        function playTTSForStep(stepElement, forcePlay = false) {
             stopAndResetAudio();
             const textElement = stepElement.querySelector('.tts-text');
             if (!textElement || !textElement.dataset.audioSrc) return;
@@ -320,10 +389,18 @@
             replayBtn.className = 'replay-audio-btn';
             replayBtn.innerHTML = '🔊';
             textElement.parentNode.insertBefore(replayBtn, textElement.nextSibling);
-            replayBtn.onclick = () => playTTSForStep(stepElement);
+            replayBtn.onclick = () => { playTTSForStep(stepElement, true); };
+            
+            if (!userHasInteracted && !forcePlay) {
+                replayBtn.classList.add('visible');
+                return; 
+            }
 
             activeAudio = new Audio(textElement.dataset.audioSrc);
-            activeAudio.play().catch(e => console.error("Audio failed:", e));
+            activeAudio.play().catch(e => {
+                console.error("Audio failed:", e);
+                replayBtn.classList.add('visible');
+            });
 
             activeAudio.addEventListener('loadedmetadata', () => {
                 const timings = estimateWordTimings(plainText.split(/\s+/).filter(Boolean), activeAudio.duration);
@@ -347,14 +424,29 @@
             const timings = [];
             let time = 0;
             words.forEach(word => {
-                const wordDuration = (word.length / totalChars) * duration * 0.95; // Add small buffer
+                const wordDuration = (word.length / totalChars) * duration * 0.95;
                 timings.push({ start: time, end: time + wordDuration });
                 time += wordDuration;
             });
             return timings;
         }
 
-        document.addEventListener('DOMContentLoaded', () => { showStep(1); updateProgress(); });
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.error(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        document.addEventListener('fullscreenchange', () => {
+            const btn = document.querySelector('.fullscreen-btn');
+            const isFullscreen = !!document.fullscreenElement;
+            btn.innerHTML = isFullscreen 
+                ? `<svg viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`
+                : `<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => { showStep(0); });
     </script>
 </body>
 </html>
