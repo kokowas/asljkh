@@ -3,165 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Adjectif Épithète - Leçon Interactive</title>
+    <title>L'accord de l'adjectif qualificatif avec le nom (masculin / féminin)</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        
-        :root {
-            --highlight-bg: #fde68a;
-            --adj-color: #f59e0b;
-            --noun-color: #10b981;
-            --verb-color: #dc2626;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-        
-        /* Whiteboard & Container Styles */
-        .whiteboard-frame {
-            background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
-            padding: 8px; border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.1);
-            width: 100%; max-width: 900px;
-            margin: 0 auto; transition: max-width 0.3s ease-in-out;
-        }
-        
-        .whiteboard-content { background: white; border-radius: 4px; overflow: hidden; min-height: 85vh; }
-        .container { max-width: 100%; padding: 40px; min-height: 80vh; }
-        
-        /* Step & Slide Styles */
-        .step-container { display: none; }
-        .step-container.active { display: block; animation: fadeIn 0.8s ease forwards; }
-        .slide-step { display: none; }
-        .slide-step.visible { display: block; animation: fadeInUp 0.6s ease forwards; }
-        .step-navigation { text-align: center; margin-top: 20px; }
-        .step-next-btn {
-            background: #667eea; color: white; border: none; width: 50px; height: 50px;
-            border-radius: 50%; cursor: pointer; transition: all 0.3s ease; display: inline-flex;
-            align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .step-next-btn:hover { transform: scale(1.1); }
-        .step-next-btn svg { width: 24px; height: 24px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Typography & Content Boxes */
-        h1, h2, h3, h4 { text-align: center; margin-bottom: 15px; }
-        h1 {
-            font-size: clamp(1.8em, 5vw, 2.5em);
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        p, .subtitle {
-            font-size: clamp(1.1em, 2.5vw, 1.3em); line-height: 1.8;
-            color: #34495e; text-align: center; margin-bottom: 0;
-        }
-        .content-box, .definition-box, .key-point, .example-box, .counter-example, .warning-box, .activity-box {
-            padding: clamp(20px, 3vw, 30px); border-radius: 15px;
-            margin: 25px auto; border-left: 5px solid; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .definition-box { border-color: #4caf50; background: #f1f8e9; }
-        .example-box { border-color: #2196f3; background: #e3f2fd; }
-        .key-point { border-color: #ff9800; background: #fff8e1; }
-        .counter-example { border-color: #f44336; background: #ffebee; }
-        .warning-box { border-color: #dc2626; background: #fee2e2; }
-        .example-phrase { font-size: clamp(1.4em, 4vw, 1.9em); font-weight: 600; }
-        
-        /* Word Coloring */
-        .adj { color: var(--adj-color); font-weight: 900; }
-        .noun { color: var(--noun-color); font-weight: 600; }
-        .verb { color: var(--verb-color); font-weight: 900; text-decoration: underline; }
-
-        /* TTS & Highlighting Styles */
-        .word.highlight {
-            background-color: var(--highlight-bg); color: black !important;
-            padding: 0 3px; border-radius: 4px;
-        }
-        h1 .word.highlight {
-            background: var(--highlight-bg) !important; -webkit-text-fill-color: black;
-            color: black !important; background-clip: border-box !important; -webkit-background-clip: border-box !important;
-        }
-        .replay-audio-btn {
-            background: none; border: none; cursor: pointer; font-size: 1.5em;
-            opacity: 0; transition: all 0.3s; vertical-align: middle; margin-left: 10px;
-        }
-        .replay-audio-btn.visible { opacity: 0.8; }
-        .replay-audio-btn:hover { transform: scale(1.2); opacity: 1; }
-
-        /* Navigation & Progress */
-        .navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; gap: 15px; }
-        .nav-btn {
-            flex: 1; min-width: 120px; padding: 15px 30px; font-size: 1.1em;
-            font-weight: 600; border: none; border-radius: 12px; cursor: pointer;
-            transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .nav-btn:hover { transform: translateY(-2px); }
-        .prev-btn { background: #95a5a6; color: white; }
-        .next-btn { background: #667eea; color: white; }
-        .start-btn { background: #4caf50; color: white; width: auto; max-width: 400px; font-size: 1.4em; }
-        .replay-btn { width: 100%; padding: 20px; font-size: 1.3em; background: white; color: #667eea; }
-        #retryQuizBtn { background: #f39c12; color: white; }
-        
-        .progress-container { background: #ecf0f1; height: 10px; border-radius: 10px; margin: 30px 0 20px; visibility: hidden; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.5s ease; }
-        .step-indicator { text-align: center; color: #7f8c8d; font-weight: 600; margin-bottom: 20px; font-size: 1.1em; visibility: hidden; }
-
-        /* Quiz Styling */
-        .activity-box { border-color: #9e9d24; background: #f0f4c3; }
-        .activity-box h3 { color: #827717; }
-        .quiz-option-btn {
-            background: white; border: 3px solid #bdc3c7; padding: 20px;
-            margin: 15px 0; cursor: pointer; border-radius: 15px;
-            transition: all 0.3s ease; font-size: clamp(1.1em, 2.5vw, 1.3em);
-            text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .quiz-option-btn:not([data-answered]):hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); border-color: #667eea; }
-        .quiz-option-btn.correct { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; transform: scale(1.02); }
-        .quiz-option-btn.incorrect { background: #ffebee; border-color: #f44336; color: #c62828; opacity: 0.8; }
-        .quiz-option-btn[data-answered] { cursor: not-allowed; }
-        .feedback { margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: 600; text-align: center; animation: fadeInUp 0.5s; }
-        .feedback.correct { background: #c8e9c9; color: #2e7d32; }
-        .feedback.incorrect { background: #ffcdd2; color: #c62828; }
-        
-        /* UI Buttons (Translate, Fullscreen) */
-        .ui-buttons { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 10px; }
-        .arabic-toggle, .fullscreen-btn {
-            background: rgba(255, 255, 255, 0.9); border: none;
-            width: 45px; height: 45px; border-radius: 50%;
-            cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .arabic-toggle { background: #f59e0b; color: white; font-weight: 600; font-size: 1.2em; }
-        .fullscreen-btn { color: #667eea; }
-        .arabic-toggle:hover, .fullscreen-btn:hover { transform: translateY(-2px); }
-        .fullscreen-btn svg { width: 24px; height: 24px; fill: currentColor; }
-
-        .arabic-text {
-            display: none; background: #fff8e1; border: 2px solid #f59e0b; padding: 15px;
-            border-radius: 10px; margin-top: 20px; direction: rtl; font-family: 'Arial', sans-serif;
-        }
-        .arabic-text.show { display: block; animation: fadeInUp 0.5s; }
-
-        /* WIDESCREEN RESPONSIVENESS */
-        @media (min-width: 1200px) { .whiteboard-frame { max-width: 1400px; } body { padding: 40px; } }
-        /* MOBILE RESPONSIVENESS (UNCHANGED) */
-        @media (max-width: 480px) { body { padding: 10px; } .container { padding: 15px; } p, .subtitle { font-size: 1em; } }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');:root{--highlight-bg:#fde68a;--adj-color:#f59e0b;--noun-color:#10b981;--verb-color:#dc2626}*{-webkit-margin-before:0;-webkit-margin-after:0;margin:0;padding:0;box-sizing:border-box}body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px;overflow-x:hidden}.whiteboard-frame{background:linear-gradient(145deg,#2c2c2c 0%,#1a1a1a 100%);padding:8px;border-radius:8px;box-shadow:0 4px 15px rgba(0,0,0,0.2),inset 0 1px 2px rgba(255,255,255,0.1);width:100%;max-width:900px;margin:0 auto;transition:max-width 0.3s ease-in-out}.whiteboard-content{background:white;border-radius:4px;overflow:hidden;min-height:85vh}.container{max-width:100%;padding:40px;min-height:80vh}.step-container{display:none}.step-container.active{display:block;animation:fadeIn 0.8s ease forwards}.slide-step{display:none}.slide-step.visible{display:block;animation:fadeInUp 0.6s ease forwards}.step-navigation{text-align:center;margin-top:20px}.step-next-btn{background:#667eea;color:white;border:none;width:50px;height:50px;border-radius:50%;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.2)}.step-next-btn:hover{transform:scale(1.1)}.step-next-btn svg{width:24px;height:24px}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}h1,h2,h3,h4{text-align:center;margin-bottom:15px}h1{font-size:clamp(1.8em, 5vw, 2.5em);background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}p,.subtitle{font-size:clamp(1.1em, 2.5vw, 1.3em);line-height:1.8;color:#34495e;text-align:center;margin-bottom:0}.content-box,.definition-box,.key-point,.example-box,.counter-example,.warning-box,.activity-box{padding:clamp(20px, 3vw, 30px);border-radius:15px;margin:25px auto;border-left:5px solid;box-shadow:0 4px 20px rgba(0,0,0,0.08)}.definition-box{border-color:#4caf50;background:#f1f8e9}.example-box{border-color:#2196f3;background:#e3f2fd}.key-point{border-color:#ff9800;background:#fff8e1}.key-point p{overflow-wrap:break-word}.counter-example{border-color:#f44336;background:#ffebee}.warning-box{border-color:#dc2626;background:#fee2e2}.example-phrase{font-size:clamp(1.4em, 4vw, 1.9em);font-weight:600}.adj{color:var(--adj-color);font-weight:900}.noun{color:var(--noun-color);font-weight:600}.verb{color:var(--verb-color);font-weight:900;text-decoration:underline}.word.highlight{background-color:var(--highlight-bg);color:black !important;padding:0 3px;border-radius:4px}h1 .word.highlight{background:var(--highlight-bg) !important;-webkit-text-fill-color:black;color:black !important;background-clip:border-box !important;-webkit-background-clip:border-box !important}#step6 h1,#step7 h1{background:none;-webkit-background-clip:initial;-webkit-text-fill-color:initial;color:#4a4a4a}.replay-audio-btn{background:none;border:none;cursor:pointer;font-size:1.5em;opacity:0;transition:all 0.3s;vertical-align:middle;margin-left:10px}.replay-audio-btn.visible{opacity:0.8}.replay-audio-btn:hover{transform:scale(1.2);opacity:1}.navigation{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:15px}.nav-btn{flex:1;min-width:120px;padding:15px 30px;font-size:1.1em;font-weight:600;border:none;border-radius:12px;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(0,0,0,0.1)}.nav-btn:hover{transform:translateY(-2px)}.prev-btn{background:#95a5a6;color:white}.next-btn{background:#667eea;color:white}.start-btn{background:#4caf50;color:white;width:auto;max-width:400px;font-size:1.4em}.replay-btn{background:linear-gradient(135deg,#2196f3,#1976d2);color:white}#retryQuizBtn{background:#f39c12;color:white}.progress-container{background:#ecf0f1;height:10px;border-radius:10px;margin:30px 0 20px;visibility:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);width:0%;transition:width 0.5s ease}.step-indicator{text-align:center;color:#7f8c8d;font-weight:600;margin-bottom:20px;font-size:1.1em;visibility:hidden}.activity-box{border-color:#9e9d24;background:#f0f4c3}.activity-box h3{color:#827717}.quiz-option-wrapper{display:flex;align-items:center;justify-content:center;gap:10px;margin:15px 0}.quiz-option-btn{flex-grow:1;background:white;border:3px solid #bdc3c7;padding:20px;cursor:pointer;border-radius:15px;transition:all 0.3s ease;font-size:clamp(1.1em, 2.5vw, 1.3em);text-align:center;box-shadow:0 4px 10px rgba(0,0,0,0.05);margin:0}.quiz-option-btn:not([data-answered]):hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.1);border-color:#667eea}.quiz-audio-btn{flex-shrink:0;background:#667eea;color:white;border:none;width:45px;height:45px;border-radius:50%;cursor:pointer;font-size:1.5em;display:flex;align-items:center;justify-content:center;transition:opacity .2s}.quiz-audio-btn:hover{opacity:.8}.quiz-option-btn.correct{background:#e8f5e9;border-color:#4caf50;color:#2e7d32;transform:scale(1.02)}.quiz-option-btn.incorrect{background:#ffebee;border-color:#f44336;color:#c62828;opacity:0.8}.quiz-option-btn[data-answered]{cursor:not-allowed}.feedback{margin-top:20px;padding:15px;border-radius:10px;font-weight:600;text-align:center;animation:fadeInUp 0.5s}.feedback.correct{background:#c8e9c9;color:#2e7d32}.feedback.incorrect{background:#ffcdd2;color:#c62828}.ui-buttons{position:fixed;top:20px;right:20px;z-index:1000;display:flex;gap:10px}.arabic-toggle,.fullscreen-btn{background:rgba(255,255,255,0.9);border:none;width:45px;height:45px;border-radius:50%;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.2)}.arabic-toggle{background:#f59e0b;color:white;font-weight:600;font-size:1.2em}.fullscreen-btn{color:#667eea}.arabic-toggle:hover,.fullscreen-btn:hover{transform:translateY(-2px)}.fullscreen-btn svg{width:24px;height:24px;fill:currentColor}.arabic-text{display:none;background:#fff8e1;border:2px solid #f59e0b;padding:15px;border-radius:10px;margin-top:20px;direction:rtl;font-family:'Arial',sans-serif}.arabic-text.show{display:block;animation:fadeInUp 0.5s}@media (min-width:1200px){.whiteboard-frame{max-width:1400px}body{padding:40px}}@media (max-width:480px){body{padding:10px}.container{padding:15px}p,.subtitle{font-size:1em}.nav-btn{padding:12px 15px;font-size:1em;min-width:80px}}
     </style>
 </head>
 <body>
     <div class="ui-buttons">
-        <button class="fullscreen-btn" onclick="toggleFullscreen()">
-            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-        </button>
-        <button class="arabic-toggle" onclick="toggleArabic()"><span id="toggleText">🌐</span></button>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+        <button class="arabic-toggle" onclick="toggleArabic()"><span>🌐</span></button>
     </div>
 
     <div class="whiteboard-frame">
@@ -172,8 +22,14 @@
 
                 <div id="step0" class="step-container">
                     <div class="step-content" style="text-align: center; padding: 50px 0;">
-                        <h1>Bienvenue !</h1>
-                        <p style="margin-bottom: 40px;">Prêt à apprendre sur l'adjectif épithète ?</p>
+                        <div class="tts-text" data-audio-src="audio/0.wav" data-audio-src-ar="audio/37.wav">
+                            <h1>Bienvenue !</h1>
+                            <p style="margin-bottom: 40px;">Prêt à apprendre l'accord de l'adjectif qualificatif avec le nom?</p>
+                        </div>
+                        <div class="arabic-text">
+                            <p>أهلاً بك!</p>
+                            <p>هل أنت مستعد لتعلم مطابقة الصفة الوصفية مع الاسم؟</p>
+                        </div>
                         <button class="nav-btn start-btn" onclick="startLesson()">Commencer la leçon ✨</button>
                     </div>
                 </div>
@@ -181,272 +37,387 @@
                 <div id="step1" class="step-container">
                     <div class="step-content">
                         <div class="slide-step">
-                            <h1 class="tts-text" data-audio-src="audio/s1p1.wav">L'Adjectif Épithète.</h1>
-                            <div class="arabic-text"><p>الصفة الملازمة.</p></div>
+                            <h1 class="tts-text" data-audio-src="audio/1.wav" data-audio-src-ar="audio/38.wav">L'accord de l'adjectif qualificatif avec le nom (masculin / féminin).</h1>
+                            <div class="arabic-text"><p>مطابقة الصفة الوصفية مع الاسم (المذكر / المؤنث).</p></div>
                         </div>
                         <div class="slide-step">
                             <div class="content-box">
-                                <p class="tts-text" data-audio-src="audio/s1p2.wav">Bonjour ! Aujourd'hui, on va apprendre quelque chose de très simple : l'adjectif épithète ! C'est facile, tu vas voir ! 😊</p>
-                                <div class="arabic-text">
-                                    <h3>👋 مرحباً!</h3>
-                                    <p>اليوم سنتعلم شيئاً بسيطاً جداً: الصفة الملازمة! سهل جداً، سترى! 😊</p>
-                                </div>
+                                <p class="tts-text" data-audio-src="audio/2.wav" data-audio-src-ar="audio/39.wav">Bonjour ! Aujourd'hui, nous allons apprendre comment l'adjectif s'accorde avec le nom. C'est comme habiller le nom avec les bons vêtements !</p>
+                                <div class="arabic-text"><p>مرحباً! اليوم، سنتعلم كيف تتطابق الصفة مع الاسم. الأمر يشبه إلباس الاسم بالملابس المناسبة!</p></div>
                             </div>
                         </div>
                     </div>
                     <div class="navigation"><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
                 </div>
 
-                <div id="step2" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s2p1.wav">C'est quoi ?</h1><div class="arabic-text"><p>ما هذا؟</p></div></div><div class="slide-step"><div class="definition-box"><p class="tts-text" data-audio-src="audio/s2p2.wav">C'est un mot qui décrit et qui est collé au nom !</p><div class="arabic-text"><p>هي كلمة تصف الاسم وتكون ملتصقة به!</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s2p3.wav">Exemple : Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit le jardin ! 🌳</p><div class="arabic-text"><p>مثال: حديقة جميلة 🌳 "جميلة" تصف الحديقة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step3" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s3p1.wav">Il décrit le nom.</h1><div class="arabic-text"><p>إنه يصف الاسم.</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s3p2.wav">L'adjectif épithète DÉCRIT le nom. 🎯 Un <span class="adj">BEAU</span> <span class="noun">jardin</span>. "BEAU" décrit comment est le jardin.</p><div class="arabic-text"><p>الصفة تصف الاسم. مثال: "جميلة" تصف كيف تبدو الحديقة</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step4" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s4p1.wav">Avant ou Après ?</h1><div class="arabic-text"><p>قبل أو بعد؟</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p2.wav">⬅️ AVANT le nom. Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p><div class="arabic-text"><p>⬅️ قبل الاسم: شجرة كبيرة</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s4p3.wav">➡️ APRÈS le nom. Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p><div class="arabic-text"><p>➡️ بعد الاسم: قطة سوداء</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step5" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s5p1.wav">Des Exemples !</h1><div class="arabic-text"><p>أمثلة!</p></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p2.wav">Un <span class="adj">GRAND</span> <span class="noun">arbre</span>. 🌳</p><div class="arabic-text"><p>🌳 شجرة كبيرة</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p3.wav">Une <span class="adj">PETITE</span> <span class="noun">maison</span>. 🏠</p><div class="arabic-text"><p>🏠 منزل صغير</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text example-phrase" data-audio-src="audio/s5p4.wav">Un <span class="noun">chat</span> <span class="adj">NOIR</span>. 🐱</p><div class="arabic-text"><p>🐱 قطة سوداء</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step6" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s6p1.wav">Comment le trouver ?</h1><div class="arabic-text"><p>كيف تجده؟</p></div></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s6p2.wav">Cherche le mot qui décrit, juste à côté du nom !</p><div class="arabic-text"><p>ابحث عن الكلمة التي تصف، بجانب الاسم مباشرةً!</p></div></div></div><div class="slide-step"><div class="example-box"><p class="tts-text" data-audio-src="audio/s6p3.wav">✓ CORRECT. Un <span class="adj">BEAU</span> <span class="noun">chien</span>. Pas de verbe entre les mots !</p><div class="arabic-text"><p>✓ صحيح: كلب جميل (لا يوجد فعل بين الكلمات!)</p></div></div></div><div class="slide-step"><div class="counter-example"><p class="tts-text" data-audio-src="audio/s6p4.wav">✗ FAUX. Le <span class="noun">chien</span> <span class="verb">EST</span> <span class="adj">beau</span>. Il y a un verbe "EST" !</p><div class="arabic-text"><p>✗ خطأ: الكلب جميل (يوجد فعل "EST"!)</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step7" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" style="color: #dc2626;" data-audio-src="audio/s7p1.wav">⚠️ ATTENTION !</h1><div class="arabic-text"><p>⚠️ انتباه!</p></div></div><div class="slide-step"><div class="warning-box"><p class="tts-text" data-audio-src="audio/s7p2.wav">Ne pas confondre ! L'adjectif épithète ne doit JAMAIS avoir de <span class="verb">verbe</span> entre lui et le nom.</p><div class="arabic-text"><p>لا تخلط! الصفة الملازمة يجب ألا تحتوي أبدًا على فعل بينها وبين الاسم.</p></div></div></div><div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/s7p3.wav">Si PAS de verbe, c'est ÉPITHÈTE. ✅ Si il y a un VERBE, c'est ATTRIBUT. ❌</p><div class="arabic-text"><p>✅ بدون فعل = صفة ملازمة<br>❌ مع فعل = صفة منسوبة</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div></div>
-                <div id="step8" class="step-container"><div class="step-content"><div class="slide-step"><h1 class="tts-text" data-audio-src="audio/s8p1.wav">🎮 À toi de jouer !</h1><div class="arabic-text"><p>🎮 حان دورك للعب!</p></div></div><div class="slide-step"><div class="activity-box"><h3 class="tts-text" data-audio-src="audio/s8p2.wav">Trouve la phrase avec un adjectif <strong>épithète</strong> !</h3><div id="quiz-container"></div><div id="feedback"></div><div class="arabic-text"><p>ابحث عن الجملة التي تحتوي على صفة ملازمة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button id="retryQuizBtn" class="nav-btn" style="display: none;" onclick="initializeQuiz()">🔄 Réessayer</button></div></div>
-                <div id="step9" class="step-container"><div class="step-content"><div class="slide-step"><div class="content-box"><p class="tts-text example-phrase" data-audio-src="audio/s9p1.wav">🎉 Bravo ! Tu as tout compris ! Tu sais maintenant ce qu'est l'adjectif épithète ! 🏆</p><button class="nav-btn replay-btn" onclick="replayLesson()">🔄 Recommencer la leçon</button><div class="arabic-text"><h3>🎉 أحسنت!</h3><p>لقد فهمت كل شيء! أنت تعرف الآن ما هي الصفة الملازمة!</p></div></div></div></div><div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button></div></div>
+                <div id="step2" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1 class="tts-text" data-audio-src="audio/3.wav" data-audio-src-ar="audio/40.wav">La Règle Générale.</h1>
+                            <div class="arabic-text"><p>القاعدة العامة.</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="definition-box">
+                                <p class="tts-text" data-audio-src="audio/4.wav" data-audio-src-ar="audio/41.wav">L'adjectif s'accorde toujours avec le nom qu'il décrit. Si le nom est masculin, l'adjectif est masculin. Si le nom est féminin, l'adjectif est féminin.</p>
+                                <div class="arabic-text"><p>الصفة تتطابق دائماً مع الاسم الذي تصفه. إذا كان الاسم مذكراً، تكون الصفة مذكرة. إذا كان الاسم مؤنثاً، تكون الصفة مؤنثة.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
+                
+                <div id="step3" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1 class="tts-text" data-audio-src="audio/5.wav" data-audio-src-ar="audio/42.wav">Le Masculin.</h1>
+                            <div class="arabic-text"><p>المذكّر.</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="key-point">
+                                <p class="tts-text" data-audio-src="audio/6.wav" data-audio-src-ar="audio/43.wav">En général, la forme masculine est la forme de base de l'adjectif.</p>
+                                <div class="arabic-text"><p>بشكل عام، الشكل المذكر هو الشكل الأساسي للصفة.</p></div>
+                            </div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box">
+                                <div class="tts-text" data-audio-src="audio/7.wav" data-audio-src-ar="audio/44.wav">
+                                    <p class="example-phrase">Exemple : Un <span class="noun">chat</span> <span class="adj">noir</span>.</p>
+                                    <p>"Chat" est un nom masculin, donc l'adjectif "noir" reste au masculin.</p>
+                                </div>
+                                <div class="arabic-text"><p>مثال: قط أسود. "قط" اسم مذكر، لذا تبقى الصفة "أسود" في المذكر.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
 
+                <div id="step4" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <h1 class="tts-text" data-audio-src="audio/8.wav" data-audio-src-ar="audio/45.wav">Le Féminin : On ajoute un "e" !</h1>
+                            <div class="arabic-text"><p>المؤنث: نضيف حرف "e"!</p></div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="key-point">
+                                <p class="tts-text" data-audio-src="audio/9.wav" data-audio-src-ar="audio/46.wav">Pour mettre un adjectif au féminin, on ajoute le plus souvent un "e" à la fin de l'adjectif masculin.</p>
+                                <div class="arabic-text"><p>لتحويل الصفة إلى المؤنث، غالباً ما نضيف حرف "e" في نهاية الصفة المذكرة.</p></div>
+                            </div>
+                        </div>
+                        <div class="slide-step">
+                            <div class="example-box">
+                                <div class="tts-text" data-audio-src="audio/10.wav" data-audio-src-ar="audio/47.wav">
+                                    <p class="example-phrase">Exemple : Une <span class="noun">chatte</span> <span class="adj">noire</span>.</p>
+                                    <p>"Chatte" est un nom féminin, alors on ajoute un "e" à "noir".</p>
+                                </div>
+                                <div class="arabic-text"><p>مثال: قطة سوداء. "قطة" اسم مؤنث، لذلك نضيف "e" إلى "noir".</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
+
+                <div id="step5" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step"><h1 class="tts-text" data-audio-src="audio/11.wav" data-audio-src-ar="audio/48.wav">Comparons !</h1><div class="arabic-text"><p>دعنا نقارن!</p></div></div>
+                        <div class="slide-step">
+                            <div class="example-box tts-text" data-audio-src="audio/12.wav" data-audio-src-ar="audio/49.wav">
+                                <p>Masculin : Un <span class="adj">petit</span> <span class="noun">garçon</span>.</p>
+                                <p>Féminin : Une <span class="adj">petite</span> <span class="noun">fille</span>.</p>
+                                <div class="arabic-text"><p>المذكر: ولد صغير.<br>المؤنث: بنت صغيرة.</p></div>
+                            </div>
+                        </div>
+                        <div class="slide-step">
+                             <div class="example-box tts-text" data-audio-src="audio/13.wav" data-audio-src-ar="audio/50.wav">
+                                <p>Masculin : Un <span class="noun">sac</span> <span class="adj">vert</span>.</p>
+                                <p>Féminin : Une <span class="noun">voiture</span> <span class="adj">verte</span>.</p>
+                                <div class="arabic-text"><p>المذكر: كيس أخضر.<br>المؤنث: سيارة خضراء.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
+
+                <div id="step6" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step"><h1 class="tts-text" data-audio-src="audio/14.wav" data-audio-src-ar="audio/51.wav">Quelques cas particuliers.</h1><div class="arabic-text"><p>بعض الحالات الخاصة.</p></div></div>
+                        <div class="slide-step"><div class="key-point"><div class="tts-text" data-audio-src="audio/15.wav" data-audio-src-ar="audio/52.wav"><p>Si l'adjectif masculin se termine déjà par un "e", il ne change pas au féminin.</p><p>Exemple : Un garçon <span class="adj">timide</span>. Une fille <span class="adj">timide</span>.</p></div><div class="arabic-text"><p>إذا كانت الصفة المذكرة تنتهي بالفعل بحرف "e"، فإنها لا تتغير في المؤنث. مثال: ولد خجول. بنت خجولة.</p></div></div></div>
+                        <div class="slide-step"><div class="key-point"><p class="tts-text" data-audio-src="audio/16.wav" data-audio-src-ar="audio/53.wav">Certains adjectifs changent un peu plus. Par exemple, <span class="adj">heureux</span> devient <span class="adj">heureuse</span>.</p><div class="arabic-text"><p>بعض الصفات تتغير أكثر قليلاً. على سبيل المثال، "سعيد" تصبح "سعيدة".</p></div></div></div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn next-btn" onclick="nextStep()">Suivant →</button></div>
+                </div>
+
+                <div id="step7" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step"><h1 class="tts-text" data-audio-src="audio/17.wav" data-audio-src-ar="audio/54.wav">🎮 À toi de jouer !</h1><div class="arabic-text"><p>🎮 حان دورك للعب!</p></div></div>
+                        <div class="slide-step">
+                            <div class="activity-box">
+                                <h3 class="tts-text" data-audio-src="audio/18.wav" data-audio-src-ar="audio/55.wav">Choisis la bonne forme de l'adjectif pour chaque phrase.</h3>
+                                <div class="arabic-text"><p>اختر الشكل الصحيح للصفة لكل جملة.</p></div>
+                                <div id="quiz-container"></div>
+                                <div id="feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button id="retryQuizBtn" class="nav-btn" style="display: none;" onclick="initializeQuiz()">🔄 Réessayer</button></div>
+                </div>
+
+                <div id="step8" class="step-container">
+                    <div class="step-content">
+                        <div class="slide-step">
+                            <div class="content-box">
+                                <p class="tts-text example-phrase" data-audio-src="audio/19.wav" data-audio-src-ar="audio/56.wav">🎉 Bravo ! Tu es un champion de l'accord ! Tu sais maintenant comment accorder les adjectifs au masculin et au féminin. 🏆</p>
+                                <div class="arabic-text"><p>🎉 أحسنت! أنت بطل المطابقة! أنت تعرف الآن كيف تطابق الصفات في المذكر والمؤنث.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navigation"><button class="nav-btn prev-btn" onclick="prevStep()">← Retour</button><button class="nav-btn replay-btn" onclick="replayLesson()">🔄 Recommencer la leçon</button></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         let currentStep = 0;
-        const totalSteps = 10;
+        const totalSteps = 9;
         let activeAudio = null;
+        let activeAudioAr = null;
         let highlightInterval = null;
         const originalHTMLs = new Map();
         let showArabic = false;
         let userHasInteracted = false;
 
-        const quizData = [
-            { text: 'Le chat <span class="verb">EST</span> gros 🐱', correct: false },
-            { text: 'Un <span class="adj">GROS</span> chat 🐱', correct: true }
+        const allQuizQuestions = [
+            { question: "Une jupe ____.", question_audio: "audio/20.wav", options: [{ text: "bleu", audio: "audio/21.wav" }, { text: "bleue", audio: "audio/22.wav" }], answer: "bleue" },
+            { question: "Un pantalon ____.", question_audio: "audio/23.wav", options: [{ text: "noir", audio: "audio/24.wav" }, { text: "noire", audio: "audio/25.wav" }], answer: "noir" },
+            { question: "La règle est ____.", question_audio: "audio/26.wav", options: [{ text: "grand", audio: "audio/27.wav" }, { text: "grande", audio: "audio/28.wav" }], answer: "grande" },
+            { question: "Mon frère est ____.", question_audio: "audio/29.wav", options: [{ text: "intelligent", audio: "audio/30.wav" }, { text: "intelligente", audio: "audio/31.wav" }], answer: "intelligent" },
+            { question: "C'est une ____ histoire.", question_audio: "audio/32.wav", options: [{ text: "beau", audio: "audio/33.wav" }, { text: "belle", audio: "audio/34.wav" }], answer: "belle" }
         ];
+
+        function handleFirstInteraction() {
+            if (!userHasInteracted) {
+                userHasInteracted = true;
+            }
+        }
         
-        function startLesson() {
-            userHasInteracted = true;
-            document.querySelector('.progress-container').style.visibility = 'visible';
-            document.querySelector('.step-indicator').style.visibility = 'visible';
+        function startLesson(){
+            handleFirstInteraction();
+            document.querySelector(".progress-container").style.visibility="visible";
+            document.querySelector(".step-indicator").style.visibility="visible";
             nextStep();
         }
 
-        function toggleArabic() {
-            showArabic = !showArabic;
-            document.querySelectorAll('.arabic-text').forEach(text => text.classList.toggle('show', showArabic));
-        }
-
-        function showStep(stepIndex) {
+        function toggleArabic(){showArabic=!showArabic,document.querySelectorAll(".arabic-text").forEach(e=>e.classList.toggle("show",showArabic))}
+        
+        function showStep(e){
             stopAndResetAudio();
-            document.querySelectorAll('.step-container').forEach(s => s.classList.remove('active'));
-            const targetStep = document.getElementById('step' + stepIndex);
-            targetStep.classList.add('active');
+            document.querySelectorAll(".step-container").forEach(el=>el.classList.remove("active"));
+            const stepContainer=document.getElementById("step"+e);
+            stepContainer.classList.add("active");
             
-            const stepContent = targetStep.querySelector('.step-content');
+            const stepContent = stepContainer.querySelector(".step-content");
             if (stepContent) {
-                const innerSteps = Array.from(stepContent.querySelectorAll('.slide-step'));
-                innerSteps.forEach((inner, index) => inner.classList.toggle('visible', index === 0));
-
-                if (innerSteps.length > 0) playTTSForStep(innerSteps[0]);
-
-                let stepNav = targetStep.querySelector('.step-navigation');
-                if (!stepNav) {
-                    stepNav = document.createElement('div');
-                    stepNav.className = 'step-navigation';
-                    targetStep.appendChild(stepNav);
+                const innerSlides = Array.from(stepContent.querySelectorAll(".slide-step"));
+                if (innerSlides.length > 0) {
+                     innerSlides.forEach((slide, index) => {
+                        slide.classList.toggle("visible", index === 0);
+                     });
+                     playTTSForStep(innerSlides[0]);
+                } else {
+                    playTTSForStep(stepContent);
                 }
-                stepNav.style.display = (innerSteps.length > 1) ? 'block' : 'none';
-                if (innerSteps.length > 1) {
-                    stepNav.innerHTML = `<button class="step-next-btn" onclick="nextInnerStep()"><svg fill="white" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></button>`;
+
+                let innerNav = stepContainer.querySelector('.step-navigation');
+                if (!innerNav) {
+                    innerNav = document.createElement('div');
+                    innerNav.className = 'step-navigation';
+                    stepContainer.appendChild(innerNav);
+                }
+                innerNav.style.display = innerSlides.length > 1 ? 'block' : 'none';
+                if (innerSlides.length > 1) {
+                    innerNav.innerHTML = '<button class="step-next-btn" onclick="nextInnerStep()"><svg fill="white" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></button>';
                 }
             }
-
-            const mainNav = targetStep.querySelector('.navigation');
+            const mainNav = stepContainer.querySelector('.navigation');
             if (mainNav) {
-                mainNav.style.display = stepContent.querySelectorAll('.slide-step').length <= 1 ? 'flex' : 'none';
+                 const hasMultipleSlides = stepContent.querySelectorAll('.slide-step').length > 1;
+                 mainNav.style.display = hasMultipleSlides ? 'none' : 'flex';
             }
         }
 
         function nextInnerStep() {
-            const activeStepContainer = document.querySelector('.step-container.active');
-            const nextStepToShow = activeStepContainer.querySelector('.slide-step:not(.visible)');
-            if (nextStepToShow) {
-                nextStepToShow.classList.add('visible');
-                playTTSForStep(nextStepToShow);
+            const activeStep = document.querySelector(".step-container.active");
+            const nextSlide = activeStep.querySelector(".slide-step:not(.visible)");
+            if (nextSlide) {
+                nextSlide.classList.add("visible");
+                playTTSForStep(nextSlide);
             }
-
-            if (!activeStepContainer.querySelector('.slide-step:not(.visible)')) {
-                activeStepContainer.querySelector('.step-navigation').style.display = 'none';
-                activeStepContainer.querySelector('.navigation').style.display = 'flex';
+            if (!activeStep.querySelector(".slide-step:not(.visible)")) {
+                activeStep.querySelector(".step-navigation").style.display = 'none';
+                activeStep.querySelector(".navigation").style.display = 'flex';
             }
         }
+
+        const changeStep=e=>{currentStep+=e,currentStep<0?currentStep=0:currentStep>=totalSteps&&(currentStep=totalSteps-1),showStep(currentStep),7===currentStep&&initializeQuiz(),updateProgress()},nextStep=()=>changeStep(1),prevStep=()=>changeStep(-1);
         
-        const changeStep = (direction) => {
-            currentStep += direction;
-            if (currentStep < 0) currentStep = 0;
-            if (currentStep >= totalSteps) currentStep = totalSteps - 1;
-            showStep(currentStep);
-            if (currentStep === 8) initializeQuiz();
-            updateProgress();
-        };
-
-        const nextStep = () => changeStep(1);
-        const prevStep = () => changeStep(-1);
+        function updateProgress(){if(0===currentStep)return;const e=(currentStep-1)/(totalSteps-2)*100;document.getElementById("progressBar").style.width=`${e}%`,document.getElementById("stepIndicator").textContent=`Étape ${currentStep} / ${totalSteps-1}`}
         
-        function updateProgress() {
-            if (currentStep === 0) return;
-            const progress = ((currentStep - 1) / (totalSteps - 2)) * 100;
-            document.getElementById('progressBar').style.width = `${progress}%`;
-            document.getElementById('stepIndicator').textContent = `Étape ${currentStep} / ${totalSteps-1}`;
-        }
-
-        function replayLesson() {
-            document.querySelector('.progress-container').style.visibility = 'hidden';
-            document.querySelector('.step-indicator').style.visibility = 'hidden';
-            currentStep = 0; 
-            showStep(0); 
-            updateProgress(); 
-        }
-
-        function initializeQuiz() {
-            const container = document.getElementById('quiz-container');
-            const retryBtn = document.getElementById('retryQuizBtn');
-            if(retryBtn) retryBtn.style.display = 'none';
-            container.innerHTML = '';
-            document.getElementById('feedback').innerHTML = '';
-            const shuffledQuizData = [...quizData].sort(() => Math.random() - 0.5);
-
-            shuffledQuizData.forEach(opt => {
-                const div = document.createElement('div');
-                div.className = 'quiz-option-btn';
-                div.innerHTML = opt.text;
-                div.dataset.correct = opt.correct;
-                div.onclick = () => checkAnswer(div);
-                container.appendChild(div);
+        function replayLesson(){document.querySelector(".progress-container").style.visibility="hidden",document.querySelector(".step-indicator").style.visibility="hidden",currentStep=0,showStep(0),updateProgress()}
+        
+        let quizState={};
+        function initializeQuiz(){quizState={questions:[...allQuizQuestions].sort(()=>.5-Math.random()).slice(0,3),currentQuestionIndex:0,score:0};const e=document.getElementById("retryQuizBtn");e&&(e.style.display="none"),displayCurrentQuestion()}
+        
+        function displayCurrentQuestion(){
+            const quizContainer=document.getElementById("quiz-container"),feedbackContainer=document.getElementById("feedback");
+            quizContainer.innerHTML="",feedbackContainer.innerHTML="";
+            const currentQuestion=quizState.questions[quizState.currentQuestionIndex];
+            
+            let html=`<p class="example-phrase" style="cursor: pointer;" onclick="playAudio('${currentQuestion.question_audio}')">🔊 ${currentQuestion.question.replace("____","<span class='verb'>____</span>")}</p><div class="quiz-options-container">`;
+            
+            currentQuestion.options.sort(()=>.5-Math.random()).forEach(option=>{
+                html+=`<div class="quiz-option-wrapper">
+                           <button class="quiz-option-btn" onclick="checkAnswer(this, '${option.text}')">${option.text}</button>
+                           <button class="quiz-audio-btn" onclick="playAudio('${option.audio}')">🔊</button>
+                       </div>`
             });
+            
+            html+="</div>",quizContainer.innerHTML=html;
+            // The line that automatically played the question audio has been removed from here.
         }
-        
-        function checkAnswer(selectedElement) {
-            const allOptions = document.querySelectorAll('.quiz-option-btn');
-            if (allOptions[0].dataset.answered) return;
-            allOptions.forEach(btn => btn.dataset.answered = 'true');
 
-            const isCorrect = selectedElement.dataset.correct === 'true';
-            const correctElement = Array.from(allOptions).find(btn => btn.dataset.correct === 'true');
-            const feedbackEl = document.getElementById('feedback');
-            const retryBtn = document.getElementById('retryQuizBtn');
+        function checkAnswer(btn, selectedAnswer) {
+            const options = document.querySelectorAll(".quiz-option-btn");
+            if (options[0].dataset.answered) return;
+            options.forEach(opt => opt.dataset.answered = "true");
+
+            const feedbackContainer = document.getElementById("feedback");
+            const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
+            const isCorrect = currentQuestion.answer === selectedAnswer;
 
             if (isCorrect) {
-                selectedElement.classList.add('correct');
-                feedbackEl.innerHTML = `<div class="feedback correct">🎉 Bravo ! C'est la bonne réponse !</div>`;
-                setTimeout(nextStep, 2000);
+                quizState.score++;
+                btn.classList.add("correct");
+                feedbackContainer.innerHTML = '<div class="feedback correct">Correct !</div>';
+                playAudio('audio/35.wav');
             } else {
-                selectedElement.classList.add('incorrect');
-                if (correctElement) correctElement.classList.add('correct');
-                feedbackEl.innerHTML = `<div class="feedback incorrect">❌ Pas tout à fait... Regarde bien la bonne réponse.</div>`;
-                if(retryBtn) retryBtn.style.display = 'block';
+                btn.classList.add("incorrect");
+                const correctBtn = Array.from(options).find(opt => opt.textContent.includes(currentQuestion.answer));
+                if (correctBtn) correctBtn.classList.add("correct");
+                feedbackContainer.innerHTML = '<div class="feedback incorrect">Incorrect...</div>';
+                playAudio('audio/36.wav');
             }
+
+            quizState.currentQuestionIndex++;
+            setTimeout(() => {
+                if (quizState.currentQuestionIndex < quizState.questions.length) {
+                    displayCurrentQuestion();
+                } else {
+                    showQuizResults();
+                }
+            }, 2000);
         }
 
-        function stopAndResetAudio() {
-            if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; }
+        function showQuizResults(){const e=document.getElementById("quiz-container"),t=document.getElementById("feedback"),o=document.getElementById("retryQuizBtn");if(e.innerHTML=`<h3 style="margin-top:20px;">Score : ${quizState.score} / ${quizState.questions.length}</h3>`,quizState.score===quizState.questions.length)t.innerHTML='<div class="feedback correct">🎉 Excellent ! Tu as tout compris !</div>',setTimeout(nextStep,2e3);else{t.innerHTML='<div class="feedback incorrect">Tu y es presque ! Essaie encore pour tout réussir.</div>';o&&(o.style.display="block")}}
+        
+        function stopAndResetAudio(){
+            if(activeAudio){activeAudio.pause(); activeAudio.currentTime=0; activeAudio.onended = null;}
+            if(activeAudioAr){activeAudioAr.pause(); activeAudioAr.currentTime=0;}
             clearInterval(highlightInterval);
-            originalHTMLs.forEach((html, element) => { if (element) element.innerHTML = html; });
+            originalHTMLs.forEach((html, element) => {
+                if (element) { element.innerHTML = html; }
+            });
             originalHTMLs.clear();
-            document.querySelectorAll('.replay-audio-btn').forEach(btn => btn.remove());
+            document.querySelectorAll(".replay-audio-btn").forEach(btn => btn.remove());
         }
         
-        function wrapWordsInElement(element) {
-            const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
-            const nodes = [];
-            while(walker.nextNode()) { if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode); }
-            
-            nodes.forEach(node => {
-                const words = node.textContent.split(/\s+/).filter(Boolean);
-                const fragment = document.createDocumentFragment();
-                words.forEach((word, i) => {
-                    const span = document.createElement('span');
-                    span.className = 'word';
-                    span.textContent = word;
-                    fragment.appendChild(span);
-                    if (i < words.length - 1) fragment.appendChild(document.createTextNode(' '));
-                });
-                if(node.parentNode) node.parentNode.replaceChild(fragment, node);
-            });
+        function playAudio(src) {
+            handleFirstInteraction();
+            // Stop any currently playing audio before starting a new one.
+            if (activeAudio && !activeAudio.paused) {
+                activeAudio.pause();
+                activeAudio.currentTime = 0;
+            }
+            activeAudio = new Audio(src);
+            activeAudio.play().catch(e => console.error("Audio playback failed:", e));
         }
 
-        function playTTSForStep(stepElement, forcePlay = false) {
+        function wrapWordsInElement(e){const t=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null,!1),o=[];for(;t.nextNode();)t.currentNode.textContent.trim()&&o.push(t.currentNode);o.forEach(e=>{const t=e.textContent.split(/\s+/).filter(Boolean),o=document.createDocumentFragment();t.forEach((e,n)=>{const i=document.createElement("span");i.className="word",i.textContent=e,o.appendChild(i),n<t.length-1&&o.appendChild(document.createTextNode(" "))}),e.parentNode&&e.parentNode.replaceChild(o,e)})}
+        
+        function playTTSForStep(stepElement, isReplay = false) {
             stopAndResetAudio();
-            const textElement = stepElement.querySelector('.tts-text');
-            if (!textElement || !textElement.dataset.audioSrc) return;
-            
-            originalHTMLs.set(textElement, textElement.innerHTML);
-            const plainText = textElement.textContent;
-            wrapWordsInElement(textElement);
-            const wordSpans = textElement.querySelectorAll('.word');
+            const ttsElement = stepElement.querySelector(".tts-text");
+            if (!ttsElement || !ttsElement.dataset.audioSrc) return;
 
-            const replayBtn = document.createElement('button');
-            replayBtn.className = 'replay-audio-btn';
-            replayBtn.innerHTML = '🔊';
-            textElement.parentNode.insertBefore(replayBtn, textElement.nextSibling);
-            replayBtn.onclick = () => { playTTSForStep(stepElement, true); };
+            originalHTMLs.set(ttsElement, ttsElement.innerHTML);
+            const frenchText = ttsElement.textContent;
+            wrapWordsInElement(ttsElement);
+            const wordSpans = ttsElement.querySelectorAll(".word");
             
-            if (!userHasInteracted && !forcePlay) {
-                replayBtn.classList.add('visible');
-                return; 
+            const replayBtn = document.createElement("button");
+            replayBtn.className = "replay-audio-btn";
+            replayBtn.innerHTML = "🔊";
+            ttsElement.parentNode.insertBefore(replayBtn, ttsElement.nextSibling);
+            replayBtn.onclick = () => {
+                handleFirstInteraction();
+                playTTSForStep(stepElement, true);
+            };
+
+            if (!userHasInteracted && !isReplay) {
+                replayBtn.classList.add("visible");
+                return;
             }
 
-            activeAudio = new Audio(textElement.dataset.audioSrc);
-            activeAudio.play().catch(e => {
-                console.error("Audio failed:", e);
-                replayBtn.classList.add('visible');
-            });
+            activeAudio = new Audio(ttsElement.dataset.audioSrc);
+            const arabicAudioSrc = ttsElement.dataset.audioSrcAr;
 
-            activeAudio.addEventListener('loadedmetadata', () => {
-                const timings = estimateWordTimings(plainText.split(/\s+/).filter(Boolean), activeAudio.duration);
+            if (arabicAudioSrc) {
+                activeAudioAr = new Audio(arabicAudioSrc);
+                activeAudio.onended = () => {
+                    clearInterval(highlightInterval);
+                    wordSpans.forEach(span => span.classList.remove("highlight"));
+                    if(activeAudioAr) {
+                        activeAudioAr.play().catch(e => console.error("Arabic audio failed:", e));
+                    }
+                };
+            } else {
+                 activeAudio.onended = () => {
+                    clearInterval(highlightInterval);
+                    wordSpans.forEach(span => span.classList.remove("highlight"));
+                    replayBtn.classList.add("visible");
+                };
+            }
+            
+            if(activeAudioAr){
+                activeAudioAr.onended = () => {
+                    replayBtn.classList.add("visible");
+                }
+            }
+
+            activeAudio.play().catch(e => {
+                console.error("French Audio failed:", e);
+                replayBtn.classList.add("visible");
+            });
+            
+            activeAudio.addEventListener("loadedmetadata", () => {
+                const wordTimings = estimateWordTimings(frenchText.split(/\s+/).filter(Boolean), activeAudio.duration);
                 highlightInterval = setInterval(() => {
-                    const currentTime = activeAudio.currentTime;
-                    let currentWordIndex = timings.findIndex(t => currentTime >= t.start && currentTime < t.end);
-                    wordSpans.forEach((span, i) => span.classList.toggle('highlight', i === currentWordIndex));
+                    let currentTime = activeAudio.currentTime;
+                    let activeWordIndex = wordTimings.findIndex(timing => currentTime >= timing.start && currentTime < timing.end);
+                    wordSpans.forEach((span, index) => {
+                        span.classList.toggle("highlight", index === activeWordIndex);
+                    });
                 }, 50);
             });
-
-            activeAudio.onended = () => {
-                clearInterval(highlightInterval);
-                wordSpans.forEach(span => span.classList.remove('highlight'));
-                replayBtn.classList.add('visible');
-            };
         }
 
-        function estimateWordTimings(words, duration) {
-            const totalChars = words.join('').length;
-            if (totalChars === 0) return [];
-            const timings = [];
-            let time = 0;
-            words.forEach(word => {
-                const wordDuration = (word.length / totalChars) * duration * 0.95;
-                timings.push({ start: time, end: time + wordDuration });
-                time += wordDuration;
-            });
-            return timings;
-        }
+        function estimateWordTimings(e,t){const o=e.join("").length;if(0===o)return[];const n=[];let i=0;return e.forEach(e=>{const a=e.length/o*t*.95;n.push({start:i,end:i+a}),i+=a}),n}
+        
+        function toggleFullscreen(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(e=>console.error(e))}
+        
+        document.addEventListener("fullscreenchange",()=>{const e=document.querySelector(".fullscreen-btn"),t=!!document.fullscreenElement;e.innerHTML=t?'<svg viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>':'<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>'});
+        
+        document.addEventListener("DOMContentLoaded",()=>showStep(0));
 
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => console.error(err));
-            } else {
-                document.exitFullscreen();
-            }
-        }
-        document.addEventListener('fullscreenchange', () => {
-            const btn = document.querySelector('.fullscreen-btn');
-            const isFullscreen = !!document.fullscreenElement;
-            btn.innerHTML = isFullscreen 
-                ? `<svg viewBox="0 0 24 24"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`
-                : `<svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
-        });
-
-        document.addEventListener('DOMContentLoaded', () => { showStep(0); });
     </script>
 </body>
 </html>
